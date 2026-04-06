@@ -30,7 +30,8 @@
 
     /* NAV */
     nav { position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.25rem 2.5rem;background:rgba(240,240,250,0.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--rule); }
-    .nav-name { font-family:'Sometype Mono',monospace;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted); }
+    .nav-name { font-family:'Sometype Mono',monospace;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);transition:color 0.2s; }
+    .nav-name:hover { color:var(--accent); }
     .nav-links { display:flex;gap:1.75rem;list-style:none; }
     .nav-links a { font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s; }
     .nav-links a:hover { color:var(--accent); }
@@ -245,7 +246,7 @@
 
 <!-- NAV -->
 <nav>
-  <span class="nav-name">Martina Labarta Labrador</span>
+  <a href="#hero" class="nav-name" style="text-decoration:none;">Martina Labarta Labrador</a>
   <ul class="nav-links">
     <li><a href="#education">Education</a></li>
     <li><a href="#research">Research</a></li>
@@ -266,7 +267,7 @@
     <p class="hero-sub">PhD Candidate at Politecnico di Milano. Researcher, educator, and designer working at the intersection of product language, gender, and design justice.</p>
     <div class="hero-contact">
       <a href="mailto:martinamaria.labarta@polimi.it">martinamaria.labarta@polimi.it</a>
-      <span style="font-family:'Sometype Mono',monospace;font-size:0.7rem;color:var(--muted);">Milano, Italy</span>
+      <span style="font-family:'Sometype Mono',monospace;font-size:0.7rem;color:var(--muted);">Based in Milano · Made in Spain</span>
     </div>
     <div style="margin-top:3rem;display:flex;gap:0.75rem;flex-wrap:wrap;">
       <span class="pill">PhD Candidate</span>
@@ -286,11 +287,11 @@
 </section>
 
 <!-- VISITING BANNER -->
-<div class="vbanner reveal">
+<div class="vbanner reveal" id="currently-banner">
   <div style="font-size:1.25rem;">✈</div>
   <div>
     <div class="vb-lbl">Currently</div>
-    <div class="vb-main">Visiting Scholar at Virginia Tech (School of Design) · March–June 2026 · Supervisor: Prof. Isabel Prochner</div>
+    <div class="vb-main" id="currently-text"></div>
   </div>
 </div>
 
@@ -1048,9 +1049,9 @@
         <div class="srow"><span class="slbl">Microsoft Office Suite</span><div class="sbar"><div class="sfill" data-w="0.90"></div></div></div>
         <div class="srow"><span class="slbl">Notion / Slack / Teams</span><div class="sbar"><div class="sfill" data-w="0.85"></div></div></div>
         <div class="srow"><span class="slbl">Adobe Illustrator / InDesign</span><div class="sbar"><div class="sfill" data-w="0.76"></div></div></div>
-        <div class="srow"><span class="slbl">KeyShot (Rendering)</span><div class="sbar"><div class="sfill" data-w="0.72"></div></div></div>
+        <div class="srow"><span class="slbl">MaxQDA (Qualitative Research)</span><div class="sbar"><div class="sfill" data-w="0.82"></div></div></div>
         <div class="srow"><span class="slbl">SimaPro (LCA)</span><div class="sbar"><div class="sfill" data-w="0.70"></div></div></div>
-        <div class="srow"><span class="slbl">MaxQDA (Qualitative Research)</span><div class="sbar"><div class="sfill" data-w="0.68"></div></div></div>
+        <div class="srow"><span class="slbl">KeyShot (Rendering)</span><div class="sbar"><div class="sfill" data-w="0.65"></div></div></div>
       </div>
       <div style="margin-top:2.5rem;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);">
         <div style="background:var(--bg);padding:1.25rem;">
@@ -1070,21 +1071,45 @@
 <footer>
   <div>
     <div class="fn">Martina <em>Labarta</em> Labrador</div>
-    <div style="font-family:'Sometype Mono',monospace;font-size:0.65rem;color:rgba(240,240,250,0.4);margin-top:0.5rem;letter-spacing:0.08em;">Design Research · Politecnico di Milano</div>
+    <div style="font-family:'Sometype Mono',monospace;font-size:0.65rem;color:rgba(240,240,250,0.4);margin-top:0.5rem;letter-spacing:0.08em;text-align:center;">Design Research</div>
   </div>
   <a href="mailto:martinamaria.labarta@polimi.it" style="display:inline-flex;align-items:center;gap:0.6rem;font-family:'Sometype Mono',monospace;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--bg);text-decoration:none;border:1px solid rgba(240,240,250,0.3);padding:0.75rem 1.5rem;border-radius:2px;transition:background 0.2s,border-color 0.2s;" onmouseover="this.style.background='rgba(240,240,250,0.08)';this.style.borderColor='rgba(240,240,250,0.6)'" onmouseout="this.style.background='';this.style.borderColor='rgba(240,240,250,0.3)'">
     <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="11" height="8" rx="1"/><polyline points="1,3 6.5,8 12,3"/></svg>
     Let's collaborate
   </a>
-  <div style="font-size:0.75rem;color:rgba(240,240,250,0.35);letter-spacing:0.05em;">Milano, March 2026</div>
+  <div style="font-size:0.75rem;color:rgba(240,240,250,0.35);letter-spacing:0.05em;" id="footer-date"></div>
 </footer>
 
 <script>
-// ── CURSOR
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// ✏️  CURRENTLY — edit this block to update the banner
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+const CURRENTLY = {
+  text:    'Visiting Scholar at Virginia Tech (School of Design) · March–June 2026 · Supervisor: Prof. Isabel Prochner',
+  emoji:   '✈',
+  endDate: '2026-06-30',   // banner auto-hides after this date (YYYY-MM-DD)
+};
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+(function() {
+  const banner = document.getElementById('currently-banner');
+  const textEl = document.getElementById('currently-text');
+  if (!banner || !textEl) return;
+  if (new Date() > new Date(CURRENTLY.endDate)) {
+    banner.style.display = 'none';
+  } else {
+    textEl.textContent = CURRENTLY.text;
+    banner.querySelector('div').textContent = CURRENTLY.emoji;
+  }
+})();
 const cur=document.getElementById('cur'), curR=document.getElementById('curR');
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
 (function a(){cur.style.left=mx+'px';cur.style.top=my+'px';rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(a);})();
+
+// ── FOOTER DATE
+document.getElementById('footer-date').textContent =
+  'Milano, ' + new Date().toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
 
 // ── SCROLL REVEAL
 new IntersectionObserver((ents)=>{ents.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*80);}}); },{threshold:0.06}).observe=function(el){this._obs||(this._obs=new IntersectionObserver((ents)=>{ents.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*60);new IntersectionObserver(()=>{}).observe(e.target);}});},{threshold:0.06}));this._obs.observe(el);};

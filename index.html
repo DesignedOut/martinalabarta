@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Martina Labarta Labrador — Design Research CV</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,400;1,9..144,700&family=Nunito:wght@300;400;500;600&family=Sometype+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #F0F0FA;
+      --ink: #1E1830;
+      --accent: #4A1FA6;
+      --accent2: #898C30;
+      --accent3: #888DF2;
+      --muted: #6B6885;
+      --rule: #D5D7F2;
+      --card: #E4E5F7;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--ink); font-family: 'Nunito', sans-serif; font-weight: 300; line-height: 1.6; overflow-x: hidden; }
+
+    /* CURSOR */
+    .cursor { width:10px;height:10px;border-radius:50%;background:var(--accent);position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%); }
+    .cursor-ring { width:36px;height:36px;border-radius:50%;border:1.5px solid var(--accent);position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:0.5; }
+
+    /* NOISE */
+    body::after { content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:1000;opacity:0.35; }
+
+    /* NAV */
+    nav { position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.25rem 2.5rem;background:rgba(240,240,250,0.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--rule); }
+    .nav-name { font-family:'Sometype Mono',monospace;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted); }
+    .nav-links { display:flex;gap:1.75rem;list-style:none; }
+    .nav-links a { font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s; }
+    .nav-links a:hover { color:var(--accent); }
+    .nav-dl { font-family:'Sometype Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;background:var(--accent);color:#fff !important;padding:0.35rem 0.9rem;border-radius:2px;text-decoration:none;transition:background 0.2s !important; }
+    .nav-dl:hover { background:#3a1880 !important;color:#fff !important; }
+
+    /* HERO */
+    #hero { min-height:100vh;display:grid;grid-template-columns:1fr 1fr;padding-top:5rem;position:relative;overflow:hidden; }
+    .hero-left { display:flex;flex-direction:column;justify-content:center;padding:6rem 3rem 6rem 5vw; }
+    .hero-tag { font-family:'Sometype Mono',monospace;font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem;display:flex;align-items:center;gap:0.75rem; }
+    .hero-tag::before { content:'';display:block;width:32px;height:1px;background:var(--accent); }
+    h1 { font-family:'Fraunces',serif;font-size:clamp(3rem,5vw,5.5rem);font-weight:700;line-height:1.05;letter-spacing:-0.02em; }
+    .name-italic { font-style:italic;color:var(--accent2); }
+    .hero-sub { font-size:1.05rem;color:var(--muted);margin-top:1.5rem;max-width:38ch;line-height:1.7; }
+    .hero-contact { margin-top:2.5rem;display:flex;flex-direction:column;gap:0.4rem; }
+    .hero-contact a { font-family:'Sometype Mono',monospace;font-size:0.75rem;color:var(--ink);text-decoration:none;border-bottom:1px solid transparent;transition:border-color 0.2s,color 0.2s;width:fit-content; }
+    .hero-contact a:hover { color:var(--accent);border-color:var(--accent); }
+    .hero-right { display:flex;align-items:flex-end;justify-content:center;padding:6rem 5vw 0 2rem;position:relative; }
+    .hero-grid-bg { position:absolute;inset:0;background-image:linear-gradient(var(--rule) 1px,transparent 1px),linear-gradient(90deg,var(--rule) 1px,transparent 1px);background-size:48px 48px;opacity:0.5; }
+    .hero-big { font-family:'Fraunces',serif;font-size:clamp(12rem,20vw,22rem);font-weight:700;color:transparent;-webkit-text-stroke:1.5px var(--rule);line-height:1;user-select:none;position:relative;z-index:2;animation:fadeUp 1.2s cubic-bezier(.16,1,.3,1) forwards;opacity:0;animation-delay:0.4s; }
+    .hero-pills { position:absolute;bottom:4rem;left:2rem;display:flex;gap:0.75rem;flex-wrap:wrap;z-index:3; }
+    .pill { background:var(--ink);color:var(--bg);font-family:'Sometype Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.35rem 0.9rem;border-radius:100px; }
+    .pill.o { background:transparent;border:1px solid var(--ink);color:var(--ink); }
+
+    @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+    .reveal { opacity:0;transform:translateY(24px);transition:opacity 0.7s cubic-bezier(.16,1,.3,1),transform 0.7s cubic-bezier(.16,1,.3,1); }
+    .reveal.visible { opacity:1;transform:none; }
+
+    /* SECTIONS */
+    section { padding:6rem 5vw;position:relative;scroll-margin-top:4rem; }
+    section+section { border-top:1px solid var(--rule); }
+    .slabel { font-family:'Sometype Mono',monospace;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:0.75rem;display:flex;align-items:center;gap:0.75rem; }
+    .slabel::after { content:'';flex:1;height:1px;background:var(--rule); }
+    h2 { font-family:'Fraunces',serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:700;margin-bottom:2.5rem;letter-spacing:-0.02em; }
+
+    /* CLICK HINT */
+    .chint { display:none; }
+    .chint::before { content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0; }
+
+    /* CHEVRON */
+    .chev { display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;border:1px solid var(--rule);flex-shrink:0;transition:transform 0.3s cubic-bezier(.16,1,.3,1),background 0.2s,border-color 0.2s; }
+    .chev svg { width:10px;height:10px;stroke:var(--muted);stroke-width:2;fill:none;transition:stroke 0.2s; }
+    .open > .chev, .open .chev-inline { transform:rotate(180deg); }
+    .item-row:hover .chev { background:var(--ink);border-color:var(--ink); }
+    .item-row:hover .chev svg { stroke:var(--bg); }
+    .item-row.open .chev { background:var(--accent);border-color:var(--accent);transform:rotate(180deg); }
+    .item-row.open .chev svg { stroke:#fff; }
+
+    /* EDUCATION */
+    .edu-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5px;background:var(--rule);border:1.5px solid var(--rule); }
+    .edu-card { background:var(--bg);padding:2.5rem;position:relative;overflow:hidden;cursor:pointer;transition:background 0.3s; }
+    .edu-card:hover, .edu-card.open { background:var(--card); }
+    .edu-card::before { content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--accent);transform:scaleY(0);transform-origin:top;transition:transform 0.4s cubic-bezier(.16,1,.3,1); }
+    .edu-card:hover::before, .edu-card.open::before { transform:scaleY(1); }
+    .edu-chev { position:absolute;top:1.5rem;right:1.5rem; }
+    .edu-year { font-family:'Sometype Mono',monospace;font-size:0.7rem;color:var(--muted);letter-spacing:0.1em;margin-bottom:0.75rem; }
+    .edu-deg { font-family:'Fraunces',serif;font-size:1.2rem;font-weight:700;margin-bottom:0.4rem;line-height:1.3; }
+    .edu-inst { font-size:0.85rem;color:var(--muted);margin-bottom:0.5rem; }
+    .edu-grade { display:inline-block;margin-top:0.75rem;font-family:'Sometype Mono',monospace;font-size:0.75rem;background:var(--ink);color:var(--bg);padding:0.2rem 0.6rem; }
+    .edu-body { overflow:hidden;max-height:0;transition:max-height 0.45s cubic-bezier(.16,1,.3,1); }
+    .edu-card.open .edu-body { max-height:400px; }
+    .edu-inner { padding-top:1rem;margin-top:1rem;border-top:1px solid var(--rule);font-size:0.8rem;color:var(--muted);line-height:1.7; }
+    .edu-thesis { font-style:italic;border-left:2px solid var(--accent3);padding-left:0.75rem;margin-bottom:0.75rem;color:var(--ink); }
+
+    /* RESEARCH */
+    .res-dark { background:var(--ink);color:var(--bg);padding:4rem 5vw;position:relative;overflow:hidden; }
+    .res-dark::before { content:'RESEARCH';position:absolute;right:-2rem;top:50%;transform:translateY(-50%);font-family:'Fraunces',serif;font-size:14rem;font-weight:700;color:rgba(255,255,255,0.04);letter-spacing:-0.05em;line-height:1;pointer-events:none;white-space:nowrap; }
+    .phd-label { font-family:'Sometype Mono',monospace;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent2);margin-bottom:1rem; }
+    #research { scroll-margin-top: 4rem; }
+    .phd-title { font-family:'Fraunces',serif;font-size:clamp(1.4rem,2.5vw,2rem);font-weight:700;line-height:1.25;margin-bottom:1.25rem;max-width:680px; }
+    .phd-meta { display:flex;flex-wrap:wrap;gap:1.5rem;font-family:'Sometype Mono',monospace;font-size:0.72rem;color:rgba(240,240,250,0.65);letter-spacing:0.06em; }
+    .phd-meta strong { color:var(--bg); }
+    .ftags { display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1.75rem; }
+    .ftag { font-family:'Sometype Mono',monospace;font-size:0.65rem;letter-spacing:0.08em;text-transform:uppercase;border:1px solid rgba(255,255,255,0.25);color:rgba(240,240,250,0.88);padding:0.3rem 0.75rem;border-radius:2px;transition:background 0.2s,color 0.2s; }
+    .ftag:hover { background:var(--accent);border-color:var(--accent);color:#fff; }
+
+    /* PUBLICATIONS */
+    .pub-filters { display:flex;gap:0.75rem;flex-wrap:wrap;margin-bottom:2.5rem;align-items:center; }
+    .fgrp { display:flex;gap:0.5rem;flex-wrap:wrap; }
+    .fdiv { width:1px;height:24px;background:var(--rule);align-self:center; }
+    .fbtn { font-family:'Sometype Mono',monospace;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.4rem 1rem;border:1px solid var(--rule);background:transparent;cursor:pointer;color:var(--muted);transition:all 0.2s;border-radius:2px; }
+    .fbtn:hover, .fbtn.act { background:var(--ink);color:var(--bg);border-color:var(--ink); }
+    .fbtn.yr.act { background:var(--accent2);border-color:var(--accent3); }
+    .pub-list { display:flex;flex-direction:column; }
+    .pub-item { border-bottom:1px solid var(--rule);cursor:pointer;transition:background 0.2s; }
+    .pub-item:first-child { border-top:1px solid var(--rule); }
+    .pub-item:hover, .pub-item.open { background:var(--card); }
+    .pub-head { display:grid;grid-template-columns:72px 1fr auto;gap:1.5rem;align-items:start;padding:1.5rem 1rem 1.5rem 0; }
+    .pub-yr { font-family:'Sometype Mono',monospace;font-size:0.75rem;color:var(--muted);padding-top:0.15rem; }
+    .pub-title { font-family:'Fraunces',serif;font-size:1rem;font-weight:400;font-style:italic;line-height:1.4;margin-bottom:0.35rem; }
+    .pub-authors { font-size:0.78rem;color:var(--muted);margin-bottom:0.25rem; }
+    .pub-authors .me { color:var(--ink);font-weight:500; }
+    .pub-venue { font-family:'Sometype Mono',monospace;font-size:0.63rem;color:var(--muted);letter-spacing:0.04em; }
+    .pub-right { display:flex;flex-direction:column;align-items:flex-end;gap:0.6rem;padding-top:0.15rem; }
+    .pbadge { font-family:'Sometype Mono',monospace;font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.2rem 0.6rem;border-radius:2px;white-space:nowrap; }
+    .bc { background:rgba(137,141,48,0.15);color:var(--accent2); }
+    .bb { background:rgba(74,31,166,0.1);color:var(--accent); }
+    .bp { background:rgba(136,141,242,0.18);color:#5558B8; }
+    .pub-body { overflow:hidden;max-height:0;transition:max-height 0.45s cubic-bezier(.16,1,.3,1); }
+    .pub-item.open .pub-body { max-height:500px; }
+    .pub-inner { padding:0 1rem 1.5rem 5.5rem;border-top:1px solid var(--rule);padding-top:1rem; }
+    .pub-inner p { font-size:0.82rem;color:var(--muted);line-height:1.7;margin-bottom:0.75rem; }
+    .pub-inner p:last-child { margin-bottom:0; }
+    .pub-links { display:flex;flex-wrap:wrap;gap:0.6rem;margin-top:0.85rem; }
+    .extlink { display:inline-flex;align-items:center;gap:0.4rem;font-family:'Sometype Mono',monospace;font-size:0.68rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent2);text-decoration:none;border:1px solid var(--accent2);padding:0.25rem 0.65rem;border-radius:2px;transition:background 0.2s,color 0.2s; }
+    .extlink:hover { background:var(--accent2);color:#fff; }
+    .extlink svg { width:11px;height:11px;stroke:currentColor;stroke-width:2;fill:none; }
+
+    /* TEACHING */
+    .tcols { display:grid;grid-template-columns:1fr 1fr;gap:3rem; }
+    .tcol-title { font-family:'Sometype Mono',monospace;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:1.5rem;padding-bottom:0.75rem;border-bottom:2px solid var(--ink); }
+    .titem { padding:1.1rem 0.75rem;border-bottom:1px solid var(--rule);cursor:pointer;transition:background 0.2s;margin:0 -0.75rem;border-radius:2px; }
+    .titem:last-child { border-bottom:none; }
+    .titem:hover, .titem.open { background:var(--card); }
+    .titem-head { display:flex;justify-content:space-between;align-items:flex-start;gap:0.75rem; }
+    .tp { font-family:'Sometype Mono',monospace;font-size:0.65rem;color:var(--accent);letter-spacing:0.08em;margin-bottom:0.3rem; }
+    .tt { font-size:0.9rem;font-weight:500;margin-bottom:0.2rem;line-height:1.35; }
+    .ts { font-size:0.78rem;color:var(--muted); }
+    .texpand { overflow:hidden;max-height:0;transition:max-height 0.4s cubic-bezier(.16,1,.3,1),padding 0.3s;font-size:0.8rem;color:var(--muted);line-height:1.7; }
+    .titem.open .texpand { max-height:300px;padding-top:0.75rem; }
+    .tgrid { display:grid;grid-template-columns:auto 1fr;gap:0.3rem 0.75rem;font-size:0.78rem; }
+    .tk { color:var(--ink);font-weight:500;white-space:nowrap; }
+    .tv { color:var(--muted); }
+
+    /* THESIS */
+    .thgrid { margin-top:3rem;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem; }
+    .thcard { background:var(--card);padding:1.5rem;border-radius:3px;border-left:3px solid var(--accent3);cursor:pointer;transition:transform 0.25s,box-shadow 0.25s;position:relative; }
+    .thcard:hover { transform:translateY(-3px);box-shadow:0 8px 24px rgba(74,31,166,0.08); }
+    .thcard.open { box-shadow:0 4px 16px rgba(74,31,166,0.1); }
+    .th-chev { position:absolute;top:1.25rem;right:1.25rem; }
+    .th-yr { font-family:'Sometype Mono',monospace;font-size:0.65rem;color:var(--muted);margin-bottom:0.5rem; }
+    .th-title { font-size:0.82rem;font-weight:500;line-height:1.4;margin-bottom:0.5rem;padding-right:1.5rem; }
+    .th-student { font-size:0.75rem;color:var(--muted);font-style:italic; }
+    .th-expand { overflow:hidden;max-height:0;transition:max-height 0.35s cubic-bezier(.16,1,.3,1);font-size:0.78rem;color:var(--muted);line-height:1.7; }
+    .thcard.open .th-expand { max-height:200px;padding-top:0.75rem;margin-top:0.75rem;border-top:1px solid var(--rule); }
+
+    /* WORKSHOPS */
+    .wktl { position:relative;padding-left:2rem; }
+    .wktl::before { content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:var(--rule); }
+    .wkitem { position:relative;padding:0 0 2rem 2rem;cursor:pointer; }
+    .wkitem::before { content:'';position:absolute;left:-5px;top:0.35rem;width:10px;height:10px;border-radius:50%;background:var(--bg);border:2px solid var(--accent);transition:background 0.2s; }
+    .wkitem:hover::before, .wkitem.open::before { background:var(--accent); }
+    .wk-hrow { display:flex;align-items:flex-start;gap:1rem;flex-wrap:wrap;margin-bottom:0.3rem; }
+    .wk-date { font-family:'Sometype Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;color:var(--accent);white-space:nowrap;padding-top:0.25rem; }
+    .wk-tw { display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap; }
+    .wk-title { font-size:0.95rem;font-weight:500;line-height:1.35; }
+    .wk-rbadge { display:inline-block;font-family:'Sometype Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;background:var(--ink);color:var(--bg);padding:0.15rem 0.5rem; }
+    .wk-place { font-size:0.78rem;color:var(--muted);margin-bottom:0.4rem; }
+    .wk-expand { overflow:hidden;max-height:0;transition:max-height 0.45s cubic-bezier(.16,1,.3,1);font-size:0.82rem;color:var(--muted);line-height:1.7;max-width:680px; }
+    .wkitem.open .wk-expand { max-height:500px;padding-top:0.75rem; }
+
+    /* EXPERIENCE */
+    .exprow { display:grid;grid-template-columns:140px 1fr;gap:2rem;padding:1.5rem 0.75rem;border-bottom:1px solid var(--rule);cursor:pointer;transition:background 0.2s;margin:0 -0.75rem;border-radius:2px; }
+    .exprow:hover, .exprow.open { background:var(--card); }
+    .exp-period { font-family:'Sometype Mono',monospace;font-size:0.7rem;color:var(--muted);line-height:1.5;padding-top:0.2rem; }
+    .exp-role { font-size:1rem;font-weight:500;margin-bottom:0.2rem; }
+    .exp-co { font-size:0.85rem;color:var(--accent2);margin-bottom:0.5rem; }
+    .exp-desc { font-size:0.82rem;color:var(--muted);line-height:1.6;max-width:600px; }
+    .exp-expand { overflow:hidden;max-height:0;transition:max-height 0.4s cubic-bezier(.16,1,.3,1);font-size:0.82rem;color:var(--muted);line-height:1.7; }
+    .exprow.open .exp-expand { max-height:200px;padding-top:0.6rem; }
+
+    /* SKILLS */
+    .sklayout { display:grid;grid-template-columns:1fr 1.5fr;gap:4rem; }
+    .lang-item { display:flex;align-items:center;justify-content:space-between;padding:1rem 0;border-bottom:1px solid var(--rule); }
+    .lang-name { font-size:0.9rem;font-weight:500; }
+    .lang-lv { font-family:'Sometype Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;color:var(--muted); }
+    .dots { display:flex;gap:4px; }
+    .dot { width:8px;height:8px;border-radius:50%;border:1.5px solid var(--ink); }
+    .dot.f { background:var(--ink); }
+    .sbars { display:flex;flex-direction:column;gap:0.75rem; }
+    .srow { display:flex;align-items:center;gap:1rem; }
+    .slbl { font-size:0.8rem;color:var(--muted);width:165px;flex-shrink:0; }
+    .sbar { flex:1;height:3px;background:var(--rule);border-radius:2px;overflow:hidden; }
+    .sfill { height:100%;background:var(--accent);border-radius:2px;transform-origin:left;transform:scaleX(0);transition:transform 1s cubic-bezier(.16,1,.3,1); }
+    .sfill.on { transform:scaleX(1); }
+
+    /* VISITING */
+    .vbanner { background:var(--accent);color:#fff;padding:1.5rem 5vw;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap; }
+    .vb-lbl { font-family:'Sometype Mono',monospace;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;opacity:0.7;margin-bottom:0.25rem; }
+    .vb-main { font-size:0.9rem;font-weight:500; }
+
+    /* FOOTER */
+    footer { background:var(--ink);color:var(--bg);padding:4rem 5vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:2rem; }
+    .fn { font-family:'Fraunces',serif;font-size:1.75rem;font-weight:700; }
+    .fn em { color:var(--accent);font-style:italic; }
+    .flinks { display:flex;gap:2rem;flex-wrap:wrap; }
+    .flinks a { font-family:'Sometype Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(240,240,250,0.5);text-decoration:none;transition:color 0.2s; }
+    .flinks a:hover { color:var(--bg); }
+
+    /* RESPONSIVE */
+    @media(max-width:768px){
+      nav { padding:1rem 1.5rem; }
+      .nav-links { display:none; }
+      #hero { grid-template-columns:1fr;min-height:auto; }
+      .hero-right { display:none; }
+      .hero-left { padding:5rem 1.5rem 3rem; }
+      section { padding:4rem 1.5rem; }
+      .tcols { grid-template-columns:1fr; }
+      .sklayout { grid-template-columns:1fr; }
+      .pub-head { grid-template-columns:56px 1fr; }
+      .pub-right { display:none; }
+      .pub-inner { padding-left:1rem; }
+      .exprow { grid-template-columns:1fr;gap:0.5rem; }
+      footer { flex-direction:column; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curR"></div>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-name">Martina Labarta Labrador</span>
+  <ul class="nav-links">
+    <li><a href="#education">Education</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#publications">Publications</a></li>
+    <li><a href="#teaching">Teaching</a></li>
+    <li><a href="#workshops">Workshops</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="cv-print.html" class="nav-dl">↓ Print CV</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero" style="border:none;padding-top:5rem;">
+  <div class="hero-left">
+    <div class="hero-tag">Design Research · Milano</div>
+    <h1>Martina<br><span class="name-italic">Labarta</span><br>Labrador</h1>
+    <p class="hero-sub">PhD Candidate at Politecnico di Milano. Researcher, educator, and designer working at the intersection of product language, gender, and design justice.</p>
+    <div class="hero-contact">
+      <a href="mailto:martinamaria.labarta@polimi.it">martinamaria.labarta@polimi.it</a>
+      <span style="font-family:'Sometype Mono',monospace;font-size:0.7rem;color:var(--muted);">Milano, Italy</span>
+    </div>
+    <div style="margin-top:3rem;display:flex;gap:0.75rem;flex-wrap:wrap;">
+      <span class="pill">PhD Candidate</span>
+      <span class="pill o">Politecnico di Milano</span>
+      <span class="pill o">Expected 2028</span>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-grid-bg"></div>
+    <div class="hero-big">ML</div>
+    <div class="hero-pills">
+      <span class="pill">Product Language</span>
+      <span class="pill">Design Justice</span>
+      <span class="pill">Gender &amp; Design</span>
+    </div>
+  </div>
+</section>
+
+<!-- VISITING BANNER -->
+<div class="vbanner reveal">
+  <div style="font-size:1.25rem;">✈</div>
+  <div>
+    <div class="vb-lbl">Currently</div>
+    <div class="vb-main">Visiting Scholar at Virginia Tech (School of Design) · March–June 2026 · Supervisor: Prof. Isabel Prochner</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     EDUCATION
+═══════════════════════════════════════════════════════ -->
+<section id="education">
+  <div class="slabel">01 — Formal Education</div>
+  <h2>Academic Background</h2>
+  <p class="chint">Click any card to expand full details</p>
+  <div class="edu-grid reveal">
+
+    <div class="edu-card item-row" onclick="tog(this,'edu')">
+      <span class="chev edu-chev"><svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg></span>
+      <div class="edu-year">2024 → Present</div>
+      <div class="edu-deg">PhD in Design Research</div>
+      <div class="edu-inst">Politecnico di Milano, Milan, Italy</div>
+      <span class="edu-grade">Expected March 2028</span>
+      <div class="edu-body">
+        <div class="edu-inner">
+          <div class="edu-thesis">"Destabilising Archetypes through Product Language: Towards a Sensitive Design Compass"</div>
+          <strong>Research focus:</strong> Design Processes · Design Aesthetics · Product Design Language · Research through Design · Design Justice<br><br>
+          <strong>PhD Supervisor:</strong> Prof. Silvia D. Ferraris<br>
+          <strong>PhD Co-Supervisor:</strong> Francesca Mattioli, PhD<br>
+          <strong>Visiting:</strong> Virginia Tech, USA (Mar–Jun 2026) with Prof. Isabel Prochner
+        </div>
+      </div>
+    </div>
+
+    <div class="edu-card item-row" onclick="tog(this,'edu')">
+      <span class="chev edu-chev"><svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg></span>
+      <div class="edu-year">2019 → 2022</div>
+      <div class="edu-deg">MSc in Design &amp; Engineering</div>
+      <div class="edu-inst">Politecnico di Milano, Milan, Italy</div>
+      <span class="edu-grade">108 / 110</span>
+      <div class="edu-body">
+        <div class="edu-inner">
+          <div class="edu-thesis">"Sustainable Technical and Aesthetical Redesign of a Commercial Ice Machine"</div>
+          <strong>Thesis focus:</strong> Sustainability · Industrial Design · CMF Design · LCA · Mechanical Engineering<br>
+          <strong>Supervisor:</strong> Eng. Paolo Faraldi<br><br>
+          <strong>Program areas:</strong> Industrial Product Design · Design Thinking · DFM · CAD Modelling · Material Selection · Mechanical Design · Semiotics<br><br>
+          <a href="https://hdl.handle.net/10589/195476" target="_blank" class="extlink" onclick="event.stopPropagation()">
+            <svg viewBox="0 0 12 12"><path d="M5 2H2a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V7M7 1h4m0 0v4m0-4L5 7"/></svg>
+            View thesis on POLITesi
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="edu-card item-row" onclick="tog(this,'edu')">
+      <span class="chev edu-chev"><svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg></span>
+      <div class="edu-year">2013 → 2019</div>
+      <div class="edu-deg">BSc in Industrial Engineering Technology</div>
+      <div class="edu-inst">University of Zaragoza, Spain</div>
+      <span class="edu-grade">6.79 / 10</span>
+      <div class="edu-body">
+        <div class="edu-inner">
+          <div class="edu-thesis">"Design of a mechanism for lymphedema treatment"</div>
+          <strong>Thesis focus:</strong> Mechanical Design · Prototyping · Medical Device Engineering · Mechanisms<br>
+          <strong>Supervisor:</strong> Prof. Beatriz Sánchez Tabuenca<br><br>
+          <strong>Program areas:</strong> Thermodynamics · Mechanics · Electronics · Manufacturing Processes · Automation Systems · Programming · Hydrodynamics · Technical Drawing
+        </div>
+      </div>
+    </div>
+
+    <div class="edu-card item-row" onclick="tog(this,'edu')">
+      <span class="chev edu-chev"><svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg></span>
+      <div class="edu-year">Sep 2016 → Jul 2017</div>
+      <div class="edu-deg">Erasmus+ Exchange</div>
+      <div class="edu-inst">Università degli Studi di Trieste, Italy</div>
+      <div class="edu-body">
+        <div class="edu-inner">
+          <strong>Courses:</strong> Technical Drawing · Electronics · Industrial Management &amp; Logistics · Industrial Constructions · Italian Language
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     RESEARCH
+═══════════════════════════════════════════════════════ -->
+<section id="research" style="padding:0;border:none;">
+  <div class="res-dark reveal">
+    <div class="phd-label">02 — PhD Research</div>
+    <div class="phd-title">Destabilising Archetypes through Product Language: Towards a Sensitive Design Compass</div>
+    <div class="phd-meta">
+      <span>Institution <strong>Politecnico di Milano</strong></span>
+      <span>Department <strong>Design</strong></span>
+      <span>Since <strong>2024</strong></span>
+      <span>Expected <strong>March 2028</strong></span>
+    </div>
+    <div class="ftags">
+      <span class="ftag">Design Processes</span>
+      <span class="ftag">Design Aesthetics</span>
+      <span class="ftag">Product Design Language</span>
+      <span class="ftag">Research through Design</span>
+      <span class="ftag">Design Justice</span>
+    </div>
+
+    <div style="margin-top:2.5rem;max-width:780px;border-top:1px solid rgba(255,255,255,0.1);padding-top:2rem;">
+      <div style="font-family:'Sometype Mono',monospace;font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(240,240,250,0.5);margin-bottom:1rem;">Abstract</div>
+      <p style="font-size:0.92rem;color:rgba(240,240,250,0.82);line-height:1.8;">This research investigates the role of Product Language — how products communicate meaning through their material, formal, and aesthetic qualities — in shaping and reinforcing stereotypical and stigmatising social representations within industrial product design. Starting from the premise that design is not neutral, the study examines how visual and formal conventions stabilise into design archetypes that may perpetuate discriminatory norms related to gender, race, age, or ability. Positioned at the intersection of Product Language studies and critical design approaches concerned with social justice and inclusivity, the research aims to develop a conceptual framework and practical orientation for designers to navigate Product Language choices more critically, sensitively, and inclusively.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     PUBLICATIONS
+═══════════════════════════════════════════════════════ -->
+<section id="publications">
+  <div class="slabel">03 — Academic Production</div>
+  <h2>Publications</h2>
+  <p class="chint">Click any entry to read abstract and access links</p>
+
+  <div class="pub-filters">
+    <div class="fgrp" id="tF">
+      <button class="fbtn act" data-t="all">All types</button>
+      <button class="fbtn" data-t="conf">Conference Papers</button>
+      <button class="fbtn" data-t="book">Book Chapters</button>
+      <button class="fbtn" data-t="thesis">Thesis</button>
+    </div>
+    <div class="fdiv"></div>
+    <div class="fgrp" id="yF">
+      <button class="fbtn yr act" data-y="all">All years</button>
+      <button class="fbtn yr" data-y="2026">2026</button>
+      <button class="fbtn yr" data-y="2025">2025</button>
+      <button class="fbtn yr" data-y="2024">2024</button>
+      <button class="fbtn yr" data-y="2022">2022</button>
+    </div>
+  </div>
+
+  <div class="pub-list reveal" id="pubList">
+
+    <!-- ── 2026 ── -->
+    <div class="pub-item item-row" data-t="conf" data-y="2026" onclick="togPub(this)">
+      <div class="pub-head">
+        <div class="pub-yr">2026</div>
+        <div>
+          <div class="pub-title">The Colour + Gender Framework: Re/decolouring gendered symbolism in product language</div>
+          <div class="pub-authors"><span class="me">Labarta Labrador M.</span> &amp; Calvo Ivanovic I.</div>
+          <div class="pub-venue">E&amp;PDE 2026 · University of Bristol, UK · 2–4 Sep 2026</div>
+        </div>
+        <div class="pub-right"><span class="pbadge bc">Conference</span><span class="chev"><svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg></span></div>
+      </div>
+      <div class="pub-body">
+        <div class="pub-inner">
+          <p>This paper introduces the Colour + Gender Framework as a tool for analysing and rethinking the gendered use of colour in product language. It explores how colour choices in product design reinforce binary gender symbolism and proposes strategies for re/decolouring these associations toward more inclusive design practices.</p>
+          <p><strong>In:</strong> Proceedings of the 28th International Conference on Engineering and Product Design Education (E&amp;PDE 2026). University of Bristol, DESIG, and IED. Bristol, UK, 2–4 September 2026.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub-item item-row" data-t="conf" data-y="2026" onclick="togPub(this)">
+      <div class="pub-head">
+        <div class="pub-yr">2026</div>
+        <div>
+          <div class="pub-title">Designing Collaboration, Not Only Projects. Embedding project management to foster collaborative teamwork in culturally plural project-based learning</div>
+          <div class="pub-authors">Mattioli F. &amp; <span class="me">Labarta Labrador M.</span></div>
+          <div class="pub-venue">E&amp;PDE 2026 · University of Bristol, UK · 2–4 Sep 2026</div>
+        </div>
+        <div class="pub-right"><span class="pbadge bc">Conference</span><span class="chev"><svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg></span></div>
+      </div>
+      <div class="pub-body">
+        <div class="pub-inner">
+          <p>This paper examines how explicitly embedding project management skills into design education fosters better collaborative teamwork in culturally plural contexts. Drawing from teaching experience at Politecnico di Milano's MSc in Design &amp; Engineering, it argues that collaboration itself must be designed — not assumed.</p>
+          <p><strong>In:</strong> Proceedings of the 28th International Conference on Engineering and Product Design Education (E&amp;PDE 2026). University of Bristol, DESIG, and IED. Bristol, UK, 2–4 September 2026.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub-item item-row" data-t="conf" data-y="2026" onclick="togPub(this)">
+      <div class="pub-head">
+        <div class="pub-yr">2026</div>
+        <div>
+          <div class="pub-title">Disrupting gender binaries in product language: A workshop on gender awareness</div>
+          <div class="pub-authors"><span class="me">Labarta Labrador M.</span>, Mattioli F. &amp; Ferraris S.D.</div>
+          <div class="pub-venue">DRS 2026 · University of Edinburgh, UK · 8–12 Jun 2026</div>
+        </div>
+        <div class="pub-right"><span class="pbadge bc">Conference</span><span class="chev"><svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg></span></div>
+      </div>
+      <div class="pub-body">
+        <div class="pub-inner">
+          <p>This paper presents a workshop designed to raise gender awareness in product design education. It invites participants to critically examine how gender is encoded in product language — through form, colour, material, and communication — and to develop strategies for disrupting binary design conventions.</p>
+          <p><strong>In:</strong> Proceedings of the Design Research Society Conference (DRS 2026). University of Edinburgh and the Design Research Society. Edinburgh, UK, 8–12 June 2026.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 2025 ── -->
+    <div class="pub-item item-row" data-t="conf" data-y="2025" onclick="togPub(this)">
+      <div class="pub-head">
+        <div class="pub-yr">2025</div>
+        <div>
+          <div class="pub-title">Seeing the Process: Empowering Students in Design and Engineering through Visual Frameworks</div>
+          <div class="pub-authors"><span class="me">Labarta Labrador M.</span>, Mattioli F. &amp; Ferraris S.D.</div>
+          <div class="pub-venue">E&amp;PDE 2025 · University of Malta · 11–12 Sep 2025</div>
+        </div>
+        <div class="pub-right"><span class="pbadge bc">Conference</span><span class="chev"><svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg></span></div>
+      </div>
+      <div class="pub-body">
+        <div class="pub-inner">
+          <p>This paper presents a pedagogical approach that uses visual frameworks to make design processes legible and empowering for students. By rendering the often-invisible structure of design projects visually explicit, students gain agency over their own processes and develop metacognitive awareness of their practice.</p>
+          <p><strong>In:</strong> Bohemia E., Buck L. &amp; Grierson H. (Eds.), <em>DS 137: Proceedings of the 27th International Conference on Engineering and Product Design Education (E&amp;PDE 2025).</em> University of Malta, DESIG, and IED. Valetta, Malta, 11–12 September 2025, pp. 355–360. Series: E&amp;PDE. Institution: Politecnico di Milano.</p>
+          <p>ISBN: 978−1−912254−22−4 · ISSN: 3005−4753</p>
+          <div class="pub-links">
+            <a href="https://doi.org/10.35199/EPDE.2025.60" target="_blank" class="extlink" onclick="event.stopPropagation()">
+              <svg viewBox="0 0 12 12"><path d="M5 2H2a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V7M7 1h4m0 0v4m0-4L5 7"/></svg>
+              DOI: 10.35199/EPDE.2025.60
+            </a>
+            <a href="https://www.designsociety.org/publication/48601/" target="_blank" class="extlink" onclick="event.stopPropagation()">
+              <svg viewBox="0 0 12 12"><path d="M5 2H2a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V7M7 1h4m0 0v4m0-4L5 7"/></svg>
+              Design Society
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub-item item-row" data-t="conf" data-y="2025" onclick="togPub(this)">
+      <div class="pub-head">
+        <div class="pub-yr">2025</div>
+        <div>
+          <div class="pub-title">Colouring outside the (stereotypical) lines: Rethinking colour and gender in design</div>
+          <div class="pub-authors"><span class="me">Labarta Labrador M.</span> &amp; Calvo Ivanovic I.</div>
+          <div class="pub-venue">XX Color Conference · Associazione Italiana del Colore · Naples, Italy · 4–5 Sep 2025</div>
+        </div>
+        <div class="pub-right"><span class="pbadge bc">Conference</span><span class="chev"><svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg></span></div>
+      </div>
+      <div class="pub-body">
+        <div class="pub-inner">
+          <p>This paper critically examines the relationship between colour and gender in industrial product design. Through visual analysis of contemporary products, it reveals persistent stereotypical colour patterns and proposes a framework for more nuanced, non-binary approaches to colour in design practice.</p>
+          <p><strong>In:</strong> <em>Color and Colorimetry: Multidisciplinary Contributions — Proceedings of the XX Color Conference.</em> Associazione Italiana del Colore. Università degli Studi di Napoli Parthenope, Naples, Italy, 4–5 September 2025. Published December 2025.</p>
+          <p>ISBN: 978-88-99513-28-3</p>
+          <div class="pub-links">
+            <a href="https://doi.org/10.23738/RCASB.016" target="_blank" class="extlink" onclick="event.stopPropagation()">
+              <svg viewBox="0 0 12 12"><path d="M5 2H2a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V7M7 1h4m0 0v4m0-4L5 7"/></svg>
+              DOI: 10.23738/RCASB.016
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub-item item-row" data-t="book" data-y="2025" onclick="togPub(this)">
+      <div class="pub-head">
+        <div class="pub-yr">2025</div>
+        <div>
+          <div class="pub-title">Prototyping collaboration: managing collaborative projects in design education</div>
+          <div class="pub-authors"><span class="me">Labarta Labrador M.</span> &amp; Mattioli F.</div>
+          <div class="pub-venue">In Nimkulrat, Ferraris &amp; Mattioli (Eds.) — Prototyping and Experiential Knowledge · Franco Angeli · Open Access</div>
+        </div>
+        <div class="pub-right"><span class="pbadge bb">Book Chapter</span><span class="chev"><svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg></span></div>
+      </div>
+      <div class="pub-body">
+        <div class="pub-inner">
+          <p>This book chapter examines how collaboration itself can be prototyped and managed within design education. Drawing from course experience at Politecnico di Milano, the authors propose frameworks for structuring collaborative project work in culturally diverse student groups, making the social and organisational dimensions of design explicit.</p>
+          <p><strong>In:</strong> Nimkulrat N., Ferraris S.D. &amp; Mattioli F. (Eds.), <em>Prototyping and Experiential Knowledge: Unfolding shifting views on the use of prototypes in design research.</em> Franco Angeli, 2025. 284 pp. Open Access.</p>
+          <p>ISBN: 9788835183198</p>
+          <div class="pub-links">
+            <a href="https://www.francoangeli.it/Libro/Prototyping-and-Experiential-Knowledge-Unfolding-shifting-views-on-the-use-of-prototypes-in-design-research?Id=30195" target="_blank" class="extlink" onclick="event.stopPropagation()">
+              <svg viewBox="0 0 12 12"><path d="M5 2H2a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V7M7 1h4m0 0v4m0-4L5 7"/></svg>
+              Franco Angeli (Open Access)
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 2024 ── -->
+    <div class="pub-item item-row" data-t="conf" data-y="2024" onclick="togPub(this)">
+      <div class="pub-head">
+        <div class="pub-yr">2024</div>
+        <div>
+          <div class="pub-title">Spelling 'Gender-Neutral': A Comprehensive Exploration of Non-Gendered Products</div>
+          <div class="pub-authors"><span class="me">Labarta M.</span>, Ingaramo M.O. &amp; Mattioli F.</div>
+          <div class="pub-venue">Cumulus Budapest 2024 · P/References of Design · pp. 1941–1961</div>
+        </div>
+        <div class="pub-right"><span class="pbadge bc">Conference</span><span class="chev"><svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg></span></div>
+      </div>
+      <div class="pub-body">
+        <div class="pub-inner">
+          <p>This paper offers a comprehensive exploration of gender-neutrality in product design. Through systematic visual and semantic analysis of commercial products, it maps the diverse strategies designers use to signal gender neutrality and critically interrogates what these strategies reveal about underlying assumptions of gender in design culture.</p>
+          <p><strong>In:</strong> Bujdosó A., Borda R. &amp; Szerencsés R. (Eds.), <em>P/references of Design</em> — Cumulus Conference Proceedings Budapest 2024, Vol. 1. Budapest: Cumulus Association, Moholy-Nagy Művészeti Egyetem (MOME), 2024, pp. 1941–1961.</p>
+          <div class="pub-links">
+            <a href="https://doi.org/10.63442/ASEN9628" target="_blank" class="extlink" onclick="event.stopPropagation()">
+              <svg viewBox="0 0 12 12"><path d="M5 2H2a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V7M7 1h4m0 0v4m0-4L5 7"/></svg>
+              DOI: 10.63442/ASEN9628
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub-item item-row" data-t="conf" data-y="2024" onclick="togPub(this)">
+      <div class="pub-head">
+        <div class="pub-yr">2024</div>
+        <div>
+          <div class="pub-title">The 'New Morphologies': When Technology Becomes Gender-Neutral</div>
+          <div class="pub-authors">Ingaramo M.O. &amp; <span class="me">Labarta M.</span></div>
+          <div class="pub-venue">IVth International Conference on Environmental Design · MDA · Ginosa, Italy · 9–11 May 2024</div>
+        </div>
+        <div class="pub-right"><span class="pbadge bc">Conference</span><span class="chev"><svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg></span></div>
+      </div>
+      <div class="pub-body">
+        <div class="pub-inner">
+          <p>This paper investigates the emergence of new product morphologies driven by technological change — particularly in consumer electronics — and how these shifts are reshaping the gendered visual language of everyday objects. It argues that technological disruption creates openings for gender-neutral design that challenge established aesthetic conventions.</p>
+          <p><strong>In:</strong> Bisson M. (Ed.), <em>Proceedings of the IVth International Conference on Environmental Design.</em> Mediterranean Design Association (MDA), Ginosa, Italy, 9–11 May 2024, pp. 293–304. Palermo University Press, 2024.</p>
+          <div class="pub-links">
+            <a href="#" class="extlink" onclick="event.stopPropagation()">
+              <svg viewBox="0 0 12 12"><path d="M5 2H2a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V7M7 1h4m0 0v4m0-4L5 7"/></svg>
+              ISBN: 978-88-5509-634-8
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── MSc Thesis ── -->
+    <div class="pub-item item-row" data-t="thesis" data-y="2022" onclick="togPub(this)">
+      <div class="pub-head">
+        <div class="pub-yr">2022</div>
+        <div>
+          <div class="pub-title">Sustainable Technical and Aesthetical Redesign of a Commercial Ice Machine</div>
+          <div class="pub-authors"><span class="me">Labarta Labrador M.</span></div>
+          <div class="pub-venue">MSc Thesis · Politecnico di Milano · POLITesi</div>
+        </div>
+        <div class="pub-right"><span class="pbadge" style="background:rgba(74,31,166,0.08);color:var(--accent);">Thesis</span><span class="chev"><svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg></span></div>
+      </div>
+      <div class="pub-body">
+        <div class="pub-inner">
+          <p>Sustainability-focused redesign of a professional ice machine, integrating technical engineering improvements with a full CMF (Colour, Materials, Finish) redesign. The project combined LCA (Life Cycle Assessment) methodology with industrial design practice to propose both environmentally and aesthetically improved solutions.</p>
+          <p><strong>Focus:</strong> Sustainability · Industrial Design · CMF Design · Life Cycle Assessment · Mechanical Engineering<br>
+          <strong>Supervisor:</strong> Eng. Paolo Faraldi · <strong>Final grade:</strong> 108/110</p>
+          <div class="pub-links">
+            <a href="https://hdl.handle.net/10589/195476" target="_blank" class="extlink" onclick="event.stopPropagation()">
+              <svg viewBox="0 0 12 12"><path d="M5 2H2a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V7M7 1h4m0 0v4m0-4L5 7"/></svg>
+              View on POLITesi
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     TEACHING
+═══════════════════════════════════════════════════════ -->
+<section id="teaching">
+  <div class="slabel">04 — Teaching</div>
+  <h2>Academic Teaching</h2>
+  <p class="chint">Click any item to expand course details</p>
+
+  <div class="tcols reveal">
+    <div>
+      <div class="tcol-title">Lecturer &amp; Teaching Assistant</div>
+
+      <div class="titem item-row" onclick="togT(this)">
+        <div class="titem-head">
+          <div><div class="tp">2025 → Present</div><div class="tt">Co-Lecturer — Product Language</div><div class="ts">POLI.design · Master's ID4A · 16h</div></div>
+          <span class="chev"><svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg></span>
+        </div>
+        <div class="texpand">
+          <div class="tgrid">
+            <span class="tk">Program</span><span class="tv">Master's in Industrial Design for Architecture (ID4A)</span>
+            <span class="tk">Academic year</span><span class="tv">2025–26</span>
+            <span class="tk">Hours</span><span class="tv">16</span>
+            <span class="tk">Lead Lecturer</span><span class="tv">Prof. Silvia D. Ferraris</span>
+            <span class="tk">Type</span><span class="tv">Seminar</span>
+            <span class="tk">Content</span><span class="tv">Knowledge and tools to understand product language; ex-cathedra and hands-on group activities.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="titem item-row" onclick="togT(this)">
+        <div class="titem-head">
+          <div><div class="tp">2024 → Present</div><div class="tt">Teaching Assistant — Final Project Work</div><div class="ts">MSc Design &amp; Engineering · Politecnico di Milano</div></div>
+          <span class="chev"><svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg></span>
+        </div>
+        <div class="texpand">
+          <div class="tgrid">
+            <span class="tk">Academic years</span><span class="tv">2024–25 · 2025–26</span>
+            <span class="tk">Section</span><span class="tv">DE1 — Second year, first semester</span>
+            <span class="tk">CFU</span><span class="tv">9</span>
+            <span class="tk">Coordinator</span><span class="tv">Giacomo Wilhelm</span>
+            <span class="tk">Tasks</span><span class="tv">Organising and delivering course activities; assisting in evaluating student assignments.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="titem item-row" onclick="togT(this)">
+        <div class="titem-head">
+          <div><div class="tp">2023 → Present</div><div class="tt">Teaching Assistant — Design Theory &amp; Practice</div><div class="ts">MSc Design &amp; Engineering · Politecnico di Milano</div></div>
+          <span class="chev"><svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg></span>
+        </div>
+        <div class="texpand">
+          <div class="tgrid">
+            <span class="tk">Academic years</span><span class="tv">2023–24 · 2024–25 · 2025–26</span>
+            <span class="tk">Year</span><span class="tv">First year, first semester</span>
+            <span class="tk">CFU</span><span class="tv">6</span>
+            <span class="tk">Coordinator</span><span class="tv">Prof. Lucia Rampino</span>
+            <span class="tk">Tasks</span><span class="tv">Organising and managing course activities; evaluating student assignments; lecturing.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="titem item-row" onclick="togT(this)">
+        <div class="titem-head">
+          <div><div class="tp">2023 → 2024</div><div class="tt">Teaching Assistant — Semiotics</div><div class="ts">MSc Design &amp; Engineering · Politecnico di Milano</div></div>
+          <span class="chev"><svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg></span>
+        </div>
+        <div class="texpand">
+          <div class="tgrid">
+            <span class="tk">Academic year</span><span class="tv">2023–24</span>
+            <span class="tk">Year</span><span class="tv">Second year, first semester</span>
+            <span class="tk">CFU</span><span class="tv">6</span>
+            <span class="tk">Coordinator</span><span class="tv">Giacomo Festi, PhD</span>
+            <span class="tk">Tasks</span><span class="tv">Organising and managing course activities; evaluating student assignments; lecturing.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="titem item-row" onclick="togT(this)">
+        <div class="titem-head">
+          <div><div class="tp">2022 → 2024</div><div class="tt">Tutor — Specialising Master's MIDEI</div><div class="ts">POLI.design · Industrial Design Engineering &amp; Innovation</div></div>
+          <span class="chev"><svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg></span>
+        </div>
+        <div class="texpand">
+          <div class="tgrid">
+            <span class="tk">Academic years</span><span class="tv">2022–23 · 2023–24</span>
+            <span class="tk">Coordinator</span><span class="tv">Prof. Matteo O. Ingaramo</span>
+            <span class="tk">Tasks</span><span class="tv">Coordinating and supporting students; facilitating student–professor relationships; tutoring product design and development workshops.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="tcol-title">Workshops Designed &amp; Led</div>
+
+      <div class="titem item-row" onclick="togT(this)">
+        <div class="titem-head">
+          <div><div class="tp">2–6 March 2026</div><div class="tt">Workshop Interclasse — "Seeing Beyond: Visual Language of Inclusive Products"</div><div class="ts">Università degli Studi di Sassari, Alghero, Italy</div></div>
+          <span class="chev"><svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg></span>
+        </div>
+        <div class="texpand">
+          The workshop invited participants to reflect on how the design of many products is shaped by the biases and perspectives of both designers and users — aspects that manifest in visual language. Certain design choices send signals that lead some users to feel recognised and welcomed, while others contribute to dynamics of discrimination or marginalisation. The goal was to learn to identify these mechanisms through analysis and design experimentation, developing concrete proposals that rethought the visual language of products in a more conscious, sensitive, and responsible way.<br><br>
+          <div class="tgrid">
+            <span class="tk">Participants</span><span class="tv">1st–3rd year BSc Design students</span>
+            <span class="tk">Role</span><span class="tv">Workshop leader — prepared agenda, activities, and facilitated development</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="titem item-row" onclick="togT(this)">
+        <div class="titem-head">
+          <div><div class="tp">3–7 March 2025</div><div class="tt">Workshop Interclasse — "Design and Gender"</div><div class="ts">Università degli Studi di Sassari, Alghero, Italy</div></div>
+          <span class="chev"><svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg></span>
+        </div>
+        <div class="texpand">
+          The workshop explored gender representation in product design, aiming to challenge conventions and biases and promote a more inclusive design approach. Through critical analysis, practical exercises, and discussions, participants learned to recognise gendered elements in products and acquired tools to integrate gender awareness into the design process, developing strategies capable of social and cultural impact.<br><br>
+          <div class="tgrid">
+            <span class="tk">Participants</span><span class="tv">1st–3rd year BSc Design students</span>
+            <span class="tk">Role</span><span class="tv">Workshop leader — prepared agenda, activities, and facilitated development</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- THESIS SUPERVISION -->
+  <div style="margin-top:4rem;">
+    <div class="tcol-title" style="margin-bottom:0.5rem;">Co-supervised Master's Theses</div>
+    <p class="chint" style="margin-top:0.75rem;">Click a card for supervisor &amp; program details</p>
+    <div class="thgrid reveal">
+
+      <div class="thcard item-row" onclick="togTh(this)">
+        <span class="chev th-chev"><svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg></span>
+        <div class="th-yr">Ongoing → Jul 2026</div>
+        <div class="th-title">Design for Neurodiversity <span style="font-weight:300;font-style:italic;">(working title)</span></div>
+        <div class="th-student">Ioana Soldanescu</div>
+        <div class="th-expand"><strong>Program:</strong> MSc in Design &amp; Engineering, Politecnico di Milano<br><strong>Supervisor:</strong> Prof. Silvia D. Ferraris<br><strong>Expected:</strong> July 2026</div>
+      </div>
+
+      <div class="thcard item-row" onclick="togTh(this)">
+        <span class="chev th-chev"><svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg></span>
+        <div class="th-yr">March 2026</div>
+        <div class="th-title">Designing Questions for Decolonizing Design Education: A generative tool for conscious choice-making</div>
+        <div class="th-student">Sabia Romagnoli</div>
+        <div class="th-expand"><strong>Program:</strong> MSc in Design &amp; Engineering, Politecnico di Milano<br><strong>Supervisor:</strong> Francesca Mattioli<br><strong>Graduated:</strong> March 2026</div>
+      </div>
+
+      <div class="thcard item-row" onclick="togTh(this)">
+        <span class="chev th-chev"><svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg></span>
+        <div class="th-yr">December 2025</div>
+        <div class="th-title">The Relationship between Meditation and Creativity: Integrating Mindful Practices into Industrial Design Education</div>
+        <div class="th-student">Juan Ortega Corredor</div>
+        <div class="th-expand"><strong>Program:</strong> MSc in Design &amp; Engineering, Politecnico di Milano<br><strong>Supervisor:</strong> Francesca Mattioli<br><strong>Graduated:</strong> December 2025</div>
+      </div>
+
+      <div class="thcard item-row" onclick="togTh(this)">
+        <span class="chev th-chev"><svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg></span>
+        <div class="th-yr">December 2025</div>
+        <div class="th-title">Design for Dementia, for Designers: Research and Development of a Tool-Supported, Capacity-Building Activity</div>
+        <div class="th-student">Magdalena Marianna Dembska</div>
+        <div class="th-expand"><strong>Program:</strong> MSc in Design &amp; Engineering, Politecnico di Milano<br><strong>Supervisor:</strong> Francesca Mattioli<br><strong>Graduated:</strong> December 2025</div>
+      </div>
+
+      <div class="thcard item-row" onclick="togTh(this)">
+        <span class="chev th-chev"><svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg></span>
+        <div class="th-yr">December 2025</div>
+        <div class="th-title">Industrial Design from/for the Periphery: Reconceptualizing Informal, Marginal, and Vernacular Manufacturing</div>
+        <div class="th-student">Perla Shaar</div>
+        <div class="th-expand"><strong>Program:</strong> MSc in Design &amp; Engineering, Politecnico di Milano<br><strong>Supervisor:</strong> Francesca Mattioli<br><strong>Graduated:</strong> December 2025</div>
+      </div>
+
+      <div class="thcard item-row" onclick="togTh(this)">
+        <span class="chev th-chev"><svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg></span>
+        <div class="th-yr">December 2025</div>
+        <div class="th-title">Applied Empowerment Guidelines for Inclusive Design</div>
+        <div class="th-student">Nikita Kirilovs</div>
+        <div class="th-expand"><strong>Program:</strong> MSc in Design &amp; Engineering, Politecnico di Milano<br><strong>Supervisor:</strong> Francesca Mattioli<br><strong>Graduated:</strong> December 2025</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     WORKSHOPS TUTORED
+═══════════════════════════════════════════════════════ -->
+<section id="workshops" style="background:var(--card);">
+  <div class="slabel">04b — Workshop Experience</div>
+  <h2>Workshops Tutored</h2>
+  <p class="chint">Click any entry for the full description</p>
+  <div class="wktl reveal">
+
+    <div class="wkitem item-row" onclick="togWk(this)">
+      <div class="wk-hrow">
+        <span class="wk-date">Jun–Jul 2024</span>
+        <div class="wk-tw">
+          <span class="wk-title">Brembo Design Workshop: The future of braking</span>
+          <span class="wk-rbadge">Coordinator</span>
+          <span class="chev"><svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg></span>
+        </div>
+      </div>
+      <div class="wk-place">POLI.design · Politecnico di Milano · Partner: Brembo</div>
+      <div class="wk-expand">
+        The project work consisted in developing an innovative concept solution for Brembo braking systems, envisioning the experience of the future. In collaboration with the Specialising Master in Digital Design Strategy.<br><br>
+        <strong>Participants:</strong> Students from MIDEI, POLI.design.<br>
+        <strong>Role:</strong> Coordinating and ensuring correct development and flow of activities. Tutoring and mentoring students, offering advice and guidance.
+      </div>
+    </div>
+
+    <div class="wkitem item-row" onclick="togWk(this)">
+      <div class="wk-hrow">
+        <span class="wk-date">3–7 Jun 2024</span>
+        <div class="wk-tw">
+          <span class="wk-title">Industrial Product Design BSc Workshop Week 2024</span>
+          <span class="wk-rbadge">Collaborator</span>
+          <span class="chev"><svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg></span>
+        </div>
+      </div>
+      <div class="wk-place">School of Design, Politecnico di Milano · Partner: Veroniki Holding · Lead: Giacomo Wilhelm</div>
+      <div class="wk-expand">
+        Workshop Week 2024 involved designers and companies exploring different design fields and product categories. The brief focused on designing an innovative e-bike for the Milanese context.<br><br>
+        <strong>Role:</strong> Tutoring and mentoring students, offering guidance in their work; ensuring correct development and flow of workshop activities.
+      </div>
+    </div>
+
+    <div class="wkitem item-row" onclick="togWk(this)">
+      <div class="wk-hrow">
+        <span class="wk-date">Mar–May 2023</span>
+        <div class="wk-tw">
+          <span class="wk-title">Barilla Design Workshop: Packaging engineering limited edition</span>
+          <span class="wk-rbadge">Tutor</span>
+          <span class="chev"><svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg></span>
+        </div>
+      </div>
+      <div class="wk-place">POLI.design · Politecnico di Milano · Partner: Barilla</div>
+      <div class="wk-expand">
+        Design workshop aimed at developing an innovative structural packaging for the Christmas limited edition of Pan di Stelle.<br><br>
+        <strong>Participants:</strong> Students from MIDEI (POLI.design) and MSc in Design &amp; Engineering.<br>
+        <strong>Role:</strong> Tutoring and mentoring students; ensuring correct development and flow of activities.
+      </div>
+    </div>
+
+    <div class="wkitem item-row" onclick="togWk(this)">
+      <div class="wk-hrow">
+        <span class="wk-date">Mar–May 2023</span>
+        <div class="wk-tw">
+          <span class="wk-title">MIDEA Design Workshop: Soda &amp; water dispenser for the EU market</span>
+          <span class="wk-rbadge">Tutor</span>
+          <span class="chev"><svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg></span>
+        </div>
+      </div>
+      <div class="wk-place">POLI.design · Politecnico di Milano · Partner: MIDEA</div>
+      <div class="wk-expand">
+        The initiative challenged participants to develop original concepts of soda &amp; water dispensers for the EU market. Students were requested to create innovative and sustainable solutions following a predetermined brief.<br><br>
+        <strong>Participants:</strong> Students from MIDEI, POLI.design.<br>
+        <strong>Role:</strong> Tutoring and mentoring students, offering best practices advice; ensuring correct development and flow of activities.
+      </div>
+    </div>
+
+    <div class="wkitem item-row" onclick="togWk(this)">
+      <div class="wk-hrow">
+        <span class="wk-date">Feb–Mar 2023</span>
+        <div class="wk-tw">
+          <span class="wk-title">Valextra Design Workshop: VM tools concept ideation</span>
+          <span class="wk-rbadge">Tutor</span>
+          <span class="chev"><svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg></span>
+        </div>
+      </div>
+      <div class="wk-place">POLI.design · Politecnico di Milano · Partner: Valextra</div>
+      <div class="wk-expand">
+        The aim of the workshop was to generate a series of concepts for visual merchandising tools for luxury goods, approached with an industrial product design methodology.<br><br>
+        <strong>Participants:</strong> Students from ID4A Master's, POLI.design.<br>
+        <strong>Role:</strong> Tutoring and mentoring students; ensuring correct development and flow of activities.
+      </div>
+    </div>
+
+    <div class="wkitem item-row" onclick="togWk(this)">
+      <div class="wk-hrow">
+        <span class="wk-date">6 Apr 2023</span>
+        <div class="wk-tw">
+          <span class="wk-title">Life Cycle Design Workshop: A learning path for ABB</span>
+          <span class="wk-rbadge">Co-organiser</span>
+          <span class="chev"><svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg></span>
+        </div>
+      </div>
+      <div class="wk-place">POLI.design · Politecnico di Milano · Partner: ABB</div>
+      <div class="wk-expand">
+        Training course for ABB addressing the application of ecodesign guidelines throughout their products' lifecycle, with special attention to development and engineering phases.<br><br>
+        <strong>Participants:</strong> ABB employees in R&amp;D, marketing and project management.<br>
+        <strong>Co-organiser:</strong> Carlo Proserpio.<br>
+        <strong>Role:</strong> Researching case studies and best sustainability practices in the industrial sector; preparing agenda; facilitating development and tutoring dedicated seminars.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     EXPERIENCE
+═══════════════════════════════════════════════════════ -->
+<section id="experience">
+  <div class="slabel">05 — Industry Experience</div>
+  <h2>Work Experience</h2>
+  <p class="chint">Click to expand role details</p>
+  <div class="reveal">
+
+    <div class="exprow item-row" onclick="togExp(this)">
+      <div class="exp-period">Jul 2021 –<br>Apr 2022</div>
+      <div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;">
+          <div>
+            <div class="exp-role">Mechanical Design Engineer Intern</div>
+            <div class="exp-co">Scotsman Ice Systems SRL, Italy · <a href="https://www.scotsman-ice.it" target="_blank" class="extlink" onclick="event.stopPropagation()" style="font-size:0.75rem;"><svg viewBox="0 0 12 12"><path d="M5 2H2a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V7M7 1h4m0 0v4m0-4L5 7"/></svg>scotsman-ice.it</a></div>
+            <div class="exp-desc">Developed innovative solutions and modified components for professional ice machines (sheet metal &amp; injection moulding). Liaison with suppliers.</div>
+          </div>
+          <span class="chev" style="flex-shrink:0;margin-top:0.2rem;"><svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg></span>
+        </div>
+        <div class="exp-expand">
+          <strong>Duration:</strong> 9 months<br>
+          <strong>Full tasks:</strong> Working with senior mechanical engineers to develop innovative solutions and modify existing components for professional ice machines, involving sheet metal parts and injection moulding components. Additionally serving as a liaison with suppliers and coordinating component sourcing.
+        </div>
+      </div>
+    </div>
+
+    <div class="exprow item-row" onclick="togExp(this)">
+      <div class="exp-period">Mar – May 2021</div>
+      <div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;">
+          <div>
+            <div class="exp-role">Industrial Designer Intern</div>
+            <div class="exp-co">Appliances Engineering SRL, Italy · <a href="https://www.appliancesengineering.it" target="_blank" class="extlink" onclick="event.stopPropagation()" style="font-size:0.75rem;"><svg viewBox="0 0 12 12"><path d="M5 2H2a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V7M7 1h4m0 0v4m0-4L5 7"/></svg>appliancesengineering.it</a></div>
+            <div class="exp-desc">Market research, concept generation, and 3D modelling alongside the senior designer.</div>
+          </div>
+          <span class="chev" style="flex-shrink:0;margin-top:0.2rem;"><svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg></span>
+        </div>
+        <div class="exp-expand">
+          <strong>Duration:</strong> 2 months<br>
+          <strong>Full tasks:</strong> Collaborating closely with the senior designer to conduct extensive market research, facilitate concept generation, and create detailed 3D models for product development.
+        </div>
+      </div>
+    </div>
+
+    <div class="exprow item-row" onclick="togExp(this)">
+      <div class="exp-period">Oct 2018 –<br>Jun 2019</div>
+      <div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;">
+          <div>
+            <div class="exp-role">Industrial Engineer Intern</div>
+            <div class="exp-co">Birka Composites Group SL, Spain · <a href="https://www.birka.es" target="_blank" class="extlink" onclick="event.stopPropagation()" style="font-size:0.75rem;"><svg viewBox="0 0 12 12"><path d="M5 2H2a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V7M7 1h4m0 0v4m0-4L5 7"/></svg>birka.es</a></div>
+            <div class="exp-desc">3D modelling for injection moulding components in composite scaffolding systems. Sourcing and supplier assessment.</div>
+          </div>
+          <span class="chev" style="flex-shrink:0;margin-top:0.2rem;"><svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg></span>
+        </div>
+        <div class="exp-expand">
+          <strong>Duration:</strong> 8 months<br>
+          <strong>Full tasks:</strong> Designing and creating 3D models for injection moulding components used in composite-made scaffolding systems. Actively seeking new suppliers and assessing manufacturing offers to ensure quality and cost-effectiveness.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     SKILLS
+═══════════════════════════════════════════════════════ -->
+<section id="skills" style="background:var(--card);">
+  <div class="slabel">06 — Skills &amp; Roles</div>
+  <h2>Competencies</h2>
+  <div class="sklayout reveal">
+    <div>
+      <div class="tcol-title">Languages</div>
+      <div class="lang-item"><span class="lang-name">Spanish</span><span class="lang-lv">Native</span><div class="dots"><div class="dot f"></div><div class="dot f"></div><div class="dot f"></div><div class="dot f"></div><div class="dot f"></div></div></div>
+      <div class="lang-item"><span class="lang-name">English</span><span class="lang-lv">Fluent · CAE C1</span><div class="dots"><div class="dot f"></div><div class="dot f"></div><div class="dot f"></div><div class="dot f"></div><div class="dot"></div></div></div>
+      <div class="lang-item"><span class="lang-name">Italian</span><span class="lang-lv">Fluent · PLIDA B2</span><div class="dots"><div class="dot f"></div><div class="dot f"></div><div class="dot f"></div><div class="dot"></div><div class="dot"></div></div></div>
+
+      <div class="tcol-title" style="margin-top:2.5rem;">Elective Roles</div>
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <div style="padding:1rem;background:var(--bg);border-left:3px solid var(--accent);">
+          <div style="font-family:'Sometype Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;color:var(--accent);margin-bottom:0.3rem;">2025 → 2028</div>
+          <div style="font-weight:500;font-size:0.88rem;margin-bottom:0.3rem;">Elected PhD Student Representative</div>
+          <div style="font-size:0.78rem;color:var(--muted);">Dept. of Design, Politecnico di Milano. Organising meetups, participating in PhD Coordination Board and Department Board meetings, bridging PhD students and coordination. Conducted focus groups on Training PhD path evaluation (Oct 2025 &amp; Jan 2026).</div>
+        </div>
+        <div style="padding:1rem;background:var(--bg);border-left:3px solid var(--accent2);">
+          <div style="font-family:'Sometype Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;color:var(--accent2);margin-bottom:0.3rem;">2025 → Present</div>
+          <div style="font-weight:500;font-size:0.88rem;margin-bottom:0.3rem;">LOOP Meetups — Co-organiser</div>
+          <div style="font-size:0.78rem;color:var(--muted);">Monthly networking events for Design Dept. PhD students. Includes Midterm Mentoring sessions, potlucks, and guest talks.</div>
+        </div>
+        <div style="padding:1rem;background:var(--bg);border-left:3px solid var(--accent3);">
+          <div style="font-family:'Sometype Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;color:var(--accent3);margin-bottom:0.3rem;">2025 → Present</div>
+          <div style="font-weight:500;font-size:0.88rem;margin-bottom:0.3rem;">Visiting PhD Evenings — Organiser</div>
+          <div style="font-size:0.78rem;color:var(--muted);">Peer-to-peer event series connecting visiting students with Politecnico di Milano PhD students in the Design Dept. Visiting PhD students present their research and work conducted during their stay, while newly arrived visiting students introduce themselves.</div>
+        </div>
+        <div style="padding:1rem;background:var(--bg);border-left:3px solid var(--rule);">
+          <div style="font-family:'Sometype Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;color:var(--muted);margin-bottom:0.3rem;">2026 → Present</div>
+          <div style="font-weight:500;font-size:0.88rem;margin-bottom:0.3rem;">Volunteer — PhD Shadowing Program</div>
+          <div style="font-size:0.78rem;color:var(--muted);">Career Service, Politecnico di Milano. Helping Master's students explore doctoral studies firsthand by shadowing a PhD student for a day.</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="tcol-title">Software Proficiency</div>
+      <div class="sbars">
+        <div class="srow"><span class="slbl">SolidWorks / Inventor / Creo</span><div class="sbar"><div class="sfill" data-w="0.92"></div></div></div>
+        <div class="srow"><span class="slbl">Microsoft Office Suite</span><div class="sbar"><div class="sfill" data-w="0.90"></div></div></div>
+        <div class="srow"><span class="slbl">Notion / Slack / Teams</span><div class="sbar"><div class="sfill" data-w="0.85"></div></div></div>
+        <div class="srow"><span class="slbl">Adobe Illustrator / InDesign</span><div class="sbar"><div class="sfill" data-w="0.76"></div></div></div>
+        <div class="srow"><span class="slbl">KeyShot (Rendering)</span><div class="sbar"><div class="sfill" data-w="0.72"></div></div></div>
+        <div class="srow"><span class="slbl">SimaPro (LCA)</span><div class="sbar"><div class="sfill" data-w="0.70"></div></div></div>
+        <div class="srow"><span class="slbl">MaxQDA (Qualitative Research)</span><div class="sbar"><div class="sfill" data-w="0.68"></div></div></div>
+      </div>
+      <div style="margin-top:2.5rem;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);">
+        <div style="background:var(--bg);padding:1.25rem;">
+          <div style="font-family:'Sometype Mono',monospace;font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem;">Organisational</div>
+          <div style="font-size:0.82rem;line-height:1.6;color:var(--muted);">Managing multiple responsibilities simultaneously — structuring lessons, coordinating workshops, handling research deadlines. Methodical planning and adaptability to group dynamics.</div>
+        </div>
+        <div style="background:var(--bg);padding:1.25rem;">
+          <div style="font-family:'Sometype Mono',monospace;font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem;">Communication</div>
+          <div style="font-size:0.82rem;line-height:1.6;color:var(--muted);">Academic writing in English and Italian. Publication of articles, book chapters, and conference papers. Confident presenting research and facilitating participatory activities.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="fn">Martina <em>Labarta</em> Labrador</div>
+    <div style="font-family:'Sometype Mono',monospace;font-size:0.65rem;color:rgba(240,240,250,0.4);margin-top:0.5rem;letter-spacing:0.08em;">Design Research · Politecnico di Milano</div>
+  </div>
+  <a href="mailto:martinamaria.labarta@polimi.it" style="display:inline-flex;align-items:center;gap:0.6rem;font-family:'Sometype Mono',monospace;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--bg);text-decoration:none;border:1px solid rgba(240,240,250,0.3);padding:0.75rem 1.5rem;border-radius:2px;transition:background 0.2s,border-color 0.2s;" onmouseover="this.style.background='rgba(240,240,250,0.08)';this.style.borderColor='rgba(240,240,250,0.6)'" onmouseout="this.style.background='';this.style.borderColor='rgba(240,240,250,0.3)'">
+    <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="11" height="8" rx="1"/><polyline points="1,3 6.5,8 12,3"/></svg>
+    Let's collaborate
+  </a>
+  <div style="font-size:0.75rem;color:rgba(240,240,250,0.35);letter-spacing:0.05em;">Milano, March 2026</div>
+</footer>
+
+<script>
+// ── CURSOR
+const cur=document.getElementById('cur'), curR=document.getElementById('curR');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+(function a(){cur.style.left=mx+'px';cur.style.top=my+'px';rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(a);})();
+
+// ── SCROLL REVEAL
+new IntersectionObserver((ents)=>{ents.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*80);}}); },{threshold:0.06}).observe=function(el){this._obs||(this._obs=new IntersectionObserver((ents)=>{ents.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*60);new IntersectionObserver(()=>{}).observe(e.target);}});},{threshold:0.06}));this._obs.observe(el);};
+const io=new IntersectionObserver((ents)=>{ents.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');}});},{threshold:0.06});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// ── SKILL BARS
+const bO=new IntersectionObserver(ents=>{ents.forEach(e=>{if(e.isIntersecting){const w=parseFloat(e.target.dataset.w||0.8);e.target.style.width=(w*100)+'%';e.target.classList.add('on');bO.unobserve(e.target);}});},{threshold:0.4});
+document.querySelectorAll('.sfill').forEach(b=>bO.observe(b));
+
+// ── HERO ENTRANCE
+document.querySelectorAll('h1,.hero-tag,.hero-sub,.hero-contact').forEach((el,i)=>{
+  el.style.opacity='0';el.style.transform='translateY(20px)';
+  el.style.transition=`opacity 0.8s ease ${i*0.12+0.1}s,transform 0.8s cubic-bezier(.16,1,.3,1) ${i*0.12+0.1}s`;
+  setTimeout(()=>{el.style.opacity='';el.style.transform='';},50);
+});
+
+// ── ACCORDION CORE
+// Close all siblings in the same group, then open the clicked one (or close if already open)
+function accordion(el, groupSelector) {
+  const wasOpen = el.classList.contains('open');
+  document.querySelectorAll(groupSelector + '.open').forEach(other => {
+    if (other !== el) closeItem(other);
+  });
+  wasOpen ? closeItem(el) : openItem(el);
+}
+
+function openItem(el) {
+  el.classList.add('open');
+  // texpand (teaching items)
+  const texp = el.querySelector('.texpand');
+  if (texp) texp.classList.add('open');
+  // wk-expand (workshops — uses explicit maxHeight)
+  const wkexp = el.querySelector('.wk-expand');
+  if (wkexp) wkexp.style.maxHeight = wkexp.scrollHeight + 'px';
+}
+
+function closeItem(el) {
+  el.classList.remove('open');
+  const texp = el.querySelector('.texpand');
+  if (texp) texp.classList.remove('open');
+  const wkexp = el.querySelector('.wk-expand');
+  if (wkexp) wkexp.style.maxHeight = '0';
+}
+
+// Each section uses its own group selector so accordions are independent per section
+function tog(el)    { accordion(el, '.edu-card'); }
+function togPub(el) { accordion(el, '.pub-item'); }
+function togT(el)   { accordion(el, '.titem'); }
+function togTh(el)  { accordion(el, '.thcard'); }
+function togWk(el)  { accordion(el, '.wkitem'); }
+function togExp(el) { accordion(el, '.exprow'); }
+
+// ── PUBLICATION FILTERS
+function applyFilters() {
+  const tBtn = document.querySelector('#tF .fbtn.act');
+  const yBtn = document.querySelector('#yF .fbtn.act');
+  const t = tBtn ? tBtn.dataset.t : 'all';
+  const y = yBtn ? yBtn.dataset.y : 'all';
+  document.querySelectorAll('.pub-item').forEach(item => {
+    const tm = t === 'all' || item.dataset.t === t;
+    const ym = y === 'all' || item.dataset.y === y;
+    item.style.display = (tm && ym) ? '' : 'none';
+  });
+}
+
+document.querySelectorAll('#tF .fbtn').forEach(btn => {
+  btn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    document.querySelectorAll('#tF .fbtn').forEach(b => b.classList.remove('act'));
+    this.classList.add('act');
+    applyFilters();
+  });
+});
+document.querySelectorAll('#yF .fbtn').forEach(btn => {
+  btn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    document.querySelectorAll('#yF .fbtn').forEach(b => b.classList.remove('act'));
+    this.classList.add('act');
+    applyFilters();
+  });
+});
+</script>
+</body>
+</html>

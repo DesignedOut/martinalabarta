@@ -203,7 +203,12 @@
       body { background: #fff; font-size: 9pt; margin: 0; padding: 0; }
       .print-bar { display: none; }
       .page-wrap { margin: 0; padding: 0; box-shadow: none; max-width: 100%; width: 100%; }
-      @page { size: A4 portrait; margin: 18mm 18mm 18mm 18mm; }
+      .sec-title { page-break-after: avoid; break-after: avoid; }
+      @page {
+        size: A4 portrait;
+        margin: 18mm 18mm 18mm 18mm;
+        marks: none;
+      }
     }
   </style>
 </head>
@@ -302,6 +307,7 @@
 
   <!-- PUBLICATIONS -->
   <div class="sec">
+    <div class="avoid-break">
     <div class="sec-title"><span class="sec-num">03</span> Publications</div>
 
     <div class="pub-entry avoid-break">
@@ -310,6 +316,7 @@
       <div class="pub-authors-print"><span class="me">Labarta Labrador M.</span> &amp; Calvo Ivanovic I.</div>
       <div class="pub-ref">In: Proceedings of the 28th E&amp;PDE 2026. University of Bristol, DESIG and IED. Bristol, UK, 2–4 Sep 2026.</div>
     </div>
+    </div><!-- /avoid-break wrapper -->
 
     <div class="pub-entry avoid-break">
       <div class="pub-header-row"><span class="pub-yr-badge">2026</span><span class="pub-title-print">Designing Collaboration, Not Only Projects. Embedding project management to foster collaborative teamwork in culturally plural project-based learning</span></div>
@@ -376,8 +383,6 @@
     </div>
   </div>
 
-  <!-- PAGE 2 -->
-  <div class="pb"></div>
 
   <!-- TEACHING -->
   <div class="sec">
@@ -621,7 +626,7 @@
         </div>
       </div>
     </div>
-    <div>
+    <div style="display:flex;flex-direction:column;">
       <div class="sec">
         <div class="sec-title"><span class="sec-num">09</span> Software</div>
         <div class="skill-row"><span class="skill-lbl">SolidWorks / Inventor / Creo</span><div class="skill-track"><div class="skill-fill" style="width:92%"></div></div></div>
@@ -633,11 +638,12 @@
         <div class="skill-row"><span class="skill-lbl">KeyShot (Rendering)</span><div class="skill-track"><div class="skill-fill" style="width:65%"></div></div></div>
         <div class="skill-row"><span class="skill-lbl">Mac Office Suite</span><div class="skill-track"><div class="skill-fill" style="width:82%"></div></div></div>
       </div>
+      <div style="margin-top:auto;display:flex;flex-direction:column;align-items:flex-end;gap:0.35rem;">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://designedout.github.io/martinalabarta/&color=1a1820&bgcolor=ffffff&margin=2" width="120" height="120" alt="QR to website" style="display:block;"/>
+        <div style="font-size:6.5pt;color:var(--light);letter-spacing:0.06em;text-align:right;line-height:1.5;">Full CV · designedout.github.io/martinalabarta</div>
+        <span style="font-size:7pt;color:var(--light);text-align:right;border-top:0.5pt solid var(--rule);padding-top:0.35rem;margin-top:0.25rem;"><span id="print-date"></span> — I authorise the processing of my personal data in compliance with Legislative Decree n. 196, 30 June 2003.</span>
+      </div>
     </div>
-  </div>
-
-  <div style="margin-top:1.5rem;padding-top:0.5rem;border-top:0.5pt solid var(--rule);">
-    <span style="font-size:7pt;color:var(--light);"><span id="print-date"></span> — I authorise the processing of my personal data in compliance with Legislative Decree n. 196, 30 June 2003.</span>
   </div>
 
 </div>

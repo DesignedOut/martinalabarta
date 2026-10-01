@@ -170,9 +170,8 @@
     .th-chev { position:absolute;top:1.25rem;right:1.25rem; }
     .th-yr { font-family:'Sometype Mono',monospace;font-size:0.65rem;color:var(--muted);margin-bottom:0.5rem; }
     .th-title { font-size:0.82rem;font-weight:500;line-height:1.4;margin-bottom:0.5rem;padding-right:1.5rem; }
-    .th-student { font-size:0.75rem;color:var(--muted);font-style:italic; }
-    .th-expand { overflow:hidden;max-height:0;transition:max-height 0.35s cubic-bezier(.16,1,.3,1);font-size:0.78rem;color:var(--muted);line-height:1.7; }
-    .thcard.open .th-expand { max-height:200px;padding-top:0.75rem;margin-top:0.75rem;border-top:1px solid var(--rule); }
+    .th-expand { overflow:hidden;max-height:0;transition:max-height 0.35s cubic-bezier(.16,1,.3,1);font-size:0.78rem;color:var(--muted);line-height:1.6; }
+    .thcard.open .th-expand { max-height:280px;padding-top:0.75rem;margin-top:0.25rem;border-top:1px solid var(--rule); }
 
     /* WORKSHOPS */
     .wktl { position:relative;padding-left:2rem; }
@@ -877,55 +876,56 @@
   <!-- THESIS SUPERVISION -->
   <div style="margin-top:4rem;">
     <div class="tcol-title" style="margin-bottom:0.5rem;">Co-supervised Master's Theses</div>
-    <p class="chint" style="margin-top:0.75rem;">Click a card for supervisor &amp; program details</p>
     <div class="thgrid reveal">
 
-      <div class="thcard item-row" onclick="togTh(this)">
-        <span class="chev th-chev"><svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg></span>
+      <div class="thcard">
         <div class="th-yr">July 2026</div>
         <div class="th-title">Designing Beyond the Norm</div>
-        <div class="th-student">Ioana Soldanescu</div>
-        <div class="th-expand"><strong>Program:</strong> MSc in Design &amp; Engineering, Politecnico di Milano<br><strong>Supervisor:</strong> Prof. Silvia D. Ferraris<br><strong>Graduated:</strong> July 2026</div>
       </div>
 
       <div class="thcard item-row" onclick="togTh(this)">
         <span class="chev th-chev"><svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg></span>
         <div class="th-yr">March 2026</div>
         <div class="th-title">Designing Questions for Decolonizing Design Education: A generative tool for conscious choice-making</div>
-        <div class="th-student">Sabia Romagnoli</div>
-        <div class="th-expand"><strong>Program:</strong> MSc in Design &amp; Engineering, Politecnico di Milano<br><strong>Supervisor:</strong> Francesca Mattioli, PhD<br><strong>Graduated:</strong> March 2026</div>
+        <div class="th-expand">Surveys how decolonial perspectives appear in design-education research, then builds an interactive questioning tool that helps students surface unconscious biases and reflect critically on the choices they make while designing.<br><a href="https://hdl.handle.net/10589/251980" target="_blank" class="extlink" onclick="event.stopPropagation()" style="margin-top:0.6rem;">
+            <svg viewBox="0 0 12 12"><path d="M5 2H2a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V7M7 1h4m0 0v4m0-4L5 7"/></svg>
+            View thesis
+          </a></div>
       </div>
 
       <div class="thcard item-row" onclick="togTh(this)">
         <span class="chev th-chev"><svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg></span>
         <div class="th-yr">December 2025</div>
         <div class="th-title">The Relationship between Meditation and Creativity: Integrating Mindful Practices into Industrial Design Education</div>
-        <div class="th-student">Juan Ortega Corredor</div>
-        <div class="th-expand"><strong>Program:</strong> MSc in Design &amp; Engineering, Politecnico di Milano<br><strong>Supervisor:</strong> Francesca Mattioli, PhD<br><strong>Graduated:</strong> December 2025</div>
+        <div class="th-expand">Investigates how meditation practices can support creative thinking in design education, and proposes a dedicated meditation space with mindful routines to improve focus and wellbeing among design students.<br><a href="https://hdl.handle.net/10589/246977" target="_blank" class="extlink" onclick="event.stopPropagation()" style="margin-top:0.6rem;">
+            <svg viewBox="0 0 12 12"><path d="M5 2H2a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V7M7 1h4m0 0v4m0-4L5 7"/></svg>
+            View thesis
+          </a></div>
       </div>
 
       <div class="thcard item-row" onclick="togTh(this)">
         <span class="chev th-chev"><svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg></span>
         <div class="th-yr">December 2025</div>
         <div class="th-title">Design for Dementia, for Designers: Research and Development of a Tool-Supported, Capacity-Building Activity</div>
-        <div class="th-student">Magdalena Marianna Dembska</div>
-        <div class="th-expand"><strong>Program:</strong> MSc in Design &amp; Engineering, Politecnico di Milano<br><strong>Supervisor:</strong> Francesca Mattioli, PhD<br><strong>Graduated:</strong> December 2025</div>
+        <div class="th-expand">Reviews co-design methods involving people living with dementia and develops a card-based activity that helps designers build empathy and the skills needed for inclusive, dementia-aware design practice.<br><a href="https://hdl.handle.net/10589/247249" target="_blank" class="extlink" onclick="event.stopPropagation()" style="margin-top:0.6rem;">
+            <svg viewBox="0 0 12 12"><path d="M5 2H2a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V7M7 1h4m0 0v4m0-4L5 7"/></svg>
+            View thesis
+          </a></div>
       </div>
 
       <div class="thcard item-row" onclick="togTh(this)">
         <span class="chev th-chev"><svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg></span>
         <div class="th-yr">December 2025</div>
         <div class="th-title">Industrial Design from/for the Periphery: Reconceptualizing Informal, Marginal, and Vernacular Manufacturing</div>
-        <div class="th-student">Perla Shaar</div>
-        <div class="th-expand"><strong>Program:</strong> MSc in Design &amp; Engineering, Politecnico di Milano<br><strong>Supervisor:</strong> Francesca Mattioli, PhD<br><strong>Graduated:</strong> December 2025</div>
+        <div class="th-expand">Documents vernacular manufacturing traditions, with a focus on Lebanese crafts such as weaving, pottery and metalwork, to argue for a broader, less Eurocentric understanding of what counts as industrial design.<br><a href="https://hdl.handle.net/10589/246713" target="_blank" class="extlink" onclick="event.stopPropagation()" style="margin-top:0.6rem;">
+            <svg viewBox="0 0 12 12"><path d="M5 2H2a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V7M7 1h4m0 0v4m0-4L5 7"/></svg>
+            View thesis
+          </a></div>
       </div>
 
-      <div class="thcard item-row" onclick="togTh(this)">
-        <span class="chev th-chev"><svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg></span>
+      <div class="thcard">
         <div class="th-yr">December 2025</div>
         <div class="th-title">Applied Empowerment Guidelines for Inclusive Design</div>
-        <div class="th-student">Nikita Kirilovs</div>
-        <div class="th-expand"><strong>Program:</strong> MSc in Design &amp; Engineering, Politecnico di Milano<br><strong>Supervisor:</strong> Francesca Mattioli, PhD<br><strong>Graduated:</strong> December 2025</div>
       </div>
 
     </div>

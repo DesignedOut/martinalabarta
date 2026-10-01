@@ -202,10 +202,13 @@
     .avoid-break { page-break-inside: avoid; }
 
     @media print {
+      * { -webkit-print-color-adjust: exact; print-color-adjust: exact; color-adjust: exact; }
+      :root { --light: #6b6880; }
       body { background: #fff; font-size: 9pt; margin: 0; padding: 0; }
       .print-bar { display: none; }
       .page-wrap { margin: 0; padding: 0; box-shadow: none; max-width: 100%; width: 100%; }
       .sec-title { page-break-after: avoid; break-after: avoid; }
+      .sec-title, .sec-title + * { page-break-inside: avoid; break-inside: avoid; }
       @page {
         size: A4 portrait;
         margin: 18mm 18mm 18mm 18mm;
@@ -379,6 +382,7 @@
 
   <!-- TEACHING -->
   <div class="sec">
+    <div class="avoid-break">
     <div class="sec-title"><span class="sec-num">04</span> Teaching Experience</div>
 
     <div style="font-size:7pt;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);margin-bottom:0.5rem;">Lecturer &amp; Teaching Assistant</div>
@@ -391,6 +395,7 @@
         <div class="e-body">Providing knowledge and tools to understand and address product language; ex-cathedra and hands-on group activities. Academic year 2025–26.</div>
       </div>
     </div>
+    </div><!-- /avoid-break wrapper -->
     <div class="entry avoid-break">
       <div class="e-date">2024 → Present</div>
       <div>
@@ -424,6 +429,7 @@
       </div>
     </div>
 
+    <div class="avoid-break">
     <div style="font-size:7pt;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);margin:0.75rem 0 0.5rem;">Guest Lectures &amp; Reviews — Virginia Tech, Spring 2026</div>
 
     <div class="entry avoid-break">
@@ -434,6 +440,7 @@
         <div class="e-body e-italic">"Becoming a Sensitive Designer: Destabilising Normative Archetypes in Product Language"</div>
       </div>
     </div>
+    </div><!-- /avoid-break wrapper -->
     <div class="entry avoid-break">
       <div class="e-date">Spring 2026</div>
       <div>
@@ -451,6 +458,7 @@
       </div>
     </div>
 
+    <div class="avoid-break">
     <div style="font-size:7pt;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);margin:0.75rem 0 0.5rem;">Workshops Designed &amp; Led</div>
 
     <div class="entry avoid-break">
@@ -461,6 +469,7 @@
         <div class="e-body">Invited participants to reflect on how product design is shaped by designer and user biases. Developed proposals rethinking product visual language in a more conscious, sensitive and responsible way.</div>
       </div>
     </div>
+    </div><!-- /avoid-break wrapper -->
     <div class="entry avoid-break">
       <div class="e-date">3–7 Mar 2025</div>
       <div>
@@ -470,6 +479,7 @@
       </div>
     </div>
 
+    <div class="avoid-break">
     <div style="font-size:7pt;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);margin:0.75rem 0 0.5rem;">Workshops Tutored</div>
 
     <div class="entry avoid-break">
@@ -480,6 +490,7 @@
         <div class="e-body">Developing innovative concept solutions for Brembo braking systems. In collaboration with the Specialising Master in Digital Design Strategy.</div>
       </div>
     </div>
+    </div><!-- /avoid-break wrapper -->
     <div class="entry avoid-break">
       <div class="e-date">3–7 Jun 2024</div>
       <div>

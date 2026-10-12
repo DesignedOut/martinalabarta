@@ -18,6 +18,9 @@
       --rule: #d0cedc;
       --accent: #4A1FA6;
       --olive: #E8622A;
+      --accent-dark: #3a1880;
+      --fp-head: 'EB Garamond', serif;
+      --fp-body: 'Jost', sans-serif;
       --page-w: 210mm;
       --page-pad: 18mm;
     }
@@ -26,7 +29,7 @@
 
     body {
       background: #f4f4f8;
-      font-family: 'Jost', sans-serif;
+      font-family: var(--fp-body);
       font-weight: 300;
       color: var(--ink);
       font-size: 9.5pt;
@@ -37,7 +40,7 @@
       max-width: var(--page-w);
       margin: 2rem auto;
       background: #fff;
-      box-shadow: 0 4px 32px rgba(74,31,166,0.10);
+      box-shadow: 0 4px 32px color-mix(in srgb,var(--accent) 10%,transparent);
       padding: var(--page-pad);
     }
 
@@ -50,7 +53,7 @@
       gap: 1rem;
     }
     .back-link {
-      font-family: 'Jost', sans-serif;
+      font-family: var(--fp-body);
       font-size: 0.75rem;
       font-weight: 400;
       letter-spacing: 0.08em;
@@ -64,7 +67,7 @@
     }
     .back-link:hover { color: var(--accent); }
     .print-btn {
-      font-family: 'Jost', sans-serif;
+      font-family: var(--fp-body);
       font-size: 0.72rem;
       font-weight: 400;
       letter-spacing: 0.1em;
@@ -80,7 +83,7 @@
       border-radius: 2px;
       transition: background 0.2s;
     }
-    .print-btn:hover { background: #3a1880; }
+    .print-btn:hover { background: var(--accent-dark); }
     .print-btn svg { width: 13px; height: 13px; stroke: #fff; stroke-width: 2; fill: none; }
 
     header {
@@ -93,7 +96,7 @@
       align-items: end;
     }
     .hd-name {
-      font-family: 'EB Garamond', serif;
+      font-family: var(--fp-head);
       font-size: 18pt;
       font-weight: 500;
       letter-spacing: -0.02em;
@@ -165,7 +168,7 @@
     .pub-entry:last-child { border-bottom: none; }
     .pub-header-row { display: grid; grid-template-columns: 22mm 1fr; gap: 0; margin-bottom: 0.15rem; }
     .pub-yr-badge { font-size: 7pt; font-weight: 500; color: var(--light); white-space: nowrap; padding-top: 0.15rem; }
-    .pub-title-print { font-family: 'EB Garamond', serif; font-size: 9.5pt; font-style: italic; line-height: 1.35; color: var(--ink); }
+    .pub-title-print { font-family: var(--fp-head); font-size: 9.5pt; font-style: italic; line-height: 1.35; color: var(--ink); }
     .pub-authors-print { font-size: 8pt; color: var(--mid); margin-top: 0.1rem; margin-left: 22mm; }
     .pub-authors-print .me { color: var(--ink); font-weight: 500; }
     .pub-ref { font-size: 7.5pt; color: var(--light); margin-top: 0.15rem; margin-left: 22mm; line-height: 1.4; }

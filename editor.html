@@ -36,6 +36,32 @@ button{font:inherit}
 .btn.danger{background:var(--danger);border-color:var(--danger);color:#fff}
 .btn.link{border-color:transparent;background:none;padding-left:.3rem;padding-right:.3rem;color:var(--accent)}
 .btn.link:hover{text-decoration:underline}
+/* DESIGN (colours + fonts) */
+.cw{display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:1.2rem;align-items:start}
+.slots{display:flex;flex-direction:column;gap:.4rem}
+.slot{display:flex;align-items:center;gap:.6rem;border:1.5px solid var(--rule);background:#fff;border-radius:4px;padding:.35rem .5rem;cursor:pointer}
+.slot.on{border-color:var(--accent);box-shadow:0 0 0 3px rgba(74,31,166,.12)}
+.slot .sw{width:30px;height:30px;border-radius:3px;border:1px solid rgba(0,0,0,.12);flex-shrink:0}
+.slot b{display:block;font-size:.8rem;font-weight:600}
+.slot input{border:0;padding:0;font-family:'Sometype Mono',monospace;font-size:.72rem;color:var(--muted);background:transparent;width:100%}
+.slot input:focus{outline:none;color:var(--ink)}
+.wheel{position:relative;width:210px}
+.wheel canvas{display:block;width:210px;height:210px;border-radius:50%;cursor:crosshair;touch-action:none}
+.wheel .mk{position:absolute;width:16px;height:16px;border-radius:50%;border:2.5px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.45),0 1px 4px rgba(0,0,0,.3);transform:translate(-50%,-50%);pointer-events:none}
+.wheel input[type=range]{width:100%;margin-top:.7rem;-webkit-appearance:none;appearance:none;height:12px;border-radius:99px;border:1px solid var(--rule)}
+.wheel input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:#fff;border:2px solid var(--ink);cursor:pointer}
+.wheel input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:#fff;border:2px solid var(--ink);cursor:pointer}
+.wheel .wl{display:flex;justify-content:space-between;font-size:.68rem;color:var(--muted);margin-top:.2rem}
+.sugg{display:flex;flex-wrap:wrap;gap:.35rem;align-items:center;margin-top:.8rem;font-size:.75rem;color:var(--muted)}
+.sugg button{width:24px;height:24px;border-radius:3px;border:1px solid rgba(0,0,0,.12);cursor:pointer}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.5rem}
+.fcard{border:1.5px solid var(--rule);background:#fff;border-radius:4px;padding:.45rem;text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:.3rem;font-size:.72rem;color:var(--muted)}
+.fcard.on{border-color:var(--accent);box-shadow:0 0 0 3px rgba(74,31,166,.12)}
+.fcard .fs{border-radius:3px;padding:.5rem;min-height:62px}
+.fcard .fs .a{font-size:1.6rem;line-height:1}
+.fcard .fs .b{font-size:.72rem;margin-top:.3rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fcard .mood{font-weight:600;color:var(--ink);font-size:.78rem}
+@media (max-width:1400px){.cw{grid-template-columns:1fr}.wheel{margin:0 auto}}
 /* LAYOUT */
 .app{flex:1;display:grid;grid-template-columns:235px minmax(0,1fr) 44vw;min-height:0}
 .app.nopreview{grid-template-columns:235px minmax(0,1fr)}
@@ -219,6 +245,8 @@ textarea.tall{min-height:130px}
   /* ════════════ SCHEMA: one entry per CV section ════════════ */
   var PUBTYPES = [['conf', 'Conference paper'], ['journal', 'Journal article'], ['book', 'Book chapter'], ['thesis', 'Thesis']];
   var SECTIONS = [
+    { key: 'design', label: 'Colores y tipografía', group: 'General', kind: 'design', web: 'hero', print: 'cv-p-bio',
+      desc: 'La paleta y las fuentes de la web y del print. Por defecto, los tuyos de siempre: “Restaurar” vuelve a ellos en cualquier momento.' },
     { key: 'profile', label: 'Perfil, bio y banner', group: 'General', kind: 'single', web: 'hero', print: 'cv-p-bio',
       desc: 'Cabecera de la web y del print, tu bio y el banner “Currently”.',
       cards: [
@@ -516,11 +544,89 @@ textarea.tall{min-height:130px}
   }
 
   /* ════════════ SIDEBAR & MAIN ════════════ */
+
+  /* ════════════ DESIGN: colour wheel + font moods ════════════ */
+  var SLOTS = [['bg', 'Fondo'], ['ink', 'Texto'], ['accent', 'Acento'], ['accent2', 'Acento 2'], ['accent3', 'Acento 3 (suave)']];
+  var slot = 'accent', wheelV = 1;
+  function curPal() { var p = (data.theme && data.theme.palette) || {}, o = {}; Object.keys(R.THEME_DEFAULT).forEach(function (k) { o[k] = /^#[0-9a-f]{6}$/i.test(p[k] || '') ? p[k] : R.THEME_DEFAULT[k]; }); return o; }
+  function themePal() { data.theme = data.theme || {}; if (!data.theme.palette) data.theme.palette = clone(R.THEME_DEFAULT); return data.theme.palette; }
+  function tidyTheme() { if (data.theme && !data.theme.palette && !data.theme.fonts) delete data.theme; }
+  function hsv2hex(h, sat, v) {
+    var f = function (n) { var k = (n + h / 60) % 6; return v - v * sat * Math.max(0, Math.min(k, 4 - k, 1)); };
+    return '#' + [f(5), f(3), f(1)].map(function (x) { var c = Math.round(x * 255).toString(16); return c.length < 2 ? '0' + c : c; }).join('');
+  }
+  function hex2hsv(hx) {
+    var r = parseInt(hx.slice(1, 3), 16) / 255, g = parseInt(hx.slice(3, 5), 16) / 255, b = parseInt(hx.slice(5, 7), 16) / 255;
+    var mx = Math.max(r, g, b), mn = Math.min(r, g, b), d = mx - mn, h = 0;
+    if (d) h = mx === r ? ((g - b) / d) % 6 : mx === g ? (b - r) / d + 2 : (r - g) / d + 4;
+    return { h: (h * 60 + 360) % 360, s: mx ? d / mx : 0, v: mx };
+  }
+  function suggestions(t) {
+    var a = hex2hsv(t.accent), out = [], lab = '';
+    var rot = function (deg, s, v) { return hsv2hex((a.h + deg + 360) % 360, s == null ? a.s : s, v == null ? a.v : v); };
+    if (slot === 'bg') { lab = 'Fondos:'; out = ['#FFFFFF', '#F7F7F4', '#FBF8F3', R.mix(t.accent, '#FFFFFF', 0.06), R.mix(t.accent, '#FFFFFF', 0.1), '#15171C', R.mix(t.accent, '#111318', 0.18)]; }
+    if (slot === 'ink') { lab = 'Texto:'; out = ['#111111', '#1E1830', R.mix(t.accent, '#111111', 0.25), '#F2F1EC']; }
+    if (slot === 'accent') { lab = 'Otros tonos del acento:'; out = [rot(0, a.s, Math.max(0.25, a.v - 0.25)), rot(0, a.s, Math.max(0.3, a.v - 0.12)), rot(0, Math.max(0.25, a.s - 0.25)), rot(0, Math.min(1, a.s + 0.2), Math.min(1, a.v + 0.1))]; }
+    if (slot === 'accent2') { lab = 'Combinan con tu acento:'; out = [rot(180), rot(150), rot(210), rot(120), rot(240), rot(30), rot(-30)]; }
+    if (slot === 'accent3') { var b2 = hex2hsv(t.accent2); lab = 'Versión suave del acento 2:'; out = [hsv2hex(b2.h, b2.s * 0.5, Math.min(1, b2.v + 0.1)), hsv2hex(b2.h, b2.s * 0.35, 1), R.mix(t.accent2, '#ffffff', 0.55), R.mix(t.accent, '#ffffff', 0.45)]; }
+    return '<div class="sugg"><span>' + lab + '</span>' + out.map(function (c) { return '<button data-act="sugg" data-v="' + c + '" title="' + c + '" style="background:' + c + '"></button>'; }).join('') + '</div>';
+  }
+  function designHTML() {
+    var t = curPal(), fk = (data.theme && data.theme.fonts) || 'original', warn = '';
+    if (R.contrast(t.ink, t.bg) < 4.5) warn = '<p class="help" style="color:var(--danger);margin-top:.5rem">⚠ Texto y fondo se parecen demasiado: costará leer.</p>';
+    var colors = '<div class="card"><h3>Colores</h3><p class="help" style="margin-bottom:.8rem">Elige un color a la izquierda y búscalo en la rueda; la barra lo aclara u oscurece. También puedes escribir el código hex o usar una sugerencia. Líneas, fondos de tarjetas y tonos suaves se calculan solos. En el print solo cambian los acentos (el papel sigue blanco). La imagen del collage de la portada no cambia de color.</p>' +
+      '<div class="cw"><div><div class="slots">' + SLOTS.map(function (c) {
+        return '<div class="slot' + (slot === c[0] ? ' on' : '') + '" data-act="slot" data-v="' + c[0] + '"><span class="sw" style="background:' + t[c[0]] + '"></span><span style="flex:1;min-width:0"><b>' + c[1] + '</b><input type="text" data-pal="' + c[0] + '" value="' + t[c[0]] + '" maxlength="7" spellcheck="false"></span></div>';
+      }).join('') + '</div>' + suggestions(t) + warn +
+      '<div style="margin-top:.9rem"><button class="btn small" data-act="colors-reset">Restaurar colores originales</button></div></div>' +
+      '<div class="wheel"><canvas id="wheel" width="420" height="420" aria-label="Rueda de color"></canvas><span class="mk" id="wheel-mk"></span><input type="range" id="wheel-v" min="0" max="100" aria-label="Luminosidad"><div class="wl"><span>oscuro</span><span>claro</span></div></div></div></div>';
+    var fonts = '<div class="card"><h3>Tipografía</h3><p class="help" style="margin-bottom:.8rem">Cada pareja tiene un “mood”: la grande para nombre y títulos, la pequeña para el texto. Las etiquetas en mono y tu nombre en Raleway se mantienen.</p><div class="fgrid">' +
+      Object.keys(R.FONTS).map(function (k) {
+        var f = R.FONTS[k], head = f.head || "'Fraunces', serif", body = f.body || "'Nunito', sans-serif";
+        return '<button class="fcard' + (fk === k ? ' on' : '') + '" data-act="font" data-v="' + k + '"><div class="fs" style="background:' + t.bg + ';color:' + t.ink + '"><div class="a" style="font-family:' + esc(head) + '">Aa</div><div class="b" style="font-family:' + esc(body) + '">Research &amp; teaching</div></div><span class="mood">' + esc(f.label) + '</span>' + esc(f.sample) + '</button>';
+      }).join('') + '</div></div>';
+    return colors + fonts;
+  }
+  var fontsLoaded = false;
+  function initWheel() {
+    if (!fontsLoaded) { fontsLoaded = true; Object.keys(R.FONTS).forEach(function (k) { if (R.FONTS[k].url) { var l = document.createElement('link'); l.rel = 'stylesheet'; l.href = R.FONTS[k].url; document.head.appendChild(l); } }); }
+    var cv = document.getElementById('wheel'); if (!cv) return;
+    var hsv = hex2hsv(curPal()[slot]), rng = document.getElementById('wheel-v'), mk = document.getElementById('wheel-mk'), drag = false;
+    wheelV = hsv.v; rng.value = Math.round(hsv.v * 100);
+    var draw = function () {
+      var ctx = cv.getContext('2d'), W = cv.width, R0 = W / 2, img = ctx.createImageData(W, W), d = img.data;
+      for (var y = 0; y < W; y++) for (var x = 0; x < W; x++) {
+        var dx = x - R0, dy = y - R0, r = Math.sqrt(dx * dx + dy * dy) / R0, i = (y * W + x) * 4;
+        if (r > 1) { d[i + 3] = 0; continue; }
+        var c = hsv2hex((Math.atan2(dy, dx) * 180 / Math.PI + 360) % 360, r, wheelV);
+        d[i] = parseInt(c.slice(1, 3), 16); d[i + 1] = parseInt(c.slice(3, 5), 16); d[i + 2] = parseInt(c.slice(5, 7), 16); d[i + 3] = 255;
+      }
+      ctx.putImageData(img, 0, 0);
+      rng.style.background = 'linear-gradient(90deg,#000,' + hsv2hex(hsv.h, hsv.s, 1) + ')';
+    };
+    var place = function () { var a = hsv.h * Math.PI / 180, r = hsv.s * 105; mk.style.left = (105 + Math.cos(a) * r) + 'px'; mk.style.top = (105 + Math.sin(a) * r) + 'px'; mk.style.background = hsv2hex(hsv.h, hsv.s, wheelV); };
+    var apply = function () {
+      var hx = hsv2hex(hsv.h, hsv.s, wheelV); themePal()[slot] = hx;
+      var row = document.querySelector('.slot[data-v="' + slot + '"]'); if (row) { row.querySelector('.sw').style.background = hx; row.querySelector('input').value = hx; }
+      place(); changed();
+    };
+    var pick = function (ev) {
+      var b = cv.getBoundingClientRect(), dx = ev.clientX - b.left - b.width / 2, dy = ev.clientY - b.top - b.height / 2;
+      hsv.h = (Math.atan2(dy, dx) * 180 / Math.PI + 360) % 360; hsv.s = Math.min(1, Math.sqrt(dx * dx + dy * dy) / (b.width / 2)); apply();
+    };
+    cv.addEventListener('pointerdown', function (ev) { drag = true; cv.setPointerCapture(ev.pointerId); pick(ev); });
+    cv.addEventListener('pointermove', function (ev) { if (drag) pick(ev); });
+    cv.addEventListener('pointerup', function () { drag = false; rerenderKeepScroll(); });
+    rng.addEventListener('input', function () { wheelV = rng.value / 100; draw(); apply(); });
+    rng.addEventListener('change', function () { rerenderKeepScroll(); });
+    draw(); place();
+  }
+
   function renderSide() {
     var html = '', g = '';
     SECTIONS.forEach(function (s) {
       if (s.group !== g) { g = s.group; html += '<h4>' + g + '</h4>'; }
-      var n = s.kind === 'single' ? '' : (data[s.key] || []).length;
+      var n = s.kind ? '' : (data[s.key] || []).length;
       html += '<button data-sec="' + s.key + '" class="' + (s.key === current ? 'act' : '') + '"><span class="lbl">' + esc(s.label) + '</span>' +
         (s.only ? '<span class="only">solo ' + s.only + '</span>' : '') + '<span class="count">' + n + '</span></button>';
     });
@@ -533,7 +639,9 @@ textarea.tall{min-height:130px}
     var s = sec(), html = '';
     html += draftBannerHTML();
     html += '<div class="sec-head"><h2>' + esc(s.label) + '</h2></div><p class="sec-desc">' + esc(s.desc || '') + '</p>';
-    if (s.kind === 'single') {
+    if (s.kind === 'design') {
+      html += designHTML();
+    } else if (s.kind === 'single') {
       html += MDHELP;
       html += s.cards.map(function (c) {
         return '<div class="card"><h3>' + esc(c.title) + '</h3><div class="grid">' + c.fields.map(function (f) { return field(f, data); }).join('') + '</div></div>';
@@ -551,6 +659,7 @@ textarea.tall{min-height:130px}
     }
     var main = $('#main');
     main.innerHTML = html;
+    if (s.kind === 'design') initWheel();
     $$('textarea', main).forEach(autosize);
     if (focusFirst) { var inp = $('.entry.open input[type=text], .entry.open textarea', main); if (inp) inp.focus(); }
   }
@@ -588,12 +697,17 @@ textarea.tall{min-height:130px}
   }
 
   /* ════════════ EDITING ════════════ */
-  function target() { return sec().kind === 'single' ? data : items()[openIdx]; }
+  function target() { return sec().kind ? data : items()[openIdx]; }
 
   function autosize(el) { if (!el.offsetParent) return; el.style.height = 'auto'; el.style.height = (el.scrollHeight + 2) + 'px'; }
 
   function onInput(ev) {
     var el = ev.target, obj = target(); if (!obj) return;
+    if (el.dataset.pal) {
+      var hv = el.value.trim(); if (!/^#[0-9a-f]{6}$/i.test(hv)) return;
+      themePal()[el.dataset.pal] = hv; el.closest('.slot').querySelector('.sw').style.background = hv;
+      return changed();
+    }
     if (el.tagName === 'TEXTAREA') autosize(el);
     if (el.dataset.pp) {                       // print override
       var k = el.dataset.pp; obj.print = obj.print || {};
@@ -673,6 +787,10 @@ textarea.tall{min-height:130px}
       }
       case 'img-pick': $('input[data-act="img-file"]', b.closest('[data-p]')).click(); return;
       case 'img-clear': setP(target(), b.closest('[data-p]').dataset.p, ''); rerenderKeepScroll(); return changed();
+      case 'slot': if (ev.target.tagName === 'INPUT' && slot === b.dataset.v) return; slot = b.dataset.v; rerenderKeepScroll(); return;
+      case 'sugg': themePal()[slot] = b.dataset.v; rerenderKeepScroll(); return changed();
+      case 'font': data.theme = data.theme || {}; if (b.dataset.v === 'original') delete data.theme.fonts; else data.theme.fonts = b.dataset.v; tidyTheme(); rerenderKeepScroll(); return changed();
+      case 'colors-reset': if (data.theme) delete data.theme.palette; tidyTheme(); rerenderKeepScroll(); toast('Colores originales restaurados'); return changed();
       case 'draft-restore':
         data = draftData; delete data.__savedAt; delete data.__stale; draftData = null; renderSide(); renderMain(); toast('Borrador recuperado'); return changed(true);
       case 'draft-discard':
@@ -681,6 +799,7 @@ textarea.tall{min-height:130px}
   }
 
   function onChange(ev) {
+    if (ev.target.dataset && ev.target.dataset.pal) { rerenderKeepScroll(); return; }
     var el = ev.target;
     if (el.dataset.act === 'img-file' && el.files && el.files[0]) {
       var host = el.closest('[data-p]'), obj = target(), p = host.dataset.p;

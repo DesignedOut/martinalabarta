@@ -86,7 +86,7 @@
     conf:    { label: 'Conference',      filter: 'Conference Papers', cls: 'bc', printCls: '' },
     journal: { label: 'Journal Article', filter: 'Journal Articles',  cls: 'bp', printCls: ' olive' },
     book:    { label: 'Book Chapter',    filter: 'Book Chapters',     cls: 'bb', printCls: ' mid' },
-    thesis:  { label: 'Thesis',          filter: 'Thesis',            cls: '',   printCls: ' mid', style: 'background:rgba(74,31,166,0.08);color:var(--accent);' }
+    thesis:  { label: 'Thesis',          filter: 'Thesis',            cls: '',   printCls: ' mid', style: 'background:color-mix(in srgb,var(--accent) 8%,transparent);color:var(--accent);' }
   };
   var PUB_ORDER = ['conf', 'journal', 'book', 'thesis'];
 
@@ -163,8 +163,8 @@
         '<div class="ftags">' + list(r.tags).map(function (t) { return '<span class="ftag">' + esc(t) + '</span>'; }).join('') + '</div>' +
         (r.abstract ?
           '<div style="margin-top:2.5rem;max-width:780px;border-top:1px solid rgba(255,255,255,0.1);padding-top:2rem;">' +
-          '<div style="font-family:\'Sometype Mono\',monospace;font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(240,240,250,0.5);margin-bottom:1rem;">Abstract</div>' +
-          '<p style="font-size:0.92rem;color:rgba(240,240,250,0.82);line-height:1.8;">' + md(r.abstract) + '</p></div>' : ''));
+          '<div style="font-family:\'Sometype Mono\',monospace;font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:color-mix(in srgb,var(--bg) 50%,transparent);margin-bottom:1rem;">Abstract</div>' +
+          '<p style="font-size:0.92rem;color:color-mix(in srgb,var(--bg) 82%,transparent);line-height:1.8;">' + md(r.abstract) + '</p></div>' : ''));
     },
 
     projects: function (d) {
@@ -331,8 +331,74 @@
     }
   };
 
+
+  /* ════════════ THEME: colours + fonts (theme in cv-data.js, set in editor.html) ════════════
+     With no theme, or the original values, nothing is touched: the CSS defaults apply. */
+  var THEME_DEFAULT = { bg: '#F0F0FA', ink: '#1E1830', accent: '#4A1FA6', accent2: '#E8622A', accent3: '#F0A876' };
+  var FONTS = {
+    original: { label: 'Original', sample: 'Fraunces + Nunito · print: EB Garamond + Jost' },
+    literary: { label: 'Literary', sample: 'Libre Baskerville + Libre Franklin', head: "'Libre Baskerville', Georgia, serif", body: "'Libre Franklin', sans-serif",
+      url: 'https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Libre+Franklin:wght@300;400;500;600&display=swap' },
+    elegant: { label: 'Elegant', sample: 'Cormorant Garamond + Work Sans', head: "'Cormorant Garamond', Georgia, serif", body: "'Work Sans', sans-serif",
+      url: 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Work+Sans:wght@300;400;500;600&display=swap' },
+    editorial: { label: 'Editorial', sample: 'Instrument Serif + Instrument Sans', head: "'Instrument Serif', Georgia, serif", body: "'Instrument Sans', sans-serif",
+      url: 'https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500;600&display=swap' },
+    scholarly: { label: 'Scholarly', sample: 'DM Serif Display + Inter', head: "'DM Serif Display', Georgia, serif", body: "'Inter', sans-serif",
+      url: 'https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&display=swap' },
+    warm: { label: 'Warm', sample: 'Lora + Source Sans 3', head: "'Lora', Georgia, serif", body: "'Source Sans 3', sans-serif",
+      url: 'https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap' },
+    calm: { label: 'Calm', sample: 'Newsreader + Public Sans', head: "'Newsreader', Georgia, serif", body: "'Public Sans', sans-serif",
+      url: 'https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,700;1,6..72,400&family=Public+Sans:wght@300;400;500;600&display=swap' },
+    modern: { label: 'Modern', sample: 'Space Grotesk + Inter', head: "'Space Grotesk', sans-serif", body: "'Inter', sans-serif",
+      url: 'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap' },
+    minimal: { label: 'Minimal', sample: 'Inter Tight', head: "'Inter Tight', sans-serif", body: "'Inter Tight', sans-serif",
+      url: 'https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap' },
+    technical: { label: 'Technical', sample: 'IBM Plex Serif + IBM Plex Sans', head: "'IBM Plex Serif', Georgia, serif", body: "'IBM Plex Sans', sans-serif",
+      url: 'https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,700;1,400&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap' },
+    bold: { label: 'Bold', sample: 'Syne + Karla', head: "'Syne', sans-serif", body: "'Karla', sans-serif",
+      url: 'https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Karla:wght@300;400;500;600&display=swap' },
+    playful: { label: 'Playful', sample: 'Bricolage Grotesque + Figtree', head: "'Bricolage Grotesque', sans-serif", body: "'Figtree', sans-serif",
+      url: 'https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=Figtree:wght@300;400;500;600&display=swap' }
+  };
+  function hex6(c) { c = String(c || '').trim(); if (/^#[0-9a-f]{3}$/i.test(c)) c = '#' + c.slice(1).split('').map(function (x) { return x + x; }).join(''); return /^#[0-9a-f]{6}$/i.test(c) ? c : null; }
+  function rgbOf(c) { c = hex6(c) || '#000000'; return [1, 3, 5].map(function (i) { return parseInt(c.slice(i, i + 2), 16); }); }
+  function mix(a, b, t) { var x = rgbOf(a), y = rgbOf(b); return '#' + [0, 1, 2].map(function (i) { var v = Math.round(x[i] * t + y[i] * (1 - t)); return (v < 16 ? '0' : '') + v.toString(16); }).join(''); }
+  function lum(c) { return rgbOf(c).map(function (v) { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }).reduce(function (s, v, i) { return s + v * [0.2126, 0.7152, 0.0722][i]; }, 0); }
+  function contrast(a, b) { var x = lum(a), y = lum(b); return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05); }
+  function palette(d) {
+    var p = (d && d.theme && d.theme.palette) || {}, o = {};
+    Object.keys(THEME_DEFAULT).forEach(function (k) { o[k] = hex6(p[k]) || THEME_DEFAULT[k]; });
+    return o;
+  }
+  function isDefault(pl) { return Object.keys(THEME_DEFAULT).every(function (k) { return pl[k].toLowerCase() === THEME_DEFAULT[k].toLowerCase(); }); }
+  var THEME_VARS = ['--bg', '--ink', '--accent', '--accent2', '--accent3', '--muted', '--rule', '--card', '--on-accent', '--accent-dark', '--bp', '--bp-bg', '--about-text', '--paper', '--olive', '--f-head', '--f-body', '--fp-head', '--fp-body'];
+  function applyTheme(d, kind) {
+    var st = document.documentElement.style, pl = palette(d), th = (d && d.theme) || {}, v = {};
+    THEME_VARS.forEach(function (k) { st.removeProperty(k); });
+    if (!isDefault(pl)) {
+      var dark = lum(pl.bg) < 0.2;
+      if (kind === 'print') { v['--accent'] = pl.accent; v['--olive'] = pl.accent2; v['--accent-dark'] = mix(pl.accent, '#000000', 0.78); }
+      else {
+        v['--bg'] = pl.bg; v['--ink'] = pl.ink; v['--accent'] = pl.accent; v['--accent2'] = pl.accent2; v['--accent3'] = pl.accent3;
+        v['--muted'] = mix(pl.ink, pl.bg, 0.63); v['--rule'] = mix(pl.accent, pl.bg, 0.16); v['--card'] = mix(pl.accent, pl.bg, 0.07);
+        v['--on-accent'] = contrast(pl.accent, '#ffffff') >= 3 ? '#ffffff' : pl.ink;
+        v['--accent-dark'] = mix(pl.accent, '#000000', 0.78); v['--bp'] = mix(pl.accent, pl.bg, 0.75); v['--bp-bg'] = mix(pl.accent, pl.bg, 0.12);
+        v['--about-text'] = mix(pl.ink, pl.bg, 0.86); v['--paper'] = dark ? mix(pl.bg, '#ffffff', 0.9) : '#ffffff';
+      }
+    }
+    var f = FONTS[th.fonts];
+    if (f && f.url) {
+      if (kind === 'print') { v['--fp-head'] = f.head; v['--fp-body'] = f.body; } else { v['--f-head'] = f.head; v['--f-body'] = f.body; }
+      var link = document.getElementById('cv-theme-fonts');
+      if (!link) { link = document.createElement('link'); link.id = 'cv-theme-fonts'; link.rel = 'stylesheet'; document.head.appendChild(link); }
+      if (link.getAttribute('href') !== f.url) link.setAttribute('href', f.url);
+    }
+    Object.keys(v).forEach(function (k) { st.setProperty(k, v[k]); });
+  }
+
   function mountWeb(d) {
     if (!d) return;
+    applyTheme(d, 'web');
     Object.keys(WEB).forEach(function (k) {
       try { WEB[k](d); } catch (err) { console.error('CV render (web) failed in', k, err); }
     });
@@ -385,7 +451,7 @@
       var tags = list(r.tags).concat(list(r.printExtraTags));
       return '<div class="sec avoid-break">' + secTitle('02', 'PhD Research', true) +
         '<div style="padding:0.5rem 0.6rem;border-left:1.5pt solid var(--olive);margin-bottom:0.75rem;">' +
-          '<div style="font-family:\'EB Garamond\',serif;font-size:11pt;font-weight:500;line-height:1.3;margin-bottom:0.4rem;">"' + esc(r.title) + '"</div>' +
+          '<div style="font-family:var(--fp-head);font-size:11pt;font-weight:500;line-height:1.3;margin-bottom:0.4rem;">"' + esc(r.title) + '"</div>' +
           '<div style="font-size:8pt;color:var(--mid);">' + md(meta) + '</div>' +
         '</div>' +
         (r.abstract ? '<div style="font-size:7pt;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);margin-bottom:0.4rem;">Abstract</div>' +
@@ -470,6 +536,7 @@
 
   function mountPrint(d) {
     if (!d) return;
+    applyTheme(d, 'print');
     var p = d.profile || {};
     set('cv-p-role', esc(p.printRole));
     set('cv-p-contact', '<a href="mailto:' + esc(p.email) + '">' + esc(p.email) + '</a><br>' + esc(p.basedPrint));
@@ -524,6 +591,6 @@
   global.CVRender = {
     mountWeb: mountWeb, mountPrint: mountPrint, enablePreview: enablePreview,
     AUTO: AUTO, P: P, md: md, esc: esc, plain: plain, stripUrl: stripUrl, abbrMonth: abbrMonth,
-    PUB_TYPES: PUB_TYPES
+    PUB_TYPES: PUB_TYPES, FONTS: FONTS, THEME_DEFAULT: THEME_DEFAULT, mix: mix, contrast: contrast, lum: lum
   };
 })(window);

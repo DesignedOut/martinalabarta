@@ -494,6 +494,14 @@
     set('cv-p-software', list(d.software).filter(function (e) { return e.where !== 'web'; }).map(function (e) {
       return '<div class="skill-row"><span class="skill-lbl">' + esc(e.name) + '</span><div class="skill-track"><div class="skill-fill" style="width:' + (+e.level || 0) + '%"></div></div></div>';
     }).join(''));
+    // one-line index of sections, each a link (kept as PDF links when saved from Chrome)
+    var TOC = [['01', 'Education', 'p-education'], ['02', 'PhD Research', 'p-research'], ['02b', 'Projects', 'p-projects'],
+      ['03', 'Publications', 'p-publications'], ['04', 'Teaching', 'p-teaching'], ['04b', 'Theses', 'p-theses'],
+      ['05', 'Research Experience', 'p-researchExperience'], ['06', 'Industry Experience', 'p-industry'],
+      ['07', 'Languages', 'p-languages'], ['08', 'Software', 'p-software'], ['09', 'Elective Roles', 'p-roles']];
+    set('cv-p-toc', TOC.filter(function (t) { var el = $(t[2]); return el && el.textContent.trim(); }).map(function (t) {
+      return '<a href="#' + t[2] + '"><span>' + t[0] + '</span>' + t[1] + '</a>';
+    }).join(' <span class="dot">·</span> '));
   }
 
   // ── Live preview (used by editor.html, pages opened with ?preview) ──

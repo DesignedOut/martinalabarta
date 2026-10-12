@@ -345,19 +345,20 @@ textarea.tall{min-height:130px}
       ],
       printF: [{ k: 'sub', label: 'Línea bajo el título' }, { k: 'body', label: 'Descripción', help: 'Por defecto: el primer párrafo de la descripción.' }] },
 
-    { key: 'researchExperience', label: 'Exp. de investigación', group: 'Secciones', only: 'print', web: null, print: 'p-researchExperience', addTop: true,
-      desc: 'Sección 05 del print (no aparece en la web).',
-      sum: function (e) { return [e.dates, e.title]; },
-      blank: function () { return { dates: '', title: '', sub: '', body: '' }; },
+    { key: 'researchExperience', label: 'Exp. de investigación', group: 'Secciones', web: 'cv-research-exp-wrap', print: 'p-researchExperience', addTop: true,
+      desc: 'Subapartado “Research Experience” dentro de Experience en la web, y sección 05 del print. Cada entrada puede salir en ambos o solo en uno.',
+      sum: function (e) { return [plain(e.dates) + (e.where === 'web' ? ' · solo web' : e.where === 'print' ? ' · solo print' : ''), e.title]; },
+      blank: function () { return { dates: '', title: '', sub: '', body: '', where: 'both' }; },
       fields: [
         { p: 'dates', label: 'Fechas', type: 'text', ph: 'Mar–Jun 2026' },
+        { p: 'where', label: 'Dónde aparece', type: 'select', opts: [['both', 'Web y print'], ['web', 'Solo web'], ['print', 'Solo print']] },
         { p: 'title', label: 'Título', type: 'text', full: true },
         { p: 'sub', label: 'Línea bajo el título', type: 'text', full: true },
         { p: 'body', label: 'Descripción', type: 'md', full: true }
       ] },
 
-    { key: 'industry', label: 'Exp. en industria', group: 'Secciones', web: 'experience', print: 'p-industry', addTop: true,
-      desc: '“Industry Experience” en la web y sección 06 del print.',
+    { key: 'industry', label: 'Exp. en industria', group: 'Secciones', web: 'cv-industry-wrap', print: 'p-industry', addTop: true,
+      desc: 'Subapartado “Industry Experience” dentro de Experience en la web, y sección 06 del print.',
       sum: function (e) { return [plain(e.period), [e.role, e.company].filter(Boolean).join(' · ')]; },
       blank: function () { return { period: '', role: '', company: '', url: '', urlLabel: '', summary: '', duration: '', tasks: '' }; },
       fields: [

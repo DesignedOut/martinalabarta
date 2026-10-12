@@ -740,16 +740,25 @@ window.CV_DATA = {
   ],
   "researchExperience": [
     {
+      "dates": "2024–Present",
+      "title": "PhD Candidate — Dept. of Design, Politecnico di Milano",
+      "sub": "PhD in Design · Supervisors: Prof. Silvia D. Ferraris & Francesca Mattioli, PhD · Expected March 2028",
+      "body": "Doctoral research: *Destabilising Archetypes through Product Language: Towards a Sensitive Design Compass.*",
+      "where": "both"
+    },
+    {
       "dates": "Mar–Jun 2026",
       "title": "Visiting Scholar — College of Architecture, Arts, and Design · Virginia Tech (VA, USA)",
       "sub": "PhD curricular visiting period · Academic Host: Prof. Isabel Prochner · Home supervisor: Prof. Silvia D. Ferraris",
-      "body": "Guest talks and teaching collaboration; development of PhD analytical frameworks; graduate school networking."
+      "body": "Guest talks and teaching collaboration; development of PhD analytical frameworks; graduate school networking.",
+      "where": "both"
     },
     {
       "dates": "Dec 2023–Jun 2024",
       "title": "Temporary Research Fellow — Dept. of Design, Politecnico di Milano",
       "sub": "7 months · Supervisor: Prof. Matteo O. Ingaramo",
-      "body": "Research project: *Genderless products: Bridging social inclusion and environmental sustainability through design.* Qualitative methods, literature review, visual and contextual analysis, academic writing."
+      "body": "Research project: *Genderless products: Bridging social inclusion and environmental sustainability through design.* Qualitative methods, literature review, visual and contextual analysis, academic writing.",
+      "where": "both"
     }
   ],
   "industry": [

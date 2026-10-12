@@ -254,6 +254,20 @@
       showSection('workshops', items.length > 0);
     },
 
+    researchExperience: function (d) {
+      var items = list(d.researchExperience).filter(function (e) { return e.where !== 'print'; });
+      set('cv-research-exp', items.map(function (e) {
+        return '<div class="exprow" style="cursor:default;">' +
+          '<div class="exp-period">' + md(e.dates) + '</div>' +
+          '<div>' +
+            '<div class="exp-role">' + md(e.title) + '</div>' +
+            (e.sub ? '<div class="exp-co">' + md(e.sub) + '</div>' : '') +
+            (e.body ? '<div class="exp-desc">' + md(e.body) + '</div>' : '') +
+          '</div></div>';
+      }).join(''));
+      var w = $('cv-research-exp-wrap'); if (w) w.style.display = items.length ? '' : 'none';
+    },
+
     industry: function (d) {
       var items = list(d.industry);
       set('cv-industry', items.map(function (e) {
@@ -270,7 +284,10 @@
             '<div class="exp-expand">' + more + '</div>' +
           '</div></div>';
       }).join(''));
-      showSection('experience', items.length > 0);
+      var w = $('cv-industry-wrap'); if (w) w.style.display = items.length ? '' : 'none';
+      var hasRes = list(d.researchExperience).some(function (e) { return e.where !== 'print'; });
+      if (w) w.style.marginTop = hasRes ? '4rem' : '0';
+      showSection('experience', items.length > 0 || hasRes);
     },
 
     skills: function (d) {
@@ -323,7 +340,12 @@
   // Heading + first item stay together on the page, the rest can flow
   function keepWithFirst(head, items) {
     if (!items.length) return '';
-    return '<div class="avoid-break">' + head + items[0] + '</div>' + items.slice(1).join('');
+    // the first item sits inside the wrapper, so CSS treats it as :last-child and drops its
+    // separator line — put the line back when more items follow
+    var first = items.length > 1
+      ? items[0].replace(/^<div class="([^"]*)"/, '<div class="$1" style="border-bottom:0.5pt solid var(--rule);"')
+      : items[0];
+    return '<div class="avoid-break">' + head + first + '</div>' + items.slice(1).join('');
   }
   function plink(url) { return url ? ' <a href="' + esc(url) + '" class="pub-link-print">' + esc(stripUrl(url)) + '</a>' : ''; }
 
@@ -414,7 +436,7 @@
         }).join('') + '</div></div></div>';
     },
     researchExperience: function (d) {
-      var items = list(d.researchExperience);
+      var items = list(d.researchExperience).filter(function (e) { return e.where !== 'web'; });
       if (!items.length) return '';
       return '<div class="sec avoid-break">' + secTitle('05', 'Research Experience') + items.map(function (e) {
         return entry(esc(e.dates), md(e.title), md(e.sub), [{ html: md(e.body) }]);

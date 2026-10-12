@@ -33,7 +33,7 @@ window.CV_DATA = {
     ],
     "bio": "I look at how the look and feel of a product — its form, materials, colour — can carry assumptions and discriminatory meanings about gender and intersectional identities more broadly, that go unquestioned, until they become the norm: the default, archetypal form that quietly alienates anyone who doesn't fit in. My work sits at the intersection of design aesthetics, product language, and social justice, with a focus on gender representation and what I call sensitive design. Since design is never neutral, I try to pass that same critical lens on pedagogically too, going beyond exploring it only in my own research.",
     "currently": {
-      "text": "Visiting Scholar at Virginia Tech (School of Design) · March–June 2026 · Academic Host: Prof. Isabel Prochner",
+      "text": "Visiting Scholar at Virginia Tech (School of Design) · March–June 2026",
       "emoji": "✈",
       "endDate": "2026-06-30"
     }
@@ -52,13 +52,10 @@ window.CV_DATA = {
       "grade": "",
       "status": "Expected March 2028",
       "thesis": "Destabilising Archetypes through Product Language: Towards a Sensitive Design Compass",
-      "details": "**Research focus:** Design Processes · Design Aesthetics · Product Design Language · Research through Design · Design Justice\n\n**PhD Supervisor:** Prof. Silvia D. Ferraris\n**PhD Co-Supervisor:** Francesca Mattioli, PhD\n**Visiting:** Virginia Tech, USA (Mar–Jun 2026) with Prof. Isabel Prochner",
+      "details": "**Research focus:** Design Processes · Design Aesthetics · Product Design Language · Research through Design · Design Justice\n\n**Visiting:** Virginia Tech, USA (Mar–Jun 2026)",
       "link": {
         "label": "",
         "url": ""
-      },
-      "print": {
-        "note": "Supervisors: Prof. Silvia D. Ferraris & Francesca Mattioli, PhD"
       }
     },
     {
@@ -68,13 +65,10 @@ window.CV_DATA = {
       "grade": "108/110",
       "status": "",
       "thesis": "Sustainable Technical and Aesthetical Redesign of a Commercial Ice Machine",
-      "details": "**Thesis focus:** Sustainability · Industrial Design · CMF Design · LCA · Mechanical Engineering\n**Supervisor:** Eng. Paolo Faraldi\n\n**Program areas:** Industrial Product Design · Design Thinking · DFM · CAD Modelling · Material Selection · Mechanical Design · Semiotics",
+      "details": "**Thesis focus:** Sustainability · Industrial Design · CMF Design · LCA · Mechanical Engineering\n\n**Program areas:** Industrial Product Design · Design Thinking · DFM · CAD Modelling · Material Selection · Mechanical Design · Semiotics",
       "link": {
         "label": "View thesis on POLITesi",
         "url": "https://hdl.handle.net/10589/195476"
-      },
-      "print": {
-        "note": "Supervisor: Eng. Paolo Faraldi"
       }
     },
     {
@@ -84,7 +78,7 @@ window.CV_DATA = {
       "grade": "6.79/10",
       "status": "",
       "thesis": "Design of a mechanism for lymphedema treatment",
-      "details": "**Thesis focus:** Mechanical Design · Prototyping · Medical Device Engineering · Mechanisms\n**Supervisor:** Prof. Beatriz Sánchez Tabuenca\n\n**Program areas:** Thermodynamics · Mechanics · Electronics · Manufacturing Processes · Automation Systems · Programming · Hydrodynamics · Technical Drawing",
+      "details": "**Thesis focus:** Mechanical Design · Prototyping · Medical Device Engineering · Mechanisms\n\n**Program areas:** Thermodynamics · Mechanics · Electronics · Manufacturing Processes · Automation Systems · Programming · Hydrodynamics · Technical Drawing",
       "link": {
         "label": "",
         "url": ""
@@ -110,7 +104,7 @@ window.CV_DATA = {
     "department": "Design",
     "since": "2024",
     "expected": "March 2028",
-    "supervisors": "Prof. Silvia D. Ferraris & Francesca Mattioli, PhD",
+    "supervisors": "",
     "tags": [
       "Design Processes",
       "Design Aesthetics",
@@ -307,7 +301,7 @@ window.CV_DATA = {
       "authors": "Labarta Labrador M.",
       "venue": "MSc Thesis · Politecnico di Milano · POLITesi",
       "abstract": "Sustainability-focused redesign of a professional ice machine, integrating technical engineering improvements with a full CMF (Colour, Materials, Finish) redesign. The project combined LCA (Life Cycle Assessment) methodology with industrial design practice to propose both environmentally and aesthetically improved solutions.",
-      "reference": "**Focus:** Sustainability · Industrial Design · CMF Design · Life Cycle Assessment · Mechanical Engineering\n**Supervisor:** Eng. Paolo Faraldi · **Final grade:** 108/110",
+      "reference": "**Focus:** Sustainability · Industrial Design · CMF Design · Life Cycle Assessment · Mechanical Engineering\n**Final grade:** 108/110",
       "extra": "",
       "links": [
         {
@@ -316,7 +310,7 @@ window.CV_DATA = {
         }
       ],
       "print": {
-        "ref": "(2022). [Master's thesis, Politecnico di Milano]. POLITesi. Supervisor: Eng. Paolo Faraldi · Grade: 108/110"
+        "ref": "(2022). [Master's thesis, Politecnico di Milano]. POLITesi. Grade: 108/110"
       }
     }
   ],
@@ -341,10 +335,6 @@ window.CV_DATA = {
           "16"
         ],
         [
-          "Lead Lecturer",
-          "Prof. Silvia D. Ferraris"
-        ],
-        [
           "Type",
           "Seminar"
         ],
@@ -354,7 +344,7 @@ window.CV_DATA = {
         ]
       ],
       "print": {
-        "sub": "POLI.design · Master's in Industrial Design for Architecture (ID4A) · 16h · Lead: Prof. Silvia D. Ferraris",
+        "sub": "POLI.design · Master's in Industrial Design for Architecture (ID4A) · 16h",
         "body": "Providing knowledge and tools to understand and address product language; ex-cathedra and hands-on group activities. Academic year 2025–26."
       }
     },
@@ -378,16 +368,12 @@ window.CV_DATA = {
           "9"
         ],
         [
-          "Coordinator",
-          "Giacomo Wilhelm"
-        ],
-        [
           "Tasks",
           "Organising and delivering course activities; assisting in evaluating student assignments."
         ]
       ],
       "print": {
-        "sub": "MSc Design & Engineering · Politecnico di Milano · 9 CFU · Coord: Giacomo Wilhelm",
+        "sub": "MSc Design & Engineering · Politecnico di Milano · 9 CFU",
         "body": "Assisting in organising, delivering and managing the course and in-class activities; assisting in evaluating student assignments. Section DE1, second year."
       }
     },
@@ -411,16 +397,12 @@ window.CV_DATA = {
           "6"
         ],
         [
-          "Coordinator",
-          "Prof. Lucia Rampino"
-        ],
-        [
           "Tasks",
           "Organising and managing course activities; evaluating student assignments; lecturing."
         ]
       ],
       "print": {
-        "sub": "MSc Design & Engineering · Politecnico di Milano · 6 CFU · Coord: Prof. Lucia Rampino",
+        "sub": "MSc Design & Engineering · Politecnico di Milano · 6 CFU",
         "body": "Assisting in organising, delivering and managing the course; evaluating student assignments; lecturing. First year, all sections."
       }
     },
@@ -444,16 +426,12 @@ window.CV_DATA = {
           "6"
         ],
         [
-          "Coordinator",
-          "Giacomo Festi, PhD"
-        ],
-        [
           "Tasks",
           "Organising and managing course activities; evaluating student assignments; lecturing."
         ]
       ],
       "print": {
-        "sub": "MSc Design & Engineering · Politecnico di Milano · 6 CFU · Coord: Giacomo Festi, PhD",
+        "sub": "MSc Design & Engineering · Politecnico di Milano · 6 CFU",
         "body": "Assisting in organising, delivering and managing the course; evaluating student assignments; lecturing. Second year, all sections."
       }
     },
@@ -469,17 +447,13 @@ window.CV_DATA = {
           "2022–23 · 2023–24"
         ],
         [
-          "Coordinator",
-          "Prof. Matteo O. Ingaramo"
-        ],
-        [
           "Tasks",
           "Coordinating and supporting students; facilitating student–professor relationships; tutoring product design and development workshops."
         ]
       ],
       "print": {
         "title": "Tutor — Specialising Master's MIDEI",
-        "sub": "POLI.design · Industrial Design Engineering & Innovation · Coord: Prof. Matteo O. Ingaramo",
+        "sub": "POLI.design · Industrial Design Engineering & Innovation",
         "body": "Coordinating activities and supporting students; facilitating the student–professor relationship; tutoring product design and development workshops."
       }
     },
@@ -487,7 +461,7 @@ window.CV_DATA = {
       "dates": "Spring 2026",
       "title": "Guest Lecture",
       "role": "Guest Lecturer",
-      "subtitle": "Landscape Architecture Foundation Design Lab · College of Architecture, Arts, and Design · Virginia Tech · Prof. Shaun Rosier",
+      "subtitle": "Landscape Architecture Foundation Design Lab · College of Architecture, Arts, and Design · Virginia Tech",
       "category": "guest",
       "details": [
         [
@@ -497,10 +471,6 @@ window.CV_DATA = {
         [
           "Course",
           "Landscape Architecture Foundation Design Lab"
-        ],
-        [
-          "Instructor",
-          "Prof. Shaun Rosier"
         ],
         [
           "Talk",
@@ -513,7 +483,7 @@ window.CV_DATA = {
       ],
       "print": {
         "title": "Guest Lecture — Landscape Architecture Foundation Design Lab",
-        "sub": "College of Architecture, Arts, and Design · Virginia Tech · Instructor: Prof. Shaun Rosier",
+        "sub": "College of Architecture, Arts, and Design · Virginia Tech",
         "body": "*\"Becoming a Sensitive Designer: Destabilising Normative Archetypes in Product Language\"*"
       }
     },
@@ -521,7 +491,7 @@ window.CV_DATA = {
       "dates": "Spring 2026",
       "title": "Guest Lecture",
       "role": "Guest Lecturer",
-      "subtitle": "History of Modern Industrial Designers · College of Architecture, Arts, and Design · Virginia Tech · Prof. Isabel Prochner",
+      "subtitle": "History of Modern Industrial Designers · College of Architecture, Arts, and Design · Virginia Tech",
       "category": "guest",
       "details": [
         [
@@ -531,10 +501,6 @@ window.CV_DATA = {
         [
           "Course",
           "History of Modern Industrial Designers"
-        ],
-        [
-          "Instructor",
-          "Prof. Isabel Prochner"
         ],
         [
           "Talk",
@@ -547,7 +513,7 @@ window.CV_DATA = {
       ],
       "print": {
         "title": "Guest Lecture — History of Modern Industrial Designers",
-        "sub": "College of Architecture, Arts, and Design · Virginia Tech · Instructor: Prof. Isabel Prochner",
+        "sub": "College of Architecture, Arts, and Design · Virginia Tech",
         "body": "*\"Becoming a Sensitive Designer: Destabilising Normative Archetypes in Product Language\"*"
       }
     },
@@ -555,7 +521,7 @@ window.CV_DATA = {
       "dates": "Spring 2026",
       "title": "Pin-up Reviews",
       "role": "Reviewer",
-      "subtitle": "Interior Design I Studio · College of Architecture, Arts, and Design · Virginia Tech · Prof. Rudy Dieudonne",
+      "subtitle": "Interior Design I Studio · College of Architecture, Arts, and Design · Virginia Tech",
       "category": "guest",
       "details": [
         [
@@ -567,17 +533,13 @@ window.CV_DATA = {
           "Interior Design I Studio"
         ],
         [
-          "Instructor",
-          "Prof. Rudy Dieudonne"
-        ],
-        [
           "Type",
           "Collaborative reviewer — pin-up critiques"
         ]
       ],
       "print": {
         "title": "Pin-up Reviewer — Interior Design I Studio",
-        "sub": "College of Architecture, Arts, and Design · Virginia Tech · Instructor: Prof. Rudy Dieudonne",
+        "sub": "College of Architecture, Arts, and Design · Virginia Tech",
         "body": "Collaborative reviewer for student pin-up critiques."
       }
     }
@@ -679,7 +641,7 @@ window.CV_DATA = {
       "role": "Collaborator",
       "highlight": false,
       "printGroup": "tutored",
-      "place": "School of Design, Politecnico di Milano · Partner: Veroniki Holding · Lead: Giacomo Wilhelm",
+      "place": "School of Design, Politecnico di Milano · Partner: Veroniki Holding",
       "details": "Workshop Week 2024 involved designers and companies exploring different design fields and product categories. The brief focused on designing an innovative e-bike for the Milanese context.\n\n**Role:** Tutoring and mentoring students, offering guidance in their work; ensuring correct development and flow of workshop activities.",
       "print": {
         "body": "Brief focused on designing an innovative e-bike for the Milanese context. Tutoring and mentoring students."
@@ -731,7 +693,7 @@ window.CV_DATA = {
       "highlight": true,
       "printGroup": "tutored",
       "place": "POLI.design · Politecnico di Milano · Partner: ABB",
-      "details": "Training course for ABB addressing the application of ecodesign guidelines throughout their products' lifecycle, with special attention to development and engineering phases.\n\n**Participants:** ABB employees in R&D, marketing and project management.\n**Co-leader:** Carlo Proserpio.\n**Role:** Researching case studies and best sustainability practices in the industrial sector; preparing agenda; facilitating development and tutoring dedicated seminars.",
+      "details": "Training course for ABB addressing the application of ecodesign guidelines throughout their products' lifecycle, with special attention to development and engineering phases.\n\n**Participants:** ABB employees in R&D, marketing and project management.\n**Role:** Researching case studies and best sustainability practices in the industrial sector; preparing agenda; facilitating development and tutoring dedicated seminars.",
       "print": {
         "sub": "POLI.design · Partner: ABB · R&D, marketing & project management employees · Co-organiser",
         "body": "Training course addressing ecodesign guidelines throughout ABB products' lifecycle."
@@ -741,24 +703,57 @@ window.CV_DATA = {
   "researchExperience": [
     {
       "dates": "2024–Present",
-      "title": "PhD Candidate — Dept. of Design, Politecnico di Milano",
-      "sub": "PhD in Design · Supervisors: Prof. Silvia D. Ferraris & Francesca Mattioli, PhD · Expected March 2028",
-      "body": "Doctoral research: *Destabilising Archetypes through Product Language: Towards a Sensitive Design Compass.*",
-      "where": "both"
+      "role": "PhD Candidate",
+      "org": "Dept. of Design, Politecnico di Milano",
+      "summary": "Doctoral research: *Destabilising Archetypes through Product Language: Towards a Sensitive Design Compass.*",
+      "details": [
+        [
+          "Programme",
+          "PhD in Design"
+        ],
+        [
+          "Expected",
+          "March 2028"
+        ]
+      ],
+      "where": "both",
+      "print": {
+        "sub": "PhD in Design · Expected March 2028"
+      }
     },
     {
       "dates": "Mar–Jun 2026",
-      "title": "Visiting Scholar — College of Architecture, Arts, and Design · Virginia Tech (VA, USA)",
-      "sub": "PhD curricular visiting period · Academic Host: Prof. Isabel Prochner · Home supervisor: Prof. Silvia D. Ferraris",
-      "body": "Guest talks and teaching collaboration; development of PhD analytical frameworks; graduate school networking.",
+      "role": "Visiting Scholar",
+      "org": "College of Architecture, Arts, and Design · Virginia Tech (VA, USA)",
+      "summary": "Guest talks and teaching collaboration; development of PhD analytical frameworks; graduate school networking.",
+      "details": [
+        [
+          "Type",
+          "PhD curricular visiting period"
+        ]
+      ],
       "where": "both"
     },
     {
       "dates": "Dec 2023–Jun 2024",
-      "title": "Temporary Research Fellow — Dept. of Design, Politecnico di Milano",
-      "sub": "7 months · Supervisor: Prof. Matteo O. Ingaramo",
-      "body": "Research project: *Genderless products: Bridging social inclusion and environmental sustainability through design.* Qualitative methods, literature review, visual and contextual analysis, academic writing.",
-      "where": "both"
+      "role": "Temporary Research Fellow",
+      "org": "Dept. of Design, Politecnico di Milano",
+      "summary": "Research project: *Genderless products: Bridging social inclusion and environmental sustainability through design.*",
+      "details": [
+        [
+          "Duration",
+          "7 months"
+        ],
+        [
+          "Methods",
+          "Qualitative methods, literature review, visual and contextual analysis, academic writing."
+        ]
+      ],
+      "where": "both",
+      "print": {
+        "sub": "7 months",
+        "body": "Research project: *Genderless products: Bridging social inclusion and environmental sustainability through design.* Qualitative methods, literature review, visual and contextual analysis, academic writing."
+      }
     }
   ],
   "industry": [

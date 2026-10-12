@@ -65,6 +65,16 @@
       title: function (e) { return [e.role, e.company].filter(Boolean).join(' · '); },
       body: function (e) { return e.summary || ''; }
     },
+    researchExperience: {
+      title: function (e) { return e.role != null ? [e.role, e.org].filter(Boolean).join(' — ') : (e.title || ''); },
+      sub: function (e) {
+        if (e.role == null) return e.sub || '';
+        return list(e.details).filter(function (kv) { return kv[1]; }).map(function (kv) {
+          return /^(type|programme|program)$/i.test(kv[0]) ? kv[1] : (kv[0] ? kv[0] + ': ' : '') + kv[1];
+        }).join(' · ');
+      },
+      body: function (e) { return e.summary != null ? e.summary : (e.body || ''); }
+    },
     roles: { body: function (e) { return e.description || ''; } }
   };
   function P(section, e, key) {
@@ -257,12 +267,18 @@
     researchExperience: function (d) {
       var items = list(d.researchExperience).filter(function (e) { return e.where !== 'print'; });
       set('cv-research-exp', items.map(function (e) {
-        return '<div class="exprow" style="cursor:default;">' +
+        var more = list(e.details).filter(function (kv) { return kv[0] || kv[1]; })
+          .map(function (kv) { return (kv[0] ? '<strong>' + esc(kv[0]) + ':</strong> ' : '') + md(kv[1]); }).join('<br>');
+        var title = e.role != null ? e.role : e.title, org = e.org != null ? e.org : e.sub, sum = e.summary != null ? e.summary : e.body;
+        return '<div class="exprow' + (more ? ' item-row" onclick="togExp(this)"' : '" style="cursor:default;"') + '>' +
           '<div class="exp-period">' + md(e.dates) + '</div>' +
           '<div>' +
-            '<div class="exp-role">' + md(e.title) + '</div>' +
-            (e.sub ? '<div class="exp-co">' + md(e.sub) + '</div>' : '') +
-            (e.body ? '<div class="exp-desc">' + md(e.body) + '</div>' : '') +
+            '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;"><div>' +
+              '<div class="exp-role">' + md(title) + '</div>' +
+              (org ? '<div class="exp-co">' + md(org) + '</div>' : '') +
+              (sum ? '<div class="exp-desc">' + md(sum) + '</div>' : '') +
+            '</div>' + (more ? '<span class="chev" style="flex-shrink:0;margin-top:0.2rem;">' + CHEV + '</span>' : '') + '</div>' +
+            (more ? '<div class="exp-expand">' + more + '</div>' : '') +
           '</div></div>';
       }).join(''));
       var w = $('cv-research-exp-wrap'); if (w) w.style.display = items.length ? '' : 'none';
@@ -439,7 +455,7 @@
       var items = list(d.researchExperience).filter(function (e) { return e.where !== 'web'; });
       if (!items.length) return '';
       return '<div class="sec avoid-break">' + secTitle('05', 'Research Experience') + items.map(function (e) {
-        return entry(esc(e.dates), md(e.title), md(e.sub), [{ html: md(e.body) }]);
+        return entry(esc(e.dates), md(P('researchExperience', e, 'title')), md(P('researchExperience', e, 'sub')), [{ html: md(P('researchExperience', e, 'body')) }]);
       }).join('') + '</div>';
     },
     industry: function (d) {

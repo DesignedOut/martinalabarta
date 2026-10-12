@@ -222,8 +222,10 @@
     .p-toc a span { opacity: 0.55; margin-right: 0.2rem; }
     .p-toc .dot { margin: 0 0.35rem; color: var(--rule); }
     /* two-column rows as a table: Safari drops grid blocks from the PDF near page breaks */
-    .p-row { display: table; width: 100%; table-layout: fixed; border-collapse: collapse; }
-    .p-row > * { display: table-cell; width: 50%; vertical-align: top; }
+    /* two-column rows with floats: the most reliable layout in Safari's PDF output
+       (grid and table rows near the end of the page made Safari drop content, e.g. the QR or the closing line) */
+    .p-row { display: flow-root; width: 100%; }
+    .p-row > * { float: left; width: 50%; box-sizing: border-box; }
     .p-row > *:first-child { padding-right: 4.5mm; }
     .p-row > *:last-child { padding-left: 4.5mm; }
     .p-row { margin-bottom: 1.1rem; }
@@ -231,12 +233,12 @@
     #p-skills .p-row { margin-bottom: 0.8rem; }
     #cv-p-software .lang-row, #cv-p-languages .lang-row { font-size: 8pt; }
     .p-row .skill-lbl { width: 37mm; font-size: 7.5pt; }
-    .p-row > .qr-col { padding-top: 1.6rem; text-align: center; vertical-align: middle; }
+    .p-row > .qr-col { padding-top: 4.5rem; text-align: center; }
     .qr-col svg { margin: 0 auto; }
     .qr-col svg { display: block; }
     .qr-l { font-size: 6.5pt; color: var(--light); letter-spacing: 0.06em; line-height: 1.5; margin-top: 0.4rem; }
     .qr-l a { color: var(--accent); text-decoration: none; }
-    .p-foot { font-size: 7pt; color: var(--light); border-top: 0.5pt solid var(--rule); padding-top: 0.35rem; margin-top: 0.4rem; text-align: right; }
+    .p-foot { display: block; clear: both; font-size: 7pt; color: var(--light); border-top: 0.5pt solid var(--rule); padding-top: 0.35rem; margin-top: 0.4rem; text-align: right; page-break-inside: avoid; break-inside: avoid; }
     .pb { page-break-before: always; }
     .avoid-break { page-break-inside: avoid; }
 
@@ -317,8 +319,9 @@
       <div class="qr-l">Full CV · <a href="https://designedout.github.io/martinalabarta/">designedout.github.io/martinalabarta</a></div>
     </div>
   </div>
-  </div>
+  <!-- closing line kept inside the last section: Safari can drop a trailing block that sits after it in the PDF -->
   <div class="p-foot"><span id="print-date"></span> — I authorise the processing of my personal data in compliance with Legislative Decree n. 196, 30 June 2003.</div>
+  </div>
 
 </div>
 <script>

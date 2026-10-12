@@ -207,10 +207,15 @@
     .p-toc a { color: var(--accent); text-decoration: none; white-space: nowrap; }
     .p-toc a span { opacity: 0.55; margin-right: 0.2rem; }
     .p-toc .dot { margin: 0 0.35rem; color: var(--rule); }
-    .p-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0 9mm; align-items: start; }
-    .p-row > .sec { margin-bottom: 1.1rem; }
+    /* two-column rows as a table: Safari drops grid blocks from the PDF near page breaks */
+    .p-row { display: table; width: 100%; table-layout: fixed; border-collapse: collapse; }
+    .p-row > * { display: table-cell; width: 50%; vertical-align: top; }
+    .p-row > *:first-child { padding-right: 4.5mm; }
+    .p-row > *:last-child { padding-left: 4.5mm; }
+    .p-row { margin-bottom: 1.1rem; }
     .p-row .skill-lbl { width: 37mm; font-size: 7.5pt; }
-    .qr-col { display: flex; flex-direction: column; align-items: center; justify-content: center; padding-top: 1.6rem; text-align: center; }
+    .p-row > .qr-col { padding-top: 1.6rem; text-align: center; vertical-align: middle; }
+    .qr-col svg { margin: 0 auto; }
     .qr-col svg { display: block; }
     .qr-l { font-size: 6.5pt; color: var(--light); letter-spacing: 0.06em; line-height: 1.5; margin-top: 0.4rem; }
     .qr-l a { color: var(--accent); text-decoration: none; }
@@ -272,7 +277,7 @@
   <div id="cv-p-main"></div>
 
   <!-- SKILLS + ELECTIVE: two rows of two columns -->
-  <div class="p-row avoid-break">
+  <div class="p-row">
     <div class="sec" id="p-languages">
       <div class="sec-title"><span class="sec-num">07</span> Languages</div>
       <div id="cv-p-languages"></div>
@@ -282,7 +287,7 @@
       <div id="cv-p-software"></div>
     </div>
   </div>
-  <div class="p-row avoid-break">
+  <div class="p-row">
     <div class="sec" id="p-roles">
       <div class="sec-title"><span class="sec-num">09</span> Elective Roles</div>
       <div id="cv-p-roles"></div>
@@ -292,7 +297,7 @@
       <div class="qr-l">Full CV · <a href="https://designedout.github.io/martinalabarta/">designedout.github.io/martinalabarta</a></div>
     </div>
   </div>
-  <div class="p-foot avoid-break"><span id="print-date"></span> — I authorise the processing of my personal data in compliance with Legislative Decree n. 196, 30 June 2003.</div>
+  <div class="p-foot"><span id="print-date"></span> — I authorise the processing of my personal data in compliance with Legislative Decree n. 196, 30 June 2003.</div>
 
 </div>
 <script>

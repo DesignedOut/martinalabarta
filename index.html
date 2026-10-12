@@ -443,8 +443,10 @@
 </footer>
 
 <!-- ✏️ CONTENT: all CV entries live in cv-data.js (edit them with editor.html) -->
-<script src="cv-data.js"></script>
-<script src="cv-render.js"></script>
+<script>
+// always load the latest data/renderer (avoids stale browser cache after an upload)
+(function (v) { document.write('<script src="cv-data.js?v=' + v + '"><\/script><script src="cv-render.js?v=' + v + '"><\/script>'); })(Date.now());
+</script>
 <script>
 CVRender.mountWeb(window.CV_DATA);
 CVRender.enablePreview('web', function () {

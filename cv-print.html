@@ -278,8 +278,10 @@
   </div>
 
 </div>
-<script src="cv-data.js"></script>
-<script src="cv-render.js"></script>
+<script>
+// always load the latest data/renderer (avoids stale browser cache after an upload)
+(function (v) { document.write('<script src="cv-data.js?v=' + v + '"><\/script><script src="cv-render.js?v=' + v + '"><\/script>'); })(Date.now());
+</script>
 <script>
 CVRender.mountPrint(window.CV_DATA);
 CVRender.enablePreview('print');

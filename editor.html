@@ -176,8 +176,10 @@ textarea.tall{min-height:130px}
 <div class="modal-bg" id="modalBg"><div class="modal" id="modal"></div></div>
 <div class="toast" id="toast"></div>
 
-<script src="cv-data.js"></script>
-<script src="cv-render.js"></script>
+<script>
+// always load the latest data/renderer (avoids stale browser cache after an upload)
+(function (v) { document.write('<script src="cv-data.js?v=' + v + '"><\/script><script src="cv-render.js?v=' + v + '"><\/script>'); })(Date.now());
+</script>
 <script>
 (function () {
   'use strict';
@@ -194,7 +196,8 @@ textarea.tall{min-height:130px}
 
   /* ── state ── */
   var data = null, baseline = '', current = 'education', openIdx = -1, confirmIdx = -1;
-  var downloadedAt = null, undoSnap = null, uid = 0;
+  var downloadedAt = null, undoSnap = null, uid = 0, baseSig = '';
+  function sig(o) { var s = JSON.stringify(o), h = 0; for (var i = 0; i < s.length; i++) { h = (h * 31 + s.charCodeAt(i)) | 0; } return s.length + ':' + h; }
 
   /* ── helpers ── */
   function clone(o) { return JSON.parse(JSON.stringify(o)); }
@@ -671,7 +674,7 @@ textarea.tall{min-height:130px}
       case 'img-pick': $('input[data-act="img-file"]', b.closest('[data-p]')).click(); return;
       case 'img-clear': setP(target(), b.closest('[data-p]').dataset.p, ''); rerenderKeepScroll(); return changed();
       case 'draft-restore':
-        data = draftData; delete data.__savedAt; draftData = null; renderSide(); renderMain(); toast('Borrador recuperado'); return changed(true);
+        data = draftData; delete data.__savedAt; delete data.__stale; draftData = null; renderSide(); renderMain(); toast('Borrador recuperado'); return changed(true);
       case 'draft-discard':
         draftData = null; try { localStorage.removeItem(DRAFT_KEY); } catch (e) {} renderMain(); return;
     }
@@ -728,7 +731,7 @@ textarea.tall{min-height:130px}
   function saveDraft() {
     try {
       if (JSON.stringify(data) === JSON.stringify(window.CV_DATA)) localStorage.removeItem(DRAFT_KEY);
-      else localStorage.setItem(DRAFT_KEY, JSON.stringify({ savedAt: Date.now(), data: data }));
+      else localStorage.setItem(DRAFT_KEY, JSON.stringify({ savedAt: Date.now(), base: baseSig, data: data }));
     } catch (e) { /* storage not available: ignore */ }
   }
   function loadDraft() {
@@ -736,15 +739,17 @@ textarea.tall{min-height:130px}
       var raw = localStorage.getItem(DRAFT_KEY); if (!raw) return;
       var d = JSON.parse(raw);
       if (JSON.stringify(d.data) === JSON.stringify(window.CV_DATA)) { localStorage.removeItem(DRAFT_KEY); return; }
-      draftData = d.data; draftData.__savedAt = d.savedAt;
+      draftData = d.data; draftData.__savedAt = d.savedAt; draftData.__stale = d.base !== baseSig;
     } catch (e) { draftData = null; }
   }
   function draftBannerHTML() {
     if (!draftData) return '';
     var when = new Date(draftData.__savedAt || Date.now());
-    return '<div class="banner"><div class="msg"><b>Tienes cambios guardados en este navegador</b> (' +
-      when.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' }) + ', ' + when.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }) +
-      ') que todavía no están en la web publicada.</div>' +
+    var w = when.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' }) + ', ' + when.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+    if (draftData.__stale) return '<div class="banner"><div class="msg"><b>Hay un borrador antiguo en este navegador</b> (' + w +
+      '), hecho sobre una versión anterior de tu CV. Desde entonces se ha publicado una versión más nueva: si lo recuperas, perderías esos cambios. Lo normal es descartarlo.</div>' +
+      '<button class="btn small primary" data-act="draft-discard">Descartar</button><button class="btn small" data-act="draft-restore">Recuperar igualmente</button></div>';
+    return '<div class="banner"><div class="msg"><b>Tienes cambios guardados en este navegador</b> (' + w + ') que todavía no están en la web publicada.</div>' +
       '<button class="btn small primary" data-act="draft-restore">Recuperar</button><button class="btn small" data-act="draft-discard">Descartar</button></div>';
   }
 
@@ -851,7 +856,7 @@ textarea.tall{min-height:130px}
     start();
   }
   function start() {
-    data = clone(window.CV_DATA); baseline = JSON.stringify(data);
+    data = clone(window.CV_DATA); baseline = JSON.stringify(data); baseSig = sig(window.CV_DATA);
     loadDraft();
     renderSide(); renderMain(); updateStatus();
     var pref = '1'; try { pref = localStorage.getItem('cvEditorPreview') || '1'; } catch (e) {}

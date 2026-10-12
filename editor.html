@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Editor del CV — Martina Labarta Labrador</title>
+<link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAADzElEQVR42rVWz2tcVRT+zrn3zbz51SRNSSaZJlpjQV25cKsN2gYCYgh04UJxJaX/gCBkKWSRfVRciRUqFKG4EElLS927ciE2Nf2RzCQt7SQzee/dzNx7j4tJapT5Ecd4Vu9xeOc777vnfPcjEXHOK8UPH2589cU3t278XK5sOevw70MpNV4affv8mx9f+nBistQqS9ZapdT173/89JPPNjcfh2GotSbqoz5ExFpnjCkWRxaXFubmZ51zJCI/XP/pg/cv5/K5TJh2zosI+g0iUoqTZC+K4m+/+/zd92Zofb0yM32xWt0Jw7RzDscRSiljzNDQ4MrtayqfGbl5406hkDuu6i2u0unUk8dPtdaqaYLdeszMONYQATE/e1ZVAQ8Cgv8hmCmJjbbWUsehIcJ+SuD/mQMfpKRti0RkrdVdJsKjIbAAAVBIA4f7EIu49UDQjFQnGjoBkKBZ4JcyNC6wALbdrxZJq2uBKITD6g0ABB3LRuTvE4K2GO0BCOSkOcCvFfW0xa5G1kny1P+ikQXgEA/yq5PBvJNEU37T3qq7u5pS0g6Au1NkEVmJrSQn1Fn6iyIq8MtOjEVsEXk0/s7eEQGolQ6sRBZRjl8McMLDCVyAfJ7PWMRWIkbQpXpXAGmhqKbsJL4S0qkcTwiaHjbLpZBPJb7SlDpBdZ/yHvtFIIHf9Q8IusBnW8gFnmKkIv9A4Ag9dLEHgAAEvevvW4kLfEYjy0gVeMpJXPdrBCW9llT32kfPCBKpJFLJ8UTII072MjyW+I1EKkxBTxXgIygwW4nr/g+FMEeTOX5BI1vz96zEBNVbMI6m8lz3qw6mwFMD/IqDqftVInUUEdO9dRHCSMV+I/GbOZ4AkPhK7MuMQI4AwL1E14s4AltEu34NUADX/ZpFRFACL/B9j6kwUgHlNTKtea353zWlFYU1f5dAgGhkAsp3UToAaiBf7My9GHlSk1UjWwRlJbIS1/1qzf92oCU28o/q/l5Ddoja90qTxde7aJGXJpFSSLf+yckeAEX70u2wJ+KYgj7kep8iRelDtw1pyh6+fDQyoI4Xzv4ZaK3Q0afIwTE+n6i2r9Lpa60VF8dGm9ZRf1arq0FqWlccG+XzM+eMMUods6tQio0xF2bO0fqj8oXpi9vbteM2XnuDgydWbl/j0umxxaWFKIqNMVqr/8gVEWmtjDFRFC8uLZROj7Fzfm5+9srV5ZPDQ9XqTqPR7Nubikij0axWd04OD125ujw3P+ucp+f2vbyx+eXy1zdX7pTLW/1xpZQaHx99Z+atS5c/Gi8VW2X/BLWx+IcxrANOAAAAAElFTkSuQmCC">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Nunito:wght@300;400;500;600&family=Raleway:wght@300&family=Sometype+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F0F0FA;--ink:#1E1830;--accent:#4A1FA6;--accent2:#E8622A;--accent3:#F0A876;--muted:#6B6885;--rule:#D5D7F2;--card:#E4E5F7;--danger:#B3261E}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--ink);font-size:14px;line-height:1.5;display:flex;flex-direction:column;height:100vh;overflow:hidden}
+button{font:inherit}
+/* TOP BAR */
+.top{display:flex;align-items:center;gap:.9rem;padding:.65rem 1.2rem;background:var(--ink);color:var(--bg);flex-shrink:0;flex-wrap:wrap}
+.brand{font-family:'Fraunces',serif;font-weight:700;font-size:1.05rem;white-space:nowrap}
+.brand span{font-family:'Raleway',sans-serif;font-weight:300;letter-spacing:.18em;text-transform:uppercase;color:var(--accent2);margin-right:.35rem}
+.tag{font-family:'Sometype Mono',monospace;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;border:1px solid rgba(240,240,250,.25);padding:.15rem .45rem;border-radius:2px;opacity:.75}
+.spacer{flex:1}
+.status{font-family:'Sometype Mono',monospace;font-size:.66rem;letter-spacing:.05em;display:flex;align-items:center;gap:.45rem;opacity:.9;white-space:nowrap}
+.status i{width:8px;height:8px;border-radius:50%;background:#7fd1a8;flex-shrink:0}
+.status.dirty i{background:var(--accent2);box-shadow:0 0 0 3px rgba(232,98,42,.25)}
+.btn{font-family:'Sometype Mono',monospace;font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--rule);background:#fff;color:var(--ink);padding:.45rem .8rem;border-radius:3px;cursor:pointer;display:inline-flex;align-items:center;gap:.4rem;transition:background .15s,border-color .15s,color .15s;white-space:nowrap;text-decoration:none}
+.btn:hover{border-color:var(--ink)}
+.btn.primary{background:var(--accent2);border-color:var(--accent2);color:#fff}
+.btn.primary:hover{background:#cf5420;border-color:#cf5420}
+.btn.accent{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.accent:hover{background:#3a1880}
+.btn.dark{background:transparent;border-color:rgba(240,240,250,.3);color:var(--bg)}
+.btn.dark:hover{border-color:var(--bg)}
+.btn.dark.on{background:rgba(240,240,250,.14);border-color:rgba(240,240,250,.6)}
+.btn.small{padding:.28rem .55rem;font-size:.6rem}
+.btn.danger{background:var(--danger);border-color:var(--danger);color:#fff}
+.btn.link{border-color:transparent;background:none;padding-left:.3rem;padding-right:.3rem;color:var(--accent)}
+.btn.link:hover{text-decoration:underline}
+/* LAYOUT */
+.app{flex:1;display:grid;grid-template-columns:235px minmax(0,1fr) 44vw;min-height:0}
+.app.nopreview{grid-template-columns:235px minmax(0,1fr)}
+.app.nopreview .preview{display:none}
+nav.side{border-right:1px solid var(--rule);overflow:auto;padding:.6rem .7rem 2rem;background:#fff}
+.side h4{font-family:'Sometype Mono',monospace;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:1.1rem .55rem .35rem}
+.side button{display:flex;align-items:center;gap:.4rem;width:100%;text-align:left;border:0;background:none;padding:.48rem .6rem;border-radius:4px;color:var(--ink);cursor:pointer;font-size:.88rem}
+.side button:hover{background:var(--bg)}
+.side button.act{background:var(--ink);color:#fff}
+.side button .lbl{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.side .count{font-family:'Sometype Mono',monospace;font-size:.64rem;opacity:.55}
+.side .only{font-family:'Sometype Mono',monospace;font-size:.52rem;letter-spacing:.06em;text-transform:uppercase;padding:.05rem .3rem;border-radius:2px;background:var(--card);color:var(--muted)}
+.side button.act .only{background:rgba(255,255,255,.15);color:#fff}
+main{overflow:auto;padding:1.6rem 2rem 5rem}
+.sec-head{display:flex;align-items:baseline;gap:.8rem;flex-wrap:wrap;margin-bottom:.3rem}
+.sec-head h2{font-family:'Fraunces',serif;font-size:1.75rem;letter-spacing:-.01em;line-height:1.2}
+.sec-desc{color:var(--muted);font-size:.86rem;margin-bottom:1.1rem;max-width:66ch}
+.toolbar{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem;align-items:center}
+/* ENTRY LIST */
+.entry{background:#fff;border:1px solid var(--rule);border-radius:6px;margin-bottom:.55rem;transition:box-shadow .2s,border-color .2s}
+.entry:hover{border-color:#bfc1e6}
+.entry.open{box-shadow:0 10px 30px rgba(74,31,166,.10);border-color:var(--accent)}
+.erow{display:flex;align-items:center;gap:.8rem;padding:.65rem .75rem .65rem .95rem;cursor:pointer;min-height:48px}
+.erow .ed{font-family:'Sometype Mono',monospace;font-size:.66rem;color:var(--accent);width:8.5rem;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.erow .et{flex:1;min-width:0;font-size:.9rem;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.erow .et.empty{color:var(--muted);font-style:italic;font-weight:400}
+.acts{display:flex;gap:.15rem;flex-shrink:0}
+.ib{width:30px;height:30px;border-radius:4px;border:1px solid transparent;background:none;cursor:pointer;color:var(--muted);display:inline-flex;align-items:center;justify-content:center}
+.ib svg{width:15px;height:15px;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.ib:hover{border-color:var(--rule);color:var(--ink);background:var(--bg)}
+.ib:disabled{opacity:.2;cursor:default;background:none;border-color:transparent}
+.ib.del:hover{color:var(--danger);border-color:#ecc9c6;background:#fdf3f2}
+.confirm{display:flex;align-items:center;gap:.5rem;font-size:.8rem;color:var(--danger);flex-shrink:0}
+.ebody{border-top:1px solid var(--rule);padding:1.1rem 1.1rem 1.2rem}
+.ebody-foot{display:flex;justify-content:flex-end;margin-top:1rem}
+/* FORM */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:.9rem 1rem}
+.f{display:flex;flex-direction:column;gap:.3rem;min-width:0}
+.f.full{grid-column:1/-1}
+.f>label,.flabel{font-family:'Sometype Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.help{font-size:.74rem;color:var(--muted);line-height:1.45}
+.help code{font-family:'Sometype Mono',monospace;font-size:.72rem;background:var(--bg);padding:0 .25rem;border-radius:2px;color:var(--ink)}
+input[type=text],input[type=date],textarea,select{font:inherit;font-size:.88rem;color:var(--ink);background:var(--bg);border:1px solid var(--rule);border-radius:4px;padding:.5rem .6rem;width:100%;transition:border-color .15s,background .15s}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--accent);background:#fff;box-shadow:0 0 0 3px rgba(74,31,166,.1)}
+textarea{resize:vertical;min-height:62px;line-height:1.5}
+textarea.tall{min-height:130px}
+::placeholder{color:#a3a1b8}
+.check{display:flex;align-items:center;gap:.55rem;font-size:.86rem;cursor:pointer;padding:.45rem 0}
+.check input{width:16px;height:16px;accent-color:var(--accent)}
+.range{display:flex;align-items:center;gap:.8rem}
+.range input{flex:1;accent-color:var(--accent)}
+.range output{font-family:'Sometype Mono',monospace;font-size:.76rem;min-width:2.8rem;text-align:right}
+.dots{display:flex;gap:.4rem;padding:.35rem 0}
+.dots button{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--ink);background:none;cursor:pointer;padding:0}
+.dots button.on{background:var(--ink)}
+.rep{display:flex;flex-direction:column;gap:.4rem}
+.rep-row{display:grid;gap:.4rem;align-items:start}
+.rep-row.kv{grid-template-columns:minmax(110px,.55fr) 1fr 30px}
+.rep-row.lnk{grid-template-columns:1fr 1.5fr 1fr 112px 30px}
+.rep-row.pill{grid-template-columns:1fr 1.6fr 112px 30px}
+.rep-row.two{grid-template-columns:1fr 1.6fr}
+.rep-head{font-family:'Sometype Mono',monospace;font-size:.54rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.rep-row textarea{min-height:38px}
+.rep .btn{align-self:flex-start}
+/* print box */
+.printbox{grid-column:1/-1;margin-top:.3rem;border:1px dashed #c9c6e3;border-radius:6px;background:#FBFBFE}
+.printbox summary{cursor:pointer;padding:.6rem .8rem;font-family:'Sometype Mono',monospace;font-size:.63rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);list-style:none;display:flex;gap:.55rem;align-items:center}
+.printbox summary::-webkit-details-marker{display:none}
+.printbox summary::before{content:'▸';transition:transform .2s;display:inline-block}
+.printbox[open] summary::before{transform:rotate(90deg)}
+.printbox summary .cnt{color:var(--muted);text-transform:none;letter-spacing:0}
+.printbox .inner{padding:.1rem .8rem .9rem;display:grid;gap:.8rem}
+.badge{font-family:'Sometype Mono',monospace;font-size:.52rem;letter-spacing:.08em;background:var(--card);color:var(--muted);padding:.05rem .35rem;border-radius:2px;margin-left:.45rem;text-transform:uppercase;vertical-align:1px}
+.badge.custom{background:rgba(232,98,42,.14);color:var(--accent2)}
+.img{display:flex;gap:1rem;align-items:flex-start;flex-wrap:wrap}
+.img img{width:120px;border-radius:3px;box-shadow:0 2px 10px rgba(0,0,0,.14)}
+.img .noimg{width:120px;height:86px;border:1px dashed var(--rule);border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:.72rem;color:var(--muted);background:var(--bg)}
+.img .col{display:flex;flex-direction:column;gap:.45rem;align-items:flex-start}
+.card{background:#fff;border:1px solid var(--rule);border-radius:6px;padding:1.15rem 1.2rem 1.25rem}
+.card+.card{margin-top:1rem}
+.card h3{font-family:'Sometype Mono',monospace;font-size:.63rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:.9rem}
+.empty{padding:2.2rem;text-align:center;color:var(--muted);border:1px dashed var(--rule);border-radius:6px;background:#fff}
+.banner{display:flex;gap:.8rem;align-items:center;flex-wrap:wrap;background:#FFF3EC;border:1px solid #F5C9B3;color:#7a3413;padding:.7rem 1rem;border-radius:6px;margin-bottom:1.1rem;font-size:.85rem}
+.banner .msg{flex:1;min-width:220px}
+.mdhelp{font-size:.7rem;color:var(--muted);margin-bottom:1rem;display:flex;gap:1rem;flex-wrap:wrap;align-items:center}
+.mdhelp code{font-family:'Sometype Mono',monospace;font-size:.7rem;background:#fff;border:1px solid var(--rule);padding:.05rem .35rem;border-radius:3px;color:var(--ink)}
+/* PREVIEW */
+.preview{border-left:1px solid var(--rule);display:flex;flex-direction:column;min-width:0;background:#DCDDEF;overflow:hidden}
+.ptabs{display:flex;gap:.3rem;padding:.45rem .7rem;border-bottom:1px solid var(--rule);background:#fff;align-items:center}
+.ptabs button{font-family:'Sometype Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;border:0;background:none;padding:.35rem .7rem;border-radius:3px;cursor:pointer;color:var(--muted)}
+.ptabs button.act{background:var(--ink);color:#fff}
+.ptabs .note{margin-left:auto;font-size:.66rem;color:var(--muted);text-align:right}
+.pframe{flex:1;position:relative;overflow:hidden}
+.pframe iframe{position:absolute;top:0;left:0;border:0;transform-origin:0 0;background:#fff}
+/* MODAL / TOAST */
+.modal-bg{position:fixed;inset:0;background:rgba(30,24,48,.5);display:none;align-items:center;justify-content:center;z-index:50;padding:1rem}
+.modal-bg.show{display:flex}
+.modal{background:#fff;border-radius:8px;max-width:540px;width:100%;padding:1.6rem 1.7rem 1.4rem;box-shadow:0 24px 70px rgba(0,0,0,.28)}
+.modal h3{font-family:'Fraunces',serif;font-size:1.35rem;margin-bottom:.4rem}
+.modal p{font-size:.9rem;color:var(--muted)}
+.modal ol{padding-left:1.25rem;display:flex;flex-direction:column;gap:.5rem;font-size:.9rem;margin:.9rem 0 1.3rem}
+.modal code{font-family:'Sometype Mono',monospace;font-size:.78rem;background:var(--bg);padding:.05rem .35rem;border-radius:3px}
+.modal a{color:var(--accent)}
+.modal .row{display:flex;gap:.5rem;justify-content:flex-end;flex-wrap:wrap}
+.toast{position:fixed;bottom:1.3rem;left:50%;transform:translate(-50%,40px);opacity:0;pointer-events:none;transition:transform .25s,opacity .25s;background:var(--ink);color:#fff;padding:.6rem .7rem .6rem 1rem;border-radius:5px;font-size:.84rem;transition:transform .25s;z-index:60;display:flex;gap:.8rem;align-items:center;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.toast.show{transform:translate(-50%,0);opacity:1;pointer-events:auto}
+.toast .btn{background:transparent;color:var(--accent3);border-color:rgba(255,255,255,.25)}
+@media (max-width:1150px){.app,.app.nopreview{grid-template-columns:210px minmax(0,1fr)}.preview{display:none}#btnPreview{display:none}}
+@media (max-width:760px){body{overflow:auto;height:auto}.app,.app.nopreview{display:block}nav.side{display:flex;overflow-x:auto;border-right:0;border-bottom:1px solid var(--rule);padding:.4rem;gap:.2rem}.side h4{display:none}.side button{white-space:nowrap;width:auto}.grid{grid-template-columns:1fr}main{padding:1rem;overflow:visible}.rep-row.lnk,.rep-row.pill,.rep-row.kv{grid-template-columns:1fr}.erow .ed{width:5.5rem}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="brand"><span>Martina</span>CV Editor</div>
+  <span class="tag">web + print</span>
+  <div class="spacer"></div>
+  <div class="status" id="status"><i></i><span>Sin cambios</span></div>
+  <button class="btn dark" id="btnOpen" title="Cargar otra versión de cv-data.js desde tu ordenador">Abrir archivo…</button>
+  <button class="btn dark on" id="btnPreview">Vista previa</button>
+  <button class="btn primary" id="btnDownload" title="Ctrl/Cmd + S">↓ Descargar cv-data.js</button>
+  <input type="file" id="fileOpen" accept=".js,.json,application/json,text/javascript" hidden>
+</header>
+
+<div class="app" id="app">
+  <nav class="side" id="side"></nav>
+  <main id="main"></main>
+  <aside class="preview" id="preview">
+    <div class="ptabs">
+      <button data-tab="web" class="act">Web</button>
+      <button data-tab="print">Print</button>
+      <span class="note">Vista previa en vivo · nada se publica hasta que subas el archivo</span>
+    </div>
+    <div class="pframe" id="pframe"></div>
+  </aside>
+</div>
+
+<div class="modal-bg" id="modalBg"><div class="modal" id="modal"></div></div>
+<div class="toast" id="toast"></div>
+
+<script src="cv-data.js"></script>
+<script src="cv-render.js"></script>
+<script>
+(function () {
+  'use strict';
+  if (!window.CVRender) {
+    document.getElementById('main').innerHTML = '<div class="empty">No encuentro <b>cv-render.js</b>. El editor tiene que estar en la misma carpeta que index.html, cv-print.html, cv-data.js y cv-render.js.</div>';
+    return;
+  }
+  var R = window.CVRender, esc = R.esc;
+  var DRAFT_KEY = 'cvEditorDraft.v1';
+  var UPLOAD_URL = 'https://github.com/designedout/martinalabarta/upload/main';
+  var SITE_URL = 'https://designedout.github.io/martinalabarta/';
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+
+  /* ── state ── */
+  var data = null, baseline = '', current = 'education', openIdx = -1, confirmIdx = -1;
+  var downloadedAt = null, undoSnap = null, uid = 0;
+
+  /* ── helpers ── */
+  function clone(o) { return JSON.parse(JSON.stringify(o)); }
+  function getP(o, p) { return p.split('.').reduce(function (a, k) { return a == null ? undefined : a[k]; }, o); }
+  function setP(o, p, v) {
+    var ks = p.split('.'), x = o;
+    ks.slice(0, -1).forEach(function (k) { if (x[k] == null || typeof x[k] !== 'object') x[k] = {}; x = x[k]; });
+    x[ks[ks.length - 1]] = v;
+  }
+  function plain(s) { return R.plain(s || ''); }
+  var ICON = {
+    up: '<svg viewBox="0 0 16 16"><path d="M8 13V3M4 7l4-4 4 4"/></svg>',
+    down: '<svg viewBox="0 0 16 16"><path d="M8 3v10M4 9l4 4 4-4"/></svg>',
+    dup: '<svg viewBox="0 0 16 16"><rect x="5" y="5" width="8.5" height="8.5" rx="1.5"/><path d="M10.5 5V3.5A1.5 1.5 0 0 0 9 2H3.5A1.5 1.5 0 0 0 2 3.5V9a1.5 1.5 0 0 0 1.5 1.5H5"/></svg>',
+    del: '<svg viewBox="0 0 16 16"><path d="M2.5 4h11M6 4V2.5h4V4M4 4l.7 9.5h6.6L12 4"/></svg>',
+    x: '<svg viewBox="0 0 16 16"><path d="M4 4l8 8M12 4l-8 8"/></svg>'
+  };
+
+  /* ════════════ SCHEMA: one entry per CV section ════════════ */
+  var PUBTYPES = [['conf', 'Conference paper'], ['journal', 'Journal article'], ['book', 'Book chapter'], ['thesis', 'Thesis']];
+  var SECTIONS = [
+    { key: 'profile', label: 'Perfil, bio y banner', group: 'General', kind: 'single', web: 'hero', print: 'cv-p-bio',
+      desc: 'Cabecera de la web y del print, tu bio y el banner “Currently”.',
+      cards: [
+        { title: 'Cabecera', fields: [
+          { p: 'profile.heroTag', label: 'Etiqueta superior (web)', type: 'text' },
+          { p: 'profile.email', label: 'Email', type: 'text' },
+          { p: 'profile.heroSub', label: 'Frase de presentación (web)', type: 'md', full: true },
+          { p: 'profile.basedWeb', label: 'Ubicación (web)', type: 'text' },
+          { p: 'profile.basedPrint', label: 'Ubicación (print)', type: 'text' },
+          { p: 'profile.printRole', label: 'Rol bajo tu nombre (print)', type: 'text', full: true },
+          { p: 'profile.heroLinks', label: 'Pastillas con enlace (web)', type: 'pills', full: true },
+          { p: 'profile.heroTopics', label: 'Etiquetas sobre la foto (web)', type: 'tags', full: true, help: 'Una por línea.' }
+        ] },
+        { title: 'Bio', fields: [{ p: 'profile.bio', label: 'Bio (web y print)', type: 'md', full: true, tall: true }] },
+        { title: 'Banner “Currently” (web)', fields: [
+          { p: 'profile.currently.text', label: 'Texto', type: 'text', full: true, help: 'Déjalo vacío para no mostrar el banner.' },
+          { p: 'profile.currently.emoji', label: 'Icono', type: 'text' },
+          { p: 'profile.currently.endDate', label: 'Se oculta después del', type: 'date' }
+        ] },
+        { title: 'Subtítulos dentro de Docencia', fields: [
+          { p: 'labels.teachingMain', label: 'Docencia (web y print)', type: 'text', full: true },
+          { p: 'labels.teachingGuest', label: 'Guest lectures (print)', type: 'text', full: true },
+          { p: 'labels.workshopsLed', label: 'Workshops liderados (print)', type: 'text' },
+          { p: 'labels.workshopsTutored', label: 'Workshops tutorizados (print)', type: 'text' }
+        ] }
+      ] },
+    { key: 'research', label: 'Investigación PhD', group: 'General', kind: 'single', web: 'research', print: 'p-research',
+      desc: 'El bloque oscuro “PhD Research” de la web y la sección 02 del print.',
+      cards: [{ title: 'Tesis doctoral', fields: [
+        { p: 'research.title', label: 'Título', type: 'text', full: true },
+        { p: 'research.institution', label: 'Institución', type: 'text' },
+        { p: 'research.department', label: 'Departamento', type: 'text' },
+        { p: 'research.since', label: 'Desde', type: 'text' },
+        { p: 'research.expected', label: 'Fin previsto', type: 'text' },
+        { p: 'research.supervisors', label: 'Supervisores (print)', type: 'text', full: true },
+        { p: 'research.tags', label: 'Palabras clave (web y print)', type: 'tags', help: 'Una por línea.' },
+        { p: 'research.printExtraTags', label: 'Palabras clave extra (solo print)', type: 'tags', help: 'Una por línea.' },
+        { p: 'research.abstract', label: 'Abstract', type: 'md', full: true, tall: true }
+      ] }] },
+
+    { key: 'education', label: 'Formación', group: 'Secciones', web: 'education', print: 'p-education',
+      desc: 'Tarjetas de “Academic Background” en la web y sección 01 del print.',
+      sum: function (e) { return [e.dates, e.degree]; },
+      blank: function () { return { dates: '', degree: '', institution: '', grade: '', status: '', thesis: '', details: '', link: { label: '', url: '' } }; },
+      fields: [
+        { p: 'dates', label: 'Fechas', type: 'text', ph: '2019 → 2022' },
+        { p: 'degree', label: 'Título', type: 'text', ph: 'MSc in …' },
+        { p: 'institution', label: 'Institución', type: 'text', full: true },
+        { p: 'grade', label: 'Nota', type: 'text', ph: '108/110' },
+        { p: 'status', label: 'Estado (si aún no hay nota)', type: 'text', ph: 'Expected March 2028' },
+        { p: 'thesis', label: 'Título de la tesis', type: 'text', full: true },
+        { p: 'details', label: 'Detalles (se despliegan en la web)', type: 'md', full: true, tall: true },
+        { p: 'link', label: 'Enlace (web)', type: 'link', full: true }
+      ],
+      printF: [{ k: 'sub', label: 'Línea bajo el título' }, { k: 'note', label: 'Línea extra (p. ej. supervisores)' }] },
+
+    { key: 'projects', label: 'Proyectos', group: 'Secciones', web: 'projects', print: 'p-projects', addTop: true,
+      desc: 'Sección “Projects” (02b), con imagen opcional en la web.',
+      sum: function (e) { return [e.status, e.title]; },
+      blank: function () { return { status: 'Ongoing', title: '', description: '', link: { label: 'View project', url: '' }, image: '', imageAlt: '' }; },
+      fields: [
+        { p: 'status', label: 'Estado / fecha', type: 'text', ph: 'Ongoing' },
+        { p: 'title', label: 'Título', type: 'text' },
+        { p: 'description', label: 'Descripción', type: 'md', full: true, tall: true },
+        { p: 'link', label: 'Enlace', type: 'link', full: true },
+        { p: 'image', label: 'Imagen (solo web)', type: 'image', full: true },
+        { p: 'imageAlt', label: 'Descripción de la imagen (accesibilidad)', type: 'text', full: true }
+      ],
+      printF: [{ k: 'body', label: 'Descripción' }] },
+
+    { key: 'publications', label: 'Publicaciones', group: 'Secciones', web: 'publications', print: 'p-publications', addTop: true,
+      desc: 'Lista filtrable de la web y sección 03 del print. Los filtros por tipo y año se generan solos.',
+      sum: function (e) { var t = (R.PUB_TYPES[e.type] || {}).label || ''; return [[e.year, t].filter(Boolean).join(' · '), e.title]; },
+      blank: function () { return { year: String(new Date().getFullYear()), type: 'conf', title: '', authors: 'Labarta Labrador M.*', venue: '', abstract: '', reference: '', extra: '', links: [] }; },
+      tools: ['sortYear'],
+      fields: [
+        { p: 'year', label: 'Año', type: 'text' },
+        { p: 'type', label: 'Tipo', type: 'select', opts: PUBTYPES },
+        { p: 'title', label: 'Título', type: 'text', full: true },
+        { p: 'authors', label: 'Autores', type: 'text', full: true, help: 'Tu nombre se resalta solo. Pon <code>*</code> detrás de quien presentó: <code>Labarta Labrador M.* &amp; Calvo Ivanovic I.</code>' },
+        { p: 'venue', label: 'Congreso · lugar · fecha (web)', type: 'text', full: true },
+        { p: 'abstract', label: 'Abstract (web)', type: 'md', full: true, tall: true },
+        { p: 'reference', label: 'Referencia', type: 'md', full: true, help: 'Ej.: <code>**(2026).** In A. Editor (Eds.), *Proceedings…* (pp. 1–10). Publisher.</code>' },
+        { p: 'extra', label: 'ISBN / ISSN', type: 'text', full: true },
+        { p: 'links', label: 'Enlaces (DOI, repositorio…)', type: 'links', full: true }
+      ],
+      printF: [{ k: 'ref', label: 'Referencia', help: 'Por defecto: la referencia sin negritas + ISBN/ISSN.' }] },
+
+    { key: 'teaching', label: 'Docencia', group: 'Secciones', web: 'teaching', print: 'p-teaching', addTop: true,
+      desc: 'Cursos, tutorías y guest lectures. En el print se agrupan en “docencia” y “guest lectures”.',
+      sum: function (e) { return [e.dates, [e.title, e.role].filter(Boolean).join(' · ')]; },
+      blank: function () { return { dates: '', title: 'Course — ', role: 'Teaching Assistant', subtitle: '', category: 'teaching', details: [['Academic year', ''], ['Tasks', '']] }; },
+      fields: [
+        { p: 'dates', label: 'Fechas', type: 'text', ph: '2025 → Present' },
+        { p: 'role', label: 'Rol (etiqueta)', type: 'text', ph: 'Teaching Assistant' },
+        { p: 'title', label: 'Título (web)', type: 'text', full: true, ph: 'Course — Product Language' },
+        { p: 'subtitle', label: 'Línea bajo el título (web)', type: 'text', full: true },
+        { p: 'category', label: 'Grupo en el print', type: 'select', opts: [['teaching', 'Docencia (Lecturer & TA)'], ['guest', 'Guest lectures & reviews']] },
+        { p: 'details', label: 'Detalles (se despliegan en la web)', type: 'kv', full: true, help: 'La fila “Tasks”, “Content” o “Talk” se usa como descripción en el print.' }
+      ],
+      printF: [{ k: 'title', label: 'Título' }, { k: 'sub', label: 'Línea bajo el título' }, { k: 'body', label: 'Descripción' }] },
+
+    { key: 'theses', label: 'Tesis co-dirigidas', group: 'Secciones', web: 'cv-theses-wrap', print: 'p-theses', addTop: true,
+      desc: 'Tarjetas bajo Docencia en la web y sección 04b del print.',
+      sum: function (e) { return [e.date, e.title]; },
+      blank: function () { return { date: '', title: '', summary: '', url: '' }; },
+      fields: [
+        { p: 'date', label: 'Fecha', type: 'text', ph: 'March 2026', help: 'En el print el mes se abrevia solo (Mar 2026).' },
+        { p: 'url', label: 'Enlace (POLITesi)', type: 'text', ph: 'https://hdl.handle.net/…' },
+        { p: 'title', label: 'Título', type: 'text', full: true },
+        { p: 'summary', label: 'Resumen (web)', type: 'md', full: true }
+      ],
+      printF: [{ k: 'title', label: 'Título' }, { k: 'body', label: 'Resumen' }] },
+
+    { key: 'workshops', label: 'Workshops', group: 'Secciones', web: 'workshops', print: 'p-teaching', addTop: true,
+      desc: 'Timeline de workshops en la web. En el print van dentro de Docencia (liderados / tutorizados).',
+      sum: function (e) { return [e.date, e.title]; },
+      blank: function () { return { date: '', title: '', role: 'Tutor', highlight: false, printGroup: 'tutored', place: '', details: '\n\n**Participants:** \n**Role:** ' }; },
+      fields: [
+        { p: 'date', label: 'Fecha', type: 'text', ph: '3–7 Mar 2025' },
+        { p: 'role', label: 'Rol (etiqueta)', type: 'text', ph: 'Leader' },
+        { p: 'title', label: 'Título', type: 'text', full: true },
+        { p: 'place', label: 'Lugar · partner', type: 'text', full: true },
+        { p: 'highlight', label: 'Destacar en naranja en la web', type: 'check' },
+        { p: 'printGroup', label: 'Grupo en el print', type: 'select', opts: [['led', 'Designed & Led'], ['tutored', 'Tutored']] },
+        { p: 'details', label: 'Descripción (se despliega en la web)', type: 'md', full: true, tall: true }
+      ],
+      printF: [{ k: 'sub', label: 'Línea bajo el título' }, { k: 'body', label: 'Descripción', help: 'Por defecto: el primer párrafo de la descripción.' }] },
+
+    { key: 'researchExperience', label: 'Exp. de investigación', group: 'Secciones', only: 'print', web: null, print: 'p-researchExperience', addTop: true,
+      desc: 'Sección 05 del print (no aparece en la web).',
+      sum: function (e) { return [e.dates, e.title]; },
+      blank: function () { return { dates: '', title: '', sub: '', body: '' }; },
+      fields: [
+        { p: 'dates', label: 'Fechas', type: 'text', ph: 'Mar–Jun 2026' },
+        { p: 'title', label: 'Título', type: 'text', full: true },
+        { p: 'sub', label: 'Línea bajo el título', type: 'text', full: true },
+        { p: 'body', label: 'Descripción', type: 'md', full: true }
+      ] },
+
+    { key: 'industry', label: 'Exp. en industria', group: 'Secciones', web: 'experience', print: 'p-industry', addTop: true,
+      desc: '“Industry Experience” en la web y sección 06 del print.',
+      sum: function (e) { return [plain(e.period), [e.role, e.company].filter(Boolean).join(' · ')]; },
+      blank: function () { return { period: '', role: '', company: '', url: '', urlLabel: '', summary: '', duration: '', tasks: '' }; },
+      fields: [
+        { p: 'period', label: 'Periodo', type: 'textarea', ph: 'Jul 2021 –\nApr 2022', help: 'Con Intro la fecha se parte en dos líneas en la web.' },
+        { p: 'duration', label: 'Duración', type: 'text', ph: '9 months' },
+        { p: 'role', label: 'Puesto', type: 'text' },
+        { p: 'company', label: 'Empresa, país', type: 'text' },
+        { p: 'url', label: 'Web de la empresa', type: 'text', ph: 'https://…' },
+        { p: 'urlLabel', label: 'Texto del enlace (opcional)', type: 'text', help: 'Vacío = se usa el dominio.' },
+        { p: 'summary', label: 'Resumen (visible en la web)', type: 'md', full: true },
+        { p: 'tasks', label: 'Tareas (se despliegan en la web)', type: 'md', full: true }
+      ],
+      printF: [{ k: 'title', label: 'Título' }, { k: 'body', label: 'Descripción' }] },
+
+    { key: 'languages', label: 'Idiomas', group: 'Competencias', web: 'skills', print: 'cv-p-languages',
+      desc: 'Idiomas con nivel y puntos (web y print).',
+      sum: function (e) { return [e.level, e.name]; },
+      blank: function () { return { name: '', level: '', dots: 3 }; },
+      fields: [
+        { p: 'name', label: 'Idioma', type: 'text' },
+        { p: 'level', label: 'Nivel', type: 'text', ph: 'Fluent · C1' },
+        { p: 'dots', label: 'Puntos', type: 'dots' }
+      ] },
+
+    { key: 'roles', label: 'Roles electivos', group: 'Competencias', web: 'skills', print: 'cv-p-roles', addTop: true,
+      desc: 'Tarjetas de roles (el color va cambiando según el orden).',
+      sum: function (e) { return [e.dates, e.title]; },
+      blank: function () { return { dates: '', title: '', description: '' }; },
+      fields: [
+        { p: 'dates', label: 'Fechas', type: 'text', ph: '2025 → Present' },
+        { p: 'title', label: 'Rol', type: 'text' },
+        { p: 'description', label: 'Descripción', type: 'md', full: true }
+      ],
+      printF: [{ k: 'body', label: 'Descripción' }] },
+
+    { key: 'software', label: 'Software', group: 'Competencias', web: 'skills', print: 'cv-p-software',
+      desc: 'Barras de nivel. Puedes decidir si cada programa aparece en la web, en el print o en ambos.',
+      sum: function (e) { return [(e.level || 0) + '%' + (e.where === 'web' ? ' · solo web' : e.where === 'print' ? ' · solo print' : ''), e.name]; },
+      blank: function () { return { name: '', level: 70, where: 'both' }; },
+      tools: ['sortAlpha'],
+      fields: [
+        { p: 'name', label: 'Programa', type: 'text' },
+        { p: 'where', label: 'Dónde aparece', type: 'select', opts: [['both', 'Web y print'], ['web', 'Solo web'], ['print', 'Solo print']] },
+        { p: 'level', label: 'Nivel', type: 'range', full: true }
+      ] },
+
+    { key: 'softSkills', label: 'Otras competencias', group: 'Competencias', only: 'web', web: 'skills', print: null,
+      desc: 'Bloques “Organisational / Communication” bajo Software (solo web).',
+      sum: function (e) { return ['', e.title]; },
+      blank: function () { return { title: '', text: '' }; },
+      fields: [
+        { p: 'title', label: 'Título', type: 'text' },
+        { p: 'text', label: 'Texto', type: 'md', full: true }
+      ] }
+  ];
+  var BYKEY = {}; SECTIONS.forEach(function (s) { BYKEY[s.key] = s; });
+  function sec() { return BYKEY[current]; }
+  function items() { if (!Array.isArray(data[current])) data[current] = []; return data[current]; }
+
+  /* ════════════ FIELD RENDERING ════════════ */
+  function fid() { return 'f' + (++uid); }
+  function field(f, obj) {
+    var v = getP(obj, f.p), id = fid(), cls = 'f' + (f.full ? ' full' : '');
+    var help = f.help ? '<div class="help">' + f.help + '</div>' : '';
+    var ph = f.ph ? ' placeholder="' + esc(f.ph) + '"' : '';
+    var lab = '<label for="' + id + '">' + esc(f.label) + '</label>';
+    var p = ' data-p="' + f.p + '" data-t="' + f.type + '"';
+    switch (f.type) {
+      case 'text': case 'date':
+        return '<div class="' + cls + '">' + lab + '<input id="' + id + '" type="' + f.type + '"' + p + ph + ' value="' + esc(v || '') + '">' + help + '</div>';
+      case 'textarea': case 'md':
+        return '<div class="' + cls + '">' + lab + '<textarea id="' + id + '"' + p + ph + (f.tall ? ' class="tall"' : '') + '>' + esc(v || '') + '</textarea>' + help + '</div>';
+      case 'select':
+        return '<div class="' + cls + '">' + lab + '<select id="' + id + '"' + p + '>' + f.opts.map(function (o) {
+          return '<option value="' + o[0] + '"' + (o[0] === v ? ' selected' : '') + '>' + esc(o[1]) + '</option>'; }).join('') + '</select>' + help + '</div>';
+      case 'check':
+        return '<div class="' + cls + '"><span class="flabel">&nbsp;</span><label class="check"><input type="checkbox"' + p + (v ? ' checked' : '') + '>' + esc(f.label) + '</label></div>';
+      case 'range':
+        return '<div class="' + cls + '">' + lab + '<div class="range"><input id="' + id + '" type="range" min="0" max="100" step="1"' + p + ' value="' + (+v || 0) + '"><output>' + (+v || 0) + '%</output></div></div>';
+      case 'dots':
+        var d = ''; for (var i = 1; i <= 5; i++) d += '<button type="button" data-dot="' + i + '" class="' + (i <= (+v || 0) ? 'on' : '') + '" title="' + i + '/5"></button>';
+        return '<div class="' + cls + '"><span class="flabel">' + esc(f.label) + '</span><div class="dots"' + p + '>' + d + '</div></div>';
+      case 'tags':
+        return '<div class="' + cls + '">' + lab + '<textarea id="' + id + '"' + p + '>' + esc((v || []).join('\n')) + '</textarea>' + help + '</div>';
+      case 'link':
+        v = v || {};
+        return '<div class="' + cls + '"><span class="flabel">' + esc(f.label) + '</span><div class="rep-row two"' + p + '>' +
+          '<input type="text" data-sub="label" placeholder="Texto del botón" value="' + esc(v.label || '') + '">' +
+          '<input type="text" data-sub="url" placeholder="https://…" value="' + esc(v.url || '') + '"></div>' + help + '</div>';
+      case 'image':
+        return '<div class="' + cls + '"><span class="flabel">' + esc(f.label) + '</span><div class="img"' + p + '>' +
+          (v ? '<img src="' + v + '" alt="">' : '<div class="noimg">Sin imagen</div>') +
+          '<div class="col"><button type="button" class="btn small" data-act="img-pick">' + (v ? 'Cambiar imagen' : 'Subir imagen') + '</button>' +
+          (v ? '<button type="button" class="btn small link" data-act="img-clear">Quitar</button>' : '') +
+          '<div class="help">JPG o PNG. Se reduce automáticamente.</div></div>' +
+          '<input type="file" accept="image/*" hidden data-act="img-file"></div></div>';
+      case 'kv':
+        v = v || [];
+        return '<div class="' + cls + '"><span class="flabel">' + esc(f.label) + '</span><div class="rep"' + p + '>' +
+          (v.length ? '<div class="rep-row kv rep-head"><span>Campo</span><span>Valor</span><span></span></div>' : '') +
+          v.map(function (kv, i) {
+            return '<div class="rep-row kv" data-row="' + i + '"><input type="text" data-col="0" value="' + esc(kv[0] || '') + '" placeholder="Academic year">' +
+              '<textarea data-col="1" rows="1" placeholder="2025–26">' + esc(kv[1] || '') + '</textarea>' +
+              '<button type="button" class="ib del" data-act="row-del" title="Quitar fila">' + ICON.x + '</button></div>';
+          }).join('') + '<button type="button" class="btn small" data-act="row-add">+ Añadir fila</button></div>' + help + '</div>';
+      case 'links':
+        v = v || [];
+        return '<div class="' + cls + '"><span class="flabel">' + esc(f.label) + '</span><div class="rep"' + p + '>' +
+          (v.length ? '<div class="rep-row lnk rep-head"><span>Texto (web)</span><span>URL</span><span>Texto en print (opcional)</span><span>Dónde</span><span></span></div>' : '') +
+          v.map(function (l, i) {
+            return '<div class="rep-row lnk" data-row="' + i + '">' +
+              '<input type="text" data-col="label" value="' + esc(l.label || '') + '" placeholder="DOI: 10.…">' +
+              '<input type="text" data-col="url" value="' + esc(l.url || '') + '" placeholder="https://doi.org/…">' +
+              '<input type="text" data-col="printLabel" value="' + esc(l.printLabel || '') + '" placeholder="automático">' +
+              '<select data-col="where">' + [['both', 'Web y print'], ['web', 'Solo web'], ['print', 'Solo print']].map(function (o) {
+                return '<option value="' + o[0] + '"' + ((l.where || 'both') === o[0] ? ' selected' : '') + '>' + o[1] + '</option>'; }).join('') + '</select>' +
+              '<button type="button" class="ib del" data-act="row-del" title="Quitar enlace">' + ICON.x + '</button></div>';
+          }).join('') + '<button type="button" class="btn small" data-act="row-add">+ Añadir enlace</button></div>' +
+          '<div class="help">En el print, los DOI se muestran tal cual y el resto como dominio (p. ej. designsociety.org/…).</div></div>';
+      case 'pills':
+        v = v || [];
+        return '<div class="' + cls + '"><span class="flabel">' + esc(f.label) + '</span><div class="rep"' + p + '>' +
+          v.map(function (l, i) {
+            return '<div class="rep-row pill" data-row="' + i + '">' +
+              '<input type="text" data-col="label" value="' + esc(l.label || '') + '" placeholder="Texto">' +
+              '<input type="text" data-col="url" value="' + esc(l.url || '') + '" placeholder="https://…">' +
+              '<select data-col="style"><option value="solid"' + (l.style !== 'outline' ? ' selected' : '') + '>Rellena</option><option value="outline"' + (l.style === 'outline' ? ' selected' : '') + '>Contorno</option></select>' +
+              '<button type="button" class="ib del" data-act="row-del" title="Quitar">' + ICON.x + '</button></div>';
+          }).join('') + '<button type="button" class="btn small" data-act="row-add">+ Añadir pastilla</button></div></div>';
+    }
+    return '';
+  }
+
+  function printBox(s, e) {
+    if (!s.printF) return '';
+    var custom = 0;
+    var rows = s.printF.map(function (pf) {
+      var v = (e.print && e.print[pf.k]) || '';
+      if (String(v).trim()) custom++;
+      var id = fid();
+      return '<div class="f"><label for="' + id + '">' + esc(pf.label) + '<span class="badge' + (String(v).trim() ? ' custom' : '') + '" data-badge="' + pf.k + '">' + (String(v).trim() ? 'personalizado' : 'automático') + '</span></label>' +
+        '<textarea id="' + id + '" data-pp="' + pf.k + '" placeholder="' + esc(plain(R.AUTO[s.key][pf.k](e))) + '">' + esc(v) + '</textarea>' +
+        (pf.help ? '<div class="help">' + pf.help + '</div>' : '') + '</div>';
+    }).join('');
+    return '<details class="printbox"' + (custom ? ' open' : '') + '><summary>Versión print <span class="cnt">— ' +
+      (custom ? custom + ' campo' + (custom > 1 ? 's' : '') + ' personalizado' + (custom > 1 ? 's' : '') : 'se genera sola a partir de los campos de arriba') +
+      '</span></summary><div class="inner"><div class="help">Si dejas un campo vacío, el print usa el texto gris (generado automáticamente). Escribe solo si quieres una versión distinta, p. ej. más corta.</div>' +
+      rows + '</div></details>';
+  }
+
+  /* ════════════ SIDEBAR & MAIN ════════════ */
+  function renderSide() {
+    var html = '', g = '';
+    SECTIONS.forEach(function (s) {
+      if (s.group !== g) { g = s.group; html += '<h4>' + g + '</h4>'; }
+      var n = s.kind === 'single' ? '' : (data[s.key] || []).length;
+      html += '<button data-sec="' + s.key + '" class="' + (s.key === current ? 'act' : '') + '"><span class="lbl">' + esc(s.label) + '</span>' +
+        (s.only ? '<span class="only">solo ' + s.only + '</span>' : '') + '<span class="count">' + n + '</span></button>';
+    });
+    $('#side').innerHTML = html;
+  }
+
+  var MDHELP = '<div class="mdhelp"><span>Formato en los textos:</span><span><code>**negrita**</code></span><span><code>*cursiva*</code></span><span>Intro = salto de línea · línea vacía = párrafo</span></div>';
+
+  function renderMain(focusFirst) {
+    var s = sec(), html = '';
+    html += draftBannerHTML();
+    html += '<div class="sec-head"><h2>' + esc(s.label) + '</h2></div><p class="sec-desc">' + esc(s.desc || '') + '</p>';
+    if (s.kind === 'single') {
+      html += MDHELP;
+      html += s.cards.map(function (c) {
+        return '<div class="card"><h3>' + esc(c.title) + '</h3><div class="grid">' + c.fields.map(function (f) { return field(f, data); }).join('') + '</div></div>';
+      }).join('');
+    } else {
+      var list = items();
+      html += '<div class="toolbar"><button class="btn accent" data-act="add">+ Añadir entrada</button>' +
+        (s.tools || []).map(function (t) {
+          return t === 'sortYear' ? '<button class="btn" data-act="sortYear">Ordenar por año</button>' :
+                 t === 'sortAlpha' ? '<button class="btn" data-act="sortAlpha">Ordenar A–Z</button>' : '';
+        }).join('') +
+        '<span class="help" style="margin-left:.3rem">El orden de la lista es el orden en la web y en el print.</span></div>';
+      if (!list.length) html += '<div class="empty">Esta sección está vacía. Pulsa “Añadir entrada”.<br><span class="help">Mientras esté vacía no se muestra ni en la web ni en el print.</span></div>';
+      html += list.map(function (e, i) { return entryHTML(s, e, i, list.length); }).join('');
+    }
+    var main = $('#main');
+    main.innerHTML = html;
+    $$('textarea', main).forEach(autosize);
+    if (focusFirst) { var inp = $('.entry.open input[type=text], .entry.open textarea', main); if (inp) inp.focus(); }
+  }
+
+  function entryHTML(s, e, i, n) {
+    var sm = s.sum(e), open = i === openIdx;
+    var acts = confirmIdx === i
+      ? '<div class="confirm">¿Eliminar esta entrada? <button class="btn small danger" data-act="del-yes">Eliminar</button><button class="btn small" data-act="del-no">Cancelar</button></div>'
+      : '<div class="acts">' +
+        '<button class="ib" data-act="up" title="Subir"' + (i === 0 ? ' disabled' : '') + '>' + ICON.up + '</button>' +
+        '<button class="ib" data-act="down" title="Bajar"' + (i === n - 1 ? ' disabled' : '') + '>' + ICON.down + '</button>' +
+        '<button class="ib" data-act="dup" title="Duplicar">' + ICON.dup + '</button>' +
+        '<button class="ib del" data-act="del" title="Eliminar">' + ICON.del + '</button></div>';
+    var title = plain(sm[1]);
+    return '<div class="entry' + (open ? ' open' : '') + '" data-i="' + i + '">' +
+      '<div class="erow" data-act="toggle"><span class="ed">' + esc(plain(sm[0]) || '—') + '</span>' +
+      '<span class="et' + (title ? '' : ' empty') + '">' + esc(title || '(sin título)') + '</span>' + acts + '</div>' +
+      (open ? '<div class="ebody">' + MDHELP + '<div class="grid">' + s.fields.map(function (f) { return field(f, e); }).join('') + printBox(s, e) + '</div>' +
+        '<div class="ebody-foot"><button class="btn small" data-act="toggle">Cerrar</button></div></div>' : '') +
+      '</div>';
+  }
+
+  function refreshOpenRow() {
+    var s = sec(); if (s.kind === 'single' || openIdx < 0) return;
+    var e = items()[openIdx], row = $('.entry[data-i="' + openIdx + '"]'); if (!row || !e) return;
+    var sm = s.sum(e), t = plain(sm[1]);
+    $('.ed', row).textContent = plain(sm[0]) || '—';
+    var et = $('.et', row); et.textContent = t || '(sin título)'; et.classList.toggle('empty', !t);
+    // refresh automatic print placeholders
+    $$('[data-pp]', row).forEach(function (ta) {
+      var k = ta.dataset.pp; ta.placeholder = plain(R.AUTO[s.key][k](e));
+      var b = $('[data-badge="' + k + '"]', row), custom = !!ta.value.trim();
+      if (b) { b.textContent = custom ? 'personalizado' : 'automático'; b.classList.toggle('custom', custom); }
+    });
+  }
+
+  /* ════════════ EDITING ════════════ */
+  function target() { return sec().kind === 'single' ? data : items()[openIdx]; }
+
+  function autosize(el) { if (!el.offsetParent) return; el.style.height = 'auto'; el.style.height = (el.scrollHeight + 2) + 'px'; }
+
+  function onInput(ev) {
+    var el = ev.target, obj = target(); if (!obj) return;
+    if (el.tagName === 'TEXTAREA') autosize(el);
+    if (el.dataset.pp) {                       // print override
+      var k = el.dataset.pp; obj.print = obj.print || {};
+      if (el.value.trim()) obj.print[k] = el.value; else delete obj.print[k];
+      if (!Object.keys(obj.print).length) delete obj.print;
+      return changed();
+    }
+    var host = el.closest('[data-p]'); if (!host) return;
+    var p = host.dataset.p, t = host.dataset.t;
+    if (t === 'text' || t === 'date' || t === 'textarea' || t === 'md' || t === 'select') setP(obj, p, el.value);
+    else if (t === 'check') setP(obj, p, el.checked);
+    else if (t === 'range') { setP(obj, p, +el.value); el.nextElementSibling.textContent = el.value + '%'; }
+    else if (t === 'tags') setP(obj, p, el.value.split('\n').map(function (x) { return x.trim(); }).filter(Boolean));
+    else if (t === 'link') { var l = getP(obj, p) || {}; l[el.dataset.sub] = el.value; setP(obj, p, l); }
+    else if (t === 'kv' || t === 'links' || t === 'pills') {
+      var row = el.closest('[data-row]'); if (!row) return;
+      var arr = getP(obj, p) || [], i = +row.dataset.row, col = el.dataset.col;
+      if (t === 'kv') arr[i][+col] = el.value;
+      else { arr[i][col] = el.value; if (col === 'printLabel' && !el.value) delete arr[i].printLabel; if (col === 'where' && el.value === 'both') delete arr[i].where; }
+      setP(obj, p, arr);
+    }
+    changed();
+  }
+
+  function onClick(ev) {
+    var b = ev.target.closest('[data-act],[data-dot],[data-sec],[data-tab]');
+    if (!b) return;
+    if (b.dataset.sec) { current = b.dataset.sec; openIdx = -1; confirmIdx = -1; renderSide(); renderMain(); $('#main').scrollTop = 0; scrollPreview(); return; }
+    if (b.dataset.tab) { setTab(b.dataset.tab); return; }
+    if (b.dataset.dot) {
+      var host = b.closest('[data-p]'), obj = target(), n = +b.dataset.dot;
+      setP(obj, host.dataset.p, n);
+      $$('button', host).forEach(function (x) { x.classList.toggle('on', +x.dataset.dot <= n); });
+      return changed();
+    }
+    var act = b.dataset.act, entry = b.closest('.entry'), i = entry ? +entry.dataset.i : -1, list;
+    switch (act) {
+      case 'toggle':
+        if (ev.target.closest('.acts,.confirm')) return;
+        openIdx = openIdx === i ? -1 : i; confirmIdx = -1; renderMain(openIdx >= 0);
+        if (openIdx >= 0) { var el = $('.entry.open'); if (el) el.scrollIntoView({ block: 'nearest' }); }
+        scrollPreview(); return;
+      case 'add':
+        list = items(); var s = sec(), e = s.blank();
+        if (s.addTop) { list.unshift(e); openIdx = 0; } else { list.push(e); openIdx = list.length - 1; }
+        confirmIdx = -1; renderSide(); renderMain(true); var oe = $('.entry.open'); if (oe) oe.scrollIntoView({ block: 'nearest' });
+        return changed(true);
+      case 'up': case 'down':
+        list = items(); var j = act === 'up' ? i - 1 : i + 1; if (j < 0 || j >= list.length) return;
+        var tmp = list[i]; list[i] = list[j]; list[j] = tmp;
+        if (openIdx === i) openIdx = j; else if (openIdx === j) openIdx = i;
+        renderMain(); return changed(true);
+      case 'dup':
+        list = items(); list.splice(i + 1, 0, clone(list[i])); openIdx = i + 1; confirmIdx = -1;
+        renderSide(); renderMain(true); toast('Entrada duplicada'); return changed(true);
+      case 'del': confirmIdx = i; renderMain(); return;
+      case 'del-no': confirmIdx = -1; renderMain(); return;
+      case 'del-yes':
+        undoSnap = { section: current, data: clone(data) };
+        items().splice(i, 1); confirmIdx = -1; if (openIdx === i) openIdx = -1; else if (openIdx > i) openIdx--;
+        renderSide(); renderMain(); toast('Entrada eliminada', 'Deshacer', function () {
+          data = undoSnap.data; current = undoSnap.section; openIdx = -1; undoSnap = null; renderSide(); renderMain(); changed(true);
+        });
+        return changed(true);
+      case 'sortYear':
+        items().sort(function (a, b) { return String(b.year).localeCompare(String(a.year)); }); openIdx = -1;
+        renderMain(); toast('Ordenado por año (de más reciente a más antiguo)'); return changed(true);
+      case 'sortAlpha':
+        items().sort(function (a, b) { return String(a.name).localeCompare(String(b.name)); }); openIdx = -1;
+        renderMain(); toast('Ordenado alfabéticamente'); return changed(true);
+      case 'row-add': case 'row-del': {
+        var host2 = b.closest('[data-p]'), obj2 = target(), p2 = host2.dataset.p, t2 = host2.dataset.t;
+        var arr = getP(obj2, p2) || [];
+        if (act === 'row-add') arr.push(t2 === 'kv' ? ['', ''] : t2 === 'pills' ? { label: '', url: '', style: 'outline' } : { label: '', url: '' });
+        else arr.splice(+b.closest('[data-row]').dataset.row, 1);
+        setP(obj2, p2, arr); rerenderKeepScroll(); return changed();
+      }
+      case 'img-pick': $('input[data-act="img-file"]', b.closest('[data-p]')).click(); return;
+      case 'img-clear': setP(target(), b.closest('[data-p]').dataset.p, ''); rerenderKeepScroll(); return changed();
+      case 'draft-restore':
+        data = draftData; delete data.__savedAt; draftData = null; renderSide(); renderMain(); toast('Borrador recuperado'); return changed(true);
+      case 'draft-discard':
+        draftData = null; try { localStorage.removeItem(DRAFT_KEY); } catch (e) {} renderMain(); return;
+    }
+  }
+
+  function onChange(ev) {
+    var el = ev.target;
+    if (el.dataset.act === 'img-file' && el.files && el.files[0]) {
+      var host = el.closest('[data-p]'), obj = target(), p = host.dataset.p;
+      readImage(el.files[0]).then(function (url) { setP(obj, p, url); rerenderKeepScroll(); changed(); })
+        .catch(function () { toast('No he podido leer esa imagen'); });
+    }
+  }
+
+  function rerenderKeepScroll() { var m = $('#main'), y = m.scrollTop; renderMain(); m.scrollTop = y; }
+
+  function readImage(file) {
+    return new Promise(function (res, rej) {
+      var fr = new FileReader();
+      fr.onerror = rej;
+      fr.onload = function () {
+        var img = new Image();
+        img.onerror = rej;
+        img.onload = function () {
+          var max = 600, w = img.width, h = img.height;
+          if (w > max) { h = Math.round(h * max / w); w = max; }
+          var c = document.createElement('canvas'); c.width = w; c.height = h;
+          c.getContext('2d').drawImage(img, 0, 0, w, h);
+          var png = /png|gif|webp|svg/.test(file.type);
+          res(c.toDataURL(png ? 'image/png' : 'image/jpeg', 0.86));
+        };
+        img.src = fr.result;
+      };
+      fr.readAsDataURL(file);
+    });
+  }
+
+  /* ════════════ STATE: dirty, drafts, download ════════════ */
+  var previewTimer = null, draftTimer = null, draftData = null;
+  function changed(structural) {
+    if (!structural) refreshOpenRow(); else renderSide();
+    updateStatus();
+    clearTimeout(previewTimer); previewTimer = setTimeout(pushPreview, 250);
+    clearTimeout(draftTimer); draftTimer = setTimeout(saveDraft, 600);
+  }
+  function isDirty() { return JSON.stringify(data) !== baseline; }
+  function updateStatus() {
+    var st = $('#status'), dirty = isDirty();
+    st.classList.toggle('dirty', dirty);
+    var t = dirty ? 'Cambios sin descargar' :
+      downloadedAt ? 'Descargado ' + downloadedAt.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }) + ' · falta subirlo' : 'Sin cambios';
+    $('span', st).textContent = t;
+  }
+  function saveDraft() {
+    try {
+      if (JSON.stringify(data) === JSON.stringify(window.CV_DATA)) localStorage.removeItem(DRAFT_KEY);
+      else localStorage.setItem(DRAFT_KEY, JSON.stringify({ savedAt: Date.now(), data: data }));
+    } catch (e) { /* storage not available: ignore */ }
+  }
+  function loadDraft() {
+    try {
+      var raw = localStorage.getItem(DRAFT_KEY); if (!raw) return;
+      var d = JSON.parse(raw);
+      if (JSON.stringify(d.data) === JSON.stringify(window.CV_DATA)) { localStorage.removeItem(DRAFT_KEY); return; }
+      draftData = d.data; draftData.__savedAt = d.savedAt;
+    } catch (e) { draftData = null; }
+  }
+  function draftBannerHTML() {
+    if (!draftData) return '';
+    var when = new Date(draftData.__savedAt || Date.now());
+    return '<div class="banner"><div class="msg"><b>Tienes cambios guardados en este navegador</b> (' +
+      when.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' }) + ', ' + when.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }) +
+      ') que todavía no están en la web publicada.</div>' +
+      '<button class="btn small primary" data-act="draft-restore">Recuperar</button><button class="btn small" data-act="draft-discard">Descartar</button></div>';
+  }
+
+  function fileText() {
+    var d = clone(data); delete d.__savedAt;
+    return '/* CV DATA — all the content of index.html and cv-print.html.\n   Edit it with editor.html, then upload this file to GitHub. */\nwindow.CV_DATA = ' + JSON.stringify(d, null, 2) + ';\n';
+  }
+  function download() {
+    delete data.__savedAt;
+    var blob = new Blob([fileText()], { type: 'text/javascript;charset=utf-8' });
+    var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'cv-data.js';
+    document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+    baseline = JSON.stringify(data); downloadedAt = new Date(); updateStatus();
+    modal('<h3>Archivo descargado ✓</h3><p>Para publicar los cambios en la web y en el print:</p><ol>' +
+      '<li>Abre <a href="' + UPLOAD_URL + '" target="_blank" rel="noopener">la página de subida del repositorio</a> en GitHub.</li>' +
+      '<li>Arrastra el <code>cv-data.js</code> que acabas de descargar (sustituye al anterior).</li>' +
+      '<li>Pulsa <b>Commit changes</b>.</li>' +
+      '<li>En 1–2 minutos los cambios aparecen en <a href="' + SITE_URL + '" target="_blank" rel="noopener">la web</a> y en el CV print. Si no los ves, recarga sin caché (Cmd/Ctrl + Shift + R).</li></ol>' +
+      '<div class="row"><a class="btn accent" href="' + UPLOAD_URL + '" target="_blank" rel="noopener">Ir a GitHub</a><button class="btn" data-close>Cerrar</button></div>');
+  }
+
+  function openFile(file) {
+    var fr = new FileReader();
+    fr.onload = function () {
+      try {
+        var txt = String(fr.result), a = txt.indexOf('{'), b = txt.lastIndexOf('}');
+        var d = JSON.parse(txt.slice(a, b + 1));
+        if (!d || typeof d !== 'object' || !d.profile) throw new Error('formato');
+        data = d; openIdx = -1; confirmIdx = -1; renderSide(); renderMain(); changed(true);
+        toast('Archivo cargado: ' + file.name);
+      } catch (e) { toast('Ese archivo no parece un cv-data.js válido'); }
+    };
+    fr.readAsText(file);
+  }
+
+  /* ════════════ PREVIEW ════════════ */
+  var frames = {}, previewOn = true, tab = 'web';
+  var PAGE = { web: ['index.html', 1280], print: ['cv-print.html', 900] };
+  function ensureFrames() {
+    if (frames.web) return;
+    Object.keys(PAGE).forEach(function (k) {
+      var f = document.createElement('iframe');
+      f.src = PAGE[k][0] + '?preview=1'; f.title = 'Vista previa ' + k; f.dataset.kind = k;
+      $('#pframe').appendChild(f); frames[k] = f;
+    });
+    layoutFrames();
+  }
+  function layoutFrames() {
+    var box = $('#pframe'); if (!box || !frames.web) return;
+    var w = box.clientWidth, h = box.clientHeight;
+    Object.keys(PAGE).forEach(function (k) {
+      var f = frames[k], W = PAGE[k][1], s = w / W;
+      f.style.width = W + 'px'; f.style.height = (h / s) + 'px'; f.style.transform = 'scale(' + s + ')';
+      f.style.display = k === tab ? 'block' : 'none';
+    });
+  }
+  function setTab(k) {
+    tab = k; $$('.ptabs button').forEach(function (b) { b.classList.toggle('act', b.dataset.tab === k); });
+    layoutFrames(); scrollPreview();
+  }
+  function post(k, msg) { try { if (frames[k] && frames[k].contentWindow) frames[k].contentWindow.postMessage(msg, '*'); } catch (e) {} }
+  function pushPreview() { if (!frames.web) return; var d = clone(data); post('web', { type: 'cv-data', data: d }); post('print', { type: 'cv-data', data: d }); }
+  function scrollPreview() {
+    var s = sec(); if (!frames.web) return;
+    if (s.web) post('web', { type: 'cv-scroll', target: s.web });
+    if (s.print) post('print', { type: 'cv-scroll', target: s.print });
+    if (tab === 'web' && !s.web && s.print) setTab('print');
+    else if (tab === 'print' && !s.print && s.web) setTab('web');
+  }
+  window.addEventListener('message', function (ev) {
+    var m = ev.data || {};
+    if (m.type === 'cv-ready' && frames[m.page]) {
+      post(m.page, { type: 'cv-data', data: clone(data) });
+      var s = sec(), t = m.page === 'web' ? s.web : s.print;
+      if (t) setTimeout(function () { post(m.page, { type: 'cv-scroll', target: t }); }, 300);
+    }
+  });
+  function togglePreview(on) {
+    previewOn = on; $('#app').classList.toggle('nopreview', !on); $('#btnPreview').classList.toggle('on', on);
+    if (on) { ensureFrames(); setTimeout(layoutFrames, 0); }
+    try { localStorage.setItem('cvEditorPreview', on ? '1' : '0'); } catch (e) {}
+  }
+
+  /* ════════════ UI bits ════════════ */
+  var toastTimer;
+  function toast(msg, actLabel, fn) {
+    var t = $('#toast');
+    t.innerHTML = '<span>' + esc(msg) + '</span>' + (actLabel ? '<button class="btn small">' + esc(actLabel) + '</button>' : '');
+    if (actLabel) $('button', t).onclick = function () { t.classList.remove('show'); fn(); };
+    t.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(function () { t.classList.remove('show'); }, actLabel ? 6000 : 2600);
+  }
+  function modal(html) { $('#modal').innerHTML = html; $('#modalBg').classList.add('show'); }
+  $('#modalBg').addEventListener('click', function (e) { if (e.target.id === 'modalBg' || e.target.hasAttribute('data-close')) $('#modalBg').classList.remove('show'); });
+
+  /* ════════════ BOOT ════════════ */
+  function boot() {
+    if (!window.CV_DATA) {
+      $('#main').innerHTML = '<div class="empty"><b>No encuentro cv-data.js</b> junto a este editor.<br><br>Abre el editor desde la web publicada (…/martinalabarta/editor.html) o desde la carpeta que contiene los archivos de la web, o carga el archivo a mano:<br><br><button class="btn accent" onclick="document.getElementById(\'fileOpen\').click()">Abrir cv-data.js</button></div>';
+      window.CV_DATA = null;
+      $('#fileOpen').addEventListener('change', function () { if (this.files[0]) { var f = this.files[0]; var fr = new FileReader(); fr.onload = function () { try { var t = String(fr.result); window.CV_DATA = JSON.parse(t.slice(t.indexOf('{'), t.lastIndexOf('}') + 1)); start(); } catch (e) { toast('Archivo no válido'); } }; fr.readAsText(f); } }, { once: true });
+      togglePreview(false);
+      return;
+    }
+    start();
+  }
+  function start() {
+    data = clone(window.CV_DATA); baseline = JSON.stringify(data);
+    loadDraft();
+    renderSide(); renderMain(); updateStatus();
+    var pref = '1'; try { pref = localStorage.getItem('cvEditorPreview') || '1'; } catch (e) {}
+    togglePreview(pref === '1' && window.innerWidth > 1150);
+    $('#side').addEventListener('click', onClick);
+    $('#main').addEventListener('click', onClick);
+    $('#main').addEventListener('input', onInput);
+    $('#main').addEventListener('change', function (ev) { if (ev.target.type === 'checkbox' || ev.target.tagName === 'SELECT') onInput(ev); else onChange(ev); });
+    $('#main').addEventListener('toggle', function (ev) { if (ev.target.tagName === 'DETAILS') $$('textarea', ev.target).forEach(autosize); }, true);
+    $('.ptabs').addEventListener('click', onClick);
+    $('#btnPreview').addEventListener('click', function () { togglePreview(!previewOn); });
+    $('#btnDownload').addEventListener('click', download);
+    $('#btnOpen').addEventListener('click', function () { $('#fileOpen').click(); });
+    $('#fileOpen').addEventListener('change', function () { if (this.files[0]) openFile(this.files[0]); this.value = ''; });
+    window.addEventListener('resize', layoutFrames);
+    document.addEventListener('keydown', function (e) { if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 's') { e.preventDefault(); download(); } });
+    window.addEventListener('beforeunload', function (e) { if (isDirty()) { saveDraft(); } });
+  }
+  boot();
+})();
+</script>
+</body>
+</html>

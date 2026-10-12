@@ -69,7 +69,8 @@ window.CV_DATA = {
       "link": {
         "label": "View thesis on POLITesi",
         "url": "https://hdl.handle.net/10589/195476"
-      }
+      },
+      "gradeWhere": "print"
     },
     {
       "dates": "2013 → 2019",
@@ -82,7 +83,8 @@ window.CV_DATA = {
       "link": {
         "label": "",
         "url": ""
-      }
+      },
+      "gradeWhere": "print"
     },
     {
       "dates": "Sep 2016 → Jul 2017",
@@ -301,7 +303,7 @@ window.CV_DATA = {
       "authors": "Labarta Labrador M.",
       "venue": "MSc Thesis · Politecnico di Milano · POLITesi",
       "abstract": "Sustainability-focused redesign of a professional ice machine, integrating technical engineering improvements with a full CMF (Colour, Materials, Finish) redesign. The project combined LCA (Life Cycle Assessment) methodology with industrial design practice to propose both environmentally and aesthetically improved solutions.",
-      "reference": "**Focus:** Sustainability · Industrial Design · CMF Design · Life Cycle Assessment · Mechanical Engineering\n**Final grade:** 108/110",
+      "reference": "**Focus:** Sustainability · Industrial Design · CMF Design · Life Cycle Assessment · Mechanical Engineering",
       "extra": "",
       "links": [
         {

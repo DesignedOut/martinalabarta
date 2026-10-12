@@ -133,7 +133,8 @@
     education: function (d) {
       var items = list(d.education);
       set('cv-education', items.map(function (e) {
-        var grade = e.grade ? esc(e.grade).replace(/\s*\/\s*/, ' / ') : (e.status ? esc(e.status) : '');
+        var gWeb = e.grade && e.gradeWhere !== 'print';
+        var grade = gWeb ? esc(e.grade).replace(/\s*\/\s*/, ' / ') : (e.status ? esc(e.status) : '');
         var inner = (e.thesis ? '<div class="edu-thesis">"' + esc(e.thesis) + '"</div>' : '') + md(e.details) +
           (e.link && e.link.url ? (e.details ? '<br><br>' : '') + extlink(e.link.url, e.link.label || 'View') : '');
         return '<div class="edu-card item-row" onclick="tog(this,\'edu\')">' +
@@ -370,7 +371,7 @@
       var items = list(d.education);
       if (!items.length) return '';
       return '<div class="sec avoid-break">' + secTitle('01', 'Education') + items.map(function (e) {
-        var title = esc(e.degree) + (e.grade ? ' &nbsp;<span style="font-weight:300;color:var(--light);">' + esc(e.grade) + '</span>' : '');
+        var title = esc(e.degree) + (e.grade && e.gradeWhere !== 'web' ? ' &nbsp;<span style="font-weight:300;color:var(--light);">' + esc(e.grade) + '</span>' : '');
         return entry(esc(e.dates), title, md(P('education', e, 'sub')), [
           e.thesis ? { html: '"' + esc(e.thesis) + '"', italic: true } : null,
           { html: md(P('education', e, 'note')) }

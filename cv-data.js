@@ -901,5 +901,8 @@ window.CV_DATA = {
       "title": "Communication",
       "text": "Academic writing in English and Italian. Publication of articles, book chapters, and conference papers. Confident presenting research and facilitating participatory activities."
     }
-  ]
+  ],
+  "theme": {
+    "fonts": "modern"
+  }
 };

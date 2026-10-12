@@ -40,9 +40,9 @@ window.CV_DATA = {
   },
   "labels": {
     "teachingMain": "Lecturer & Teaching Assistant",
-    "teachingGuest": "Guest Lectures & Reviews — Virginia Tech, Spring 2026",
+    "teachingGuest": "Guest Lectures & Reviews",
     "workshopsLed": "Workshops Designed & Led",
-    "workshopsTutored": "Workshops Tutored"
+    "workshopsTutored": "Workshops Tutored & Co-organised"
   },
   "education": [
     {
@@ -50,7 +50,7 @@ window.CV_DATA = {
       "degree": "PhD in Design Research",
       "institution": "Politecnico di Milano, Milan, Italy",
       "grade": "",
-      "status": "Expected March 2028",
+      "status": "Expected Mar 2028",
       "thesis": "Destabilising Archetypes through Product Language: Towards a Sensitive Design Compass",
       "details": "**Research focus:** Design Processes · Design Aesthetics · Product Design Language · Research through Design · Design Justice\n\n**Visiting:** Virginia Tech, USA (Mar–Jun 2026)",
       "link": {
@@ -105,7 +105,7 @@ window.CV_DATA = {
     "institution": "Politecnico di Milano",
     "department": "Design",
     "since": "2024",
-    "expected": "March 2028",
+    "expected": "Mar 2028",
     "supervisors": "",
     "tags": [
       "Design Processes",
@@ -548,13 +548,13 @@ window.CV_DATA = {
   ],
   "theses": [
     {
-      "date": "July 2026",
+      "date": "Jul 2026",
       "title": "Designing Beyond the Norm",
       "summary": "",
       "url": ""
     },
     {
-      "date": "March 2026",
+      "date": "Mar 2026",
       "title": "Designing Questions for Decolonizing Design Education: A generative tool for conscious choice-making",
       "summary": "Surveys how decolonial perspectives appear in design-education research, then builds an interactive questioning tool that helps students surface unconscious biases and reflect critically on the choices they make while designing.",
       "url": "https://hdl.handle.net/10589/251980",
@@ -564,7 +564,7 @@ window.CV_DATA = {
       }
     },
     {
-      "date": "December 2025",
+      "date": "Dec 2025",
       "title": "The Relationship between Meditation and Creativity: Integrating Mindful Practices into Industrial Design Education",
       "summary": "Investigates how meditation practices can support creative thinking in design education, and proposes a dedicated meditation space with mindful routines to improve focus and wellbeing among design students.",
       "url": "https://hdl.handle.net/10589/246977",
@@ -573,7 +573,7 @@ window.CV_DATA = {
       }
     },
     {
-      "date": "December 2025",
+      "date": "Dec 2025",
       "title": "Design for Dementia, for Designers: Research and Development of a Tool-Supported, Capacity-Building Activity",
       "summary": "Reviews co-design methods involving people living with dementia and develops a card-based activity that helps designers build empathy and the skills needed for inclusive, dementia-aware design practice.",
       "url": "https://hdl.handle.net/10589/247249",
@@ -582,7 +582,7 @@ window.CV_DATA = {
       }
     },
     {
-      "date": "December 2025",
+      "date": "Dec 2025",
       "title": "Industrial Design from/for the Periphery: Reconceptualizing Informal, Marginal, and Vernacular Manufacturing",
       "summary": "Documents vernacular manufacturing traditions, with a focus on Lebanese crafts such as weaving, pottery and metalwork, to argue for a broader, less Eurocentric understanding of what counts as industrial design.",
       "url": "https://hdl.handle.net/10589/246713",
@@ -591,7 +591,7 @@ window.CV_DATA = {
       }
     },
     {
-      "date": "December 2025",
+      "date": "Dec 2025",
       "title": "Applied Empowerment Guidelines for Inclusive Design",
       "summary": "",
       "url": ""
@@ -625,7 +625,7 @@ window.CV_DATA = {
       }
     },
     {
-      "date": "Jun–Jul 2024",
+      "date": "Jun → Jul 2024",
       "title": "Brembo Design Workshop: The future of braking",
       "role": "Coordinator",
       "highlight": false,
@@ -650,7 +650,7 @@ window.CV_DATA = {
       }
     },
     {
-      "date": "Mar–May 2023",
+      "date": "Mar → May 2023",
       "title": "Barilla Design Workshop: Packaging engineering limited edition",
       "role": "Tutor",
       "highlight": false,
@@ -663,7 +663,7 @@ window.CV_DATA = {
       }
     },
     {
-      "date": "Mar–May 2023",
+      "date": "Mar → May 2023",
       "title": "MIDEA Design Workshop: Soda & water dispenser for the EU market",
       "role": "Tutor",
       "highlight": false,
@@ -676,7 +676,7 @@ window.CV_DATA = {
       }
     },
     {
-      "date": "Feb–Mar 2023",
+      "date": "Feb → Mar 2023",
       "title": "Valextra Design Workshop: VM tools concept ideation",
       "role": "Tutor",
       "highlight": false,
@@ -704,7 +704,7 @@ window.CV_DATA = {
   ],
   "researchExperience": [
     {
-      "dates": "2024–Present",
+      "dates": "2024 → Present",
       "role": "PhD Candidate",
       "org": "Dept. of Design, Politecnico di Milano",
       "summary": "Doctoral research: *Destabilising Archetypes through Product Language: Towards a Sensitive Design Compass.*",
@@ -715,20 +715,24 @@ window.CV_DATA = {
         ],
         [
           "Expected",
-          "March 2028"
+          "Mar 2028"
         ]
       ],
       "where": "both",
       "print": {
-        "sub": "PhD in Design · Expected March 2028"
+        "sub": "PhD in Design · Expected Mar 2028"
       }
     },
     {
-      "dates": "Mar–Jun 2026",
+      "dates": "Mar → Jun 2026",
       "role": "Visiting Scholar",
       "org": "College of Architecture, Arts, and Design · Virginia Tech (VA, USA)",
       "summary": "Guest talks and teaching collaboration; development of PhD analytical frameworks; graduate school networking.",
       "details": [
+        [
+          "Duration",
+          "3 months"
+        ],
         [
           "Type",
           "PhD curricular visiting period"
@@ -737,7 +741,7 @@ window.CV_DATA = {
       "where": "both"
     },
     {
-      "dates": "Dec 2023–Jun 2024",
+      "dates": "Dec 2023 → Jun 2024",
       "role": "Temporary Research Fellow",
       "org": "Dept. of Design, Politecnico di Milano",
       "summary": "Research project: *Genderless products: Bridging social inclusion and environmental sustainability through design.*",
@@ -760,7 +764,7 @@ window.CV_DATA = {
   ],
   "industry": [
     {
-      "period": "Jul 2021 –\nApr 2022",
+      "period": "Jul 2021 → Apr 2022",
       "role": "Mechanical Design Engineer Intern",
       "company": "Scotsman Ice Systems SRL, Italy",
       "url": "https://www.scotsman-ice.it",
@@ -773,7 +777,7 @@ window.CV_DATA = {
       }
     },
     {
-      "period": "Mar – May 2021",
+      "period": "Mar → May 2021",
       "role": "Industrial Designer Intern",
       "company": "Appliances Engineering SRL, Italy",
       "url": "https://www.appliancesengineering.it",
@@ -786,7 +790,7 @@ window.CV_DATA = {
       }
     },
     {
-      "period": "Oct 2018 –\nJun 2019",
+      "period": "Oct 2018 → Jun 2019",
       "role": "Industrial Engineer Intern",
       "company": "Birka Composites Group SL, Spain",
       "url": "https://www.birka.es",
@@ -853,42 +857,50 @@ window.CV_DATA = {
   "software": [
     {
       "name": "Adobe Illustrator / InDesign",
+      "group": "Design & Rendering",
       "level": 76,
       "where": "both"
     },
     {
       "name": "KeyShot (Rendering)",
+      "group": "Design & Rendering",
       "level": 65,
       "where": "both"
     },
     {
-      "name": "Mac Office Suite",
-      "level": 82,
-      "where": "print"
+      "name": "SolidWorks / Inventor / Creo",
+      "group": "3D CAD",
+      "level": 92,
+      "where": "both"
     },
     {
       "name": "MaxQDA (Qualitative Research)",
+      "group": "Research & Analysis",
       "level": 82,
       "where": "both"
     },
     {
+      "name": "SimaPro (LCA)",
+      "group": "Research & Analysis",
+      "level": 70,
+      "where": "both"
+    },
+    {
+      "name": "Mac Office Suite",
+      "group": "Productivity",
+      "level": 82,
+      "where": "print"
+    },
+    {
       "name": "Microsoft Office Suite",
+      "group": "Productivity",
       "level": 90,
       "where": "both"
     },
     {
       "name": "Notion / Slack / Teams",
+      "group": "Productivity",
       "level": 85,
-      "where": "both"
-    },
-    {
-      "name": "SimaPro (LCA)",
-      "level": 70,
-      "where": "both"
-    },
-    {
-      "name": "SolidWorks / Inventor / Creo",
-      "level": 92,
       "where": "both"
     }
   ],
@@ -901,8 +913,5 @@ window.CV_DATA = {
       "title": "Communication",
       "text": "Academic writing in English and Italian. Publication of articles, book chapters, and conference papers. Confident presenting research and facilitating participatory activities."
     }
-  ],
-  "theme": {
-    "fonts": "modern"
-  }
+  ]
 };

@@ -214,6 +214,7 @@ textarea.tall{min-height:130px}
     return;
   }
   var R = window.CVRender, esc = R.esc;
+  var nd = function (v) { return R.normDate ? R.normDate(v) : v; };  // dates as shown in the CV
   var DRAFT_KEY = 'cvEditorDraft.v1';
   var UPLOAD_URL = 'https://github.com/designedout/martinalabarta/upload/main';
   var SITE_URL = 'https://designedout.github.io/martinalabarta/';
@@ -244,6 +245,7 @@ textarea.tall{min-height:130px}
 
   /* ════════════ SCHEMA: one entry per CV section ════════════ */
   var PUBTYPES = [['conf', 'Conference paper'], ['journal', 'Journal article'], ['book', 'Book chapter'], ['thesis', 'Thesis']];
+  var DATEHELP = 'Se muestran todas igual: meses en 3 letras y rangos con flecha (<code>2019 → 2022</code>, <code>Dec 2023 → Jun 2024</code>, <code>2025 → Present</code>). Si escribes “December 2025” o “2023–2024” se corrige solo.';
   var SECTIONS = [
     { key: 'design', label: 'Colores y tipografía', group: 'General', kind: 'design', web: 'hero', print: 'cv-p-bio',
       desc: 'La paleta y las fuentes de la web y del print. Por defecto, los tuyos de siempre: “Restaurar” vuelve a ellos en cualquier momento.' },
@@ -274,7 +276,7 @@ textarea.tall{min-height:130px}
         ] }
       ] },
     { key: 'research', label: 'Investigación PhD', group: 'General', kind: 'single', web: 'research', print: 'p-research',
-      desc: 'El bloque oscuro “PhD Research” de la web y la sección 02 del print.',
+      desc: 'Subapartado “PhD Research” de 02 Research (bloque oscuro en la web), en web y print.',
       cards: [{ title: 'Tesis doctoral', fields: [
         { p: 'research.title', label: 'Título', type: 'text', full: true },
         { p: 'research.institution', label: 'Institución', type: 'text' },
@@ -288,15 +290,15 @@ textarea.tall{min-height:130px}
       ] }] },
 
     { key: 'education', label: 'Formación', group: 'Secciones', web: 'education', print: 'p-education',
-      desc: 'Tarjetas de “Academic Background” en la web y sección 01 del print.',
-      sum: function (e) { return [e.dates, e.degree]; },
+      desc: 'Sección 01 Education (web y print).',
+      sum: function (e) { return [nd(e.dates), e.degree]; },
       blank: function () { return { dates: '', degree: '', institution: '', grade: '', status: '', thesis: '', details: '', link: { label: '', url: '' } }; },
       fields: [
-        { p: 'dates', label: 'Fechas', type: 'text', ph: '2019 → 2022' },
+        { p: 'dates', label: 'Fechas', type: 'text', ph: '2019 → 2022', help: DATEHELP },
         { p: 'degree', label: 'Título', type: 'text', ph: 'MSc in …' },
         { p: 'institution', label: 'Institución', type: 'text', full: true },
         { p: 'grade', label: 'Nota', type: 'text', ph: '108/110' },
-        { p: 'status', label: 'Estado (si aún no hay nota)', type: 'text', ph: 'Expected March 2028' },
+        { p: 'status', label: 'Estado (si aún no hay nota)', type: 'text', ph: 'Expected Mar 2028' },
         { p: 'gradeWhere', label: 'La nota aparece en', type: 'select', opts: [['both', 'Web y print'], ['print', 'Solo print'], ['web', 'Solo web']] },
         { p: 'thesis', label: 'Título de la tesis', type: 'text', full: true },
         { p: 'details', label: 'Detalles (se despliegan en la web)', type: 'md', full: true, tall: true },
@@ -305,7 +307,7 @@ textarea.tall{min-height:130px}
       printF: [{ k: 'sub', label: 'Línea bajo el título' }, { k: 'note', label: 'Línea extra (p. ej. supervisores)' }] },
 
     { key: 'projects', label: 'Proyectos', group: 'Secciones', web: 'projects', print: 'p-projects', addTop: true,
-      desc: 'Sección “Projects” (02b), con imagen opcional en la web.',
+      desc: 'Subapartado “Projects” de 02 Research, con imagen opcional en la web.',
       sum: function (e) { return [e.status, e.title]; },
       blank: function () { return { status: 'Ongoing', title: '', description: '', link: { label: 'View project', url: '' }, image: '', imageAlt: '' }; },
       fields: [
@@ -337,11 +339,11 @@ textarea.tall{min-height:130px}
       printF: [{ k: 'ref', label: 'Referencia', help: 'Por defecto: la referencia sin negritas + ISBN/ISSN.' }] },
 
     { key: 'teaching', label: 'Docencia', group: 'Secciones', web: 'teaching', print: 'p-teaching', addTop: true,
-      desc: 'Cursos, tutorías y guest lectures. En el print se agrupan en “docencia” y “guest lectures”.',
-      sum: function (e) { return [e.dates, [e.title, e.role].filter(Boolean).join(' · ')]; },
+      desc: 'Sección 04 Teaching: subapartados “Lecturer &amp; Teaching Assistant” y “Guest Lectures &amp; Reviews” (según el grupo), en web y print.',
+      sum: function (e) { return [nd(e.dates), [e.title, e.role].filter(Boolean).join(' · ')]; },
       blank: function () { return { dates: '', title: 'Course — ', role: 'Teaching Assistant', subtitle: '', category: 'teaching', details: [['Academic year', ''], ['Tasks', '']] }; },
       fields: [
-        { p: 'dates', label: 'Fechas', type: 'text', ph: '2025 → Present' },
+        { p: 'dates', label: 'Fechas', type: 'text', ph: '2025 → Present', help: DATEHELP },
         { p: 'role', label: 'Rol (etiqueta)', type: 'text', ph: 'Teaching Assistant' },
         { p: 'title', label: 'Título (web)', type: 'text', full: true, ph: 'Course — Product Language' },
         { p: 'subtitle', label: 'Línea bajo el título (web)', type: 'text', full: true },
@@ -351,11 +353,11 @@ textarea.tall{min-height:130px}
       printF: [{ k: 'title', label: 'Título' }, { k: 'sub', label: 'Línea bajo el título' }, { k: 'body', label: 'Descripción' }] },
 
     { key: 'theses', label: 'Tesis co-dirigidas', group: 'Secciones', web: 'cv-theses-wrap', print: 'p-theses', addTop: true,
-      desc: 'Tarjetas bajo Docencia en la web y sección 04b del print.',
-      sum: function (e) { return [e.date, e.title]; },
+      desc: 'Subapartado “Co-supervised Master’s Theses” de 04 Teaching (web y print). En el print solo se muestra el año.',
+      sum: function (e) { return [nd(e.date), e.title]; },
       blank: function () { return { date: '', title: '', summary: '', url: '' }; },
       fields: [
-        { p: 'date', label: 'Fecha', type: 'text', ph: 'March 2026', help: 'En el print el mes se abrevia solo (Mar 2026).' },
+        { p: 'date', label: 'Fecha', type: 'text', ph: 'Mar 2026', help: DATEHELP },
         { p: 'url', label: 'Enlace (POLITesi)', type: 'text', ph: 'https://hdl.handle.net/…' },
         { p: 'title', label: 'Título', type: 'text', full: true },
         { p: 'summary', label: 'Resumen (web)', type: 'md', full: true }
@@ -363,11 +365,11 @@ textarea.tall{min-height:130px}
       printF: [{ k: 'title', label: 'Título' }, { k: 'body', label: 'Resumen' }] },
 
     { key: 'workshops', label: 'Workshops', group: 'Secciones', web: 'workshops', print: 'p-teaching', addTop: true,
-      desc: 'Timeline de workshops en la web. En el print van dentro de Docencia (liderados / tutorizados).',
-      sum: function (e) { return [e.date, e.title]; },
+      desc: 'Subapartados “Workshops Designed &amp; Led” y “Workshops Tutored” de 04 Teaching (web y print).',
+      sum: function (e) { return [nd(e.date), e.title]; },
       blank: function () { return { date: '', title: '', role: 'Tutor', highlight: false, printGroup: 'tutored', place: '', details: '\n\n**Participants:** \n**Role:** ' }; },
       fields: [
-        { p: 'date', label: 'Fecha', type: 'text', ph: '3–7 Mar 2025' },
+        { p: 'date', label: 'Fecha', type: 'text', ph: '3–7 Mar 2025', help: DATEHELP },
         { p: 'role', label: 'Rol (etiqueta)', type: 'text', ph: 'Leader' },
         { p: 'title', label: 'Título', type: 'text', full: true },
         { p: 'place', label: 'Lugar · partner', type: 'text', full: true },
@@ -378,25 +380,25 @@ textarea.tall{min-height:130px}
       printF: [{ k: 'sub', label: 'Línea bajo el título' }, { k: 'body', label: 'Descripción', help: 'Por defecto: el primer párrafo de la descripción.' }] },
 
     { key: 'researchExperience', label: 'Exp. de investigación', group: 'Secciones', web: 'cv-research-exp-wrap', print: 'p-researchExperience', addTop: true,
-      desc: 'Subapartado “Research Experience” dentro de Experience en la web (desplegable, como Industry), y sección 05 del print.',
-      sum: function (e) { return [plain(e.dates) + (e.where === 'web' ? ' · solo web' : e.where === 'print' ? ' · solo print' : ''), [e.role || e.title, e.org].filter(Boolean).join(' · ')]; },
+      desc: 'Subapartado “Research Experience” de 02 Research (web y print).',
+      sum: function (e) { return [nd(plain(e.dates)) + (e.where === 'web' ? ' · solo web' : e.where === 'print' ? ' · solo print' : ''), [e.role || e.title, e.org].filter(Boolean).join(' · ')]; },
       blank: function () { return { dates: '', role: '', org: '', summary: '', details: [['Duration', '']], where: 'both' }; },
       fields: [
-        { p: 'dates', label: 'Fechas', type: 'text', ph: 'Mar–Jun 2026' },
+        { p: 'dates', label: 'Fechas', type: 'text', ph: 'Mar → Jun 2026', help: DATEHELP },
         { p: 'where', label: 'Dónde aparece', type: 'select', opts: [['both', 'Web y print'], ['web', 'Solo web'], ['print', 'Solo print']] },
         { p: 'role', label: 'Puesto', type: 'text', ph: 'Visiting Scholar' },
         { p: 'org', label: 'Institución / departamento', type: 'text' },
         { p: 'summary', label: 'Resumen (visible en la web)', type: 'md', full: true },
-        { p: 'details', label: 'Detalles (se despliegan en la web)', type: 'kv', full: true, help: 'Duration, Type, Methods… Una fila “Type” o “Programme” aparece en el print sin su etiqueta.' }
+        { p: 'details', label: 'Detalles (se despliegan en la web)', type: 'kv', full: true, help: 'Duration, Type, Methods… Las filas “Duration”, “Type” o “Programme” aparecen en el print sin su etiqueta.' }
       ],
       printF: [{ k: 'title', label: 'Título' }, { k: 'sub', label: 'Línea bajo el título', help: 'Por defecto: los detalles en una línea (Duration: … · Supervisor: …).' }, { k: 'body', label: 'Descripción' }] },
 
     { key: 'industry', label: 'Exp. en industria', group: 'Secciones', web: 'cv-industry-wrap', print: 'p-industry', addTop: true,
-      desc: 'Subapartado “Industry Experience” dentro de Experience en la web, y sección 06 del print.',
-      sum: function (e) { return [plain(e.period), [e.role, e.company].filter(Boolean).join(' · ')]; },
+      desc: 'Sección 05 Industry Experience (web y print).',
+      sum: function (e) { return [nd(plain(e.period)), [e.role, e.company].filter(Boolean).join(' · ')]; },
       blank: function () { return { period: '', role: '', company: '', url: '', urlLabel: '', summary: '', duration: '', tasks: '' }; },
       fields: [
-        { p: 'period', label: 'Periodo', type: 'textarea', ph: 'Jul 2021 –\nApr 2022', help: 'Con Intro la fecha se parte en dos líneas en la web.' },
+        { p: 'period', label: 'Periodo', type: 'text', ph: 'Jul 2021 → Apr 2022', help: DATEHELP },
         { p: 'duration', label: 'Duración', type: 'text', ph: '9 months' },
         { p: 'role', label: 'Puesto', type: 'text' },
         { p: 'company', label: 'Empresa, país', type: 'text' },
@@ -407,7 +409,7 @@ textarea.tall{min-height:130px}
       ],
       printF: [{ k: 'title', label: 'Título' }, { k: 'body', label: 'Descripción' }] },
 
-    { key: 'languages', label: 'Idiomas', group: 'Competencias', web: 'skills', print: 'cv-p-languages',
+    { key: 'languages', label: 'Idiomas', group: 'Competencias', web: 'skills', print: 'p-skills',
       desc: 'Idiomas con nivel y puntos (web y print).',
       sum: function (e) { return [e.level, e.name]; },
       blank: function () { return { name: '', level: '', dots: 3 }; },
@@ -417,36 +419,36 @@ textarea.tall{min-height:130px}
         { p: 'dots', label: 'Puntos', type: 'dots' }
       ] },
 
-    { key: 'roles', label: 'Roles electivos', group: 'Competencias', web: 'skills', print: 'cv-p-roles', addTop: true,
-      desc: 'Tarjetas de roles (el color va cambiando según el orden).',
-      sum: function (e) { return [e.dates, e.title]; },
-      blank: function () { return { dates: '', title: '', description: '' }; },
-      fields: [
-        { p: 'dates', label: 'Fechas', type: 'text', ph: '2025 → Present' },
-        { p: 'title', label: 'Rol', type: 'text' },
-        { p: 'description', label: 'Descripción', type: 'md', full: true }
-      ],
-      printF: [{ k: 'body', label: 'Descripción' }] },
-
-    { key: 'software', label: 'Software', group: 'Competencias', web: 'skills', print: 'cv-p-software',
-      desc: 'Barras de nivel. Puedes decidir si cada programa aparece en la web, en el print o en ambos.',
-      sum: function (e) { return [(e.level || 0) + '%' + (e.where === 'web' ? ' · solo web' : e.where === 'print' ? ' · solo print' : ''), e.name]; },
-      blank: function () { return { name: '', level: 70, where: 'both' }; },
+    { key: 'software', label: 'Software', group: 'Competencias', web: 'skills', print: 'p-skills',
+      desc: 'Etiquetas agrupadas por tipo (sin nivel). Los programas con el mismo grupo se muestran juntos; los grupos salen en el orden de la lista. Puedes decidir si cada programa aparece en la web, en el print o en ambos.',
+      sum: function (e) { return [(e.group || 'Other') + (e.where === 'web' ? ' · solo web' : e.where === 'print' ? ' · solo print' : ''), e.name]; },
+      blank: function () { return { name: '', group: '', where: 'both' }; },
       tools: ['sortAlpha'],
       fields: [
         { p: 'name', label: 'Programa', type: 'text' },
-        { p: 'where', label: 'Dónde aparece', type: 'select', opts: [['both', 'Web y print'], ['web', 'Solo web'], ['print', 'Solo print']] },
-        { p: 'level', label: 'Nivel', type: 'range', full: true }
+        { p: 'group', label: 'Grupo', type: 'text', ph: 'Design & Rendering', help: 'Escríbelo igual en todos los programas del mismo grupo (p. ej. Design &amp; Rendering, 3D CAD, Research &amp; Analysis, Productivity).' },
+        { p: 'where', label: 'Dónde aparece', type: 'select', opts: [['both', 'Web y print'], ['web', 'Solo web'], ['print', 'Solo print']] }
       ] },
 
     { key: 'softSkills', label: 'Otras competencias', group: 'Competencias', only: 'web', web: 'skills', print: null,
-      desc: 'Bloques “Organisational / Communication” bajo Software (solo web).',
+      desc: 'Subapartado “Other Skills” de 06 Competencies (solo web).',
       sum: function (e) { return ['', e.title]; },
       blank: function () { return { title: '', text: '' }; },
       fields: [
         { p: 'title', label: 'Título', type: 'text' },
         { p: 'text', label: 'Texto', type: 'md', full: true }
-      ] }
+      ] },
+
+    { key: 'roles', label: 'Roles electivos', group: 'Competencias', web: 'skills', print: 'p-roles', addTop: true,
+      desc: 'Subapartado “Elective Roles” de 06 Competencies (web y print). El color va cambiando según el orden.',
+      sum: function (e) { return [nd(e.dates), e.title]; },
+      blank: function () { return { dates: '', title: '', description: '' }; },
+      fields: [
+        { p: 'dates', label: 'Fechas', type: 'text', ph: '2025 → Present', help: DATEHELP },
+        { p: 'title', label: 'Rol', type: 'text' },
+        { p: 'description', label: 'Descripción', type: 'md', full: true }
+      ],
+      printF: [{ k: 'body', label: 'Descripción' }] }
   ];
   var BYKEY = {}; SECTIONS.forEach(function (s) { BYKEY[s.key] = s; });
   function sec() { return BYKEY[current]; }
@@ -471,7 +473,7 @@ textarea.tall{min-height:130px}
       case 'check':
         return '<div class="' + cls + '"><span class="flabel">&nbsp;</span><label class="check"><input type="checkbox"' + p + (v ? ' checked' : '') + '>' + esc(f.label) + '</label></div>';
       case 'range':
-        return '<div class="' + cls + '">' + lab + '<div class="range"><input id="' + id + '" type="range" min="0" max="100" step="1"' + p + ' value="' + (+v || 0) + '"><output>' + (+v || 0) + '%</output></div></div>';
+        return '<div class="' + cls + '">' + lab + '<div class="range"><input id="' + id + '" type="range" min="0" max="100" step="1"' + p + ' value="' + (+v || 0) + '"><output>' + (+v || 0) + '% · ' + R.levelWord(v) + '</output></div></div>';
       case 'dots':
         var d = ''; for (var i = 1; i <= 5; i++) d += '<button type="button" data-dot="' + i + '" class="' + (i <= (+v || 0) ? 'on' : '') + '" title="' + i + '/5"></button>';
         return '<div class="' + cls + '"><span class="flabel">' + esc(f.label) + '</span><div class="dots"' + p + '>' + d + '</div></div>';
@@ -719,7 +721,7 @@ textarea.tall{min-height:130px}
     var p = host.dataset.p, t = host.dataset.t;
     if (t === 'text' || t === 'date' || t === 'textarea' || t === 'md' || t === 'select') setP(obj, p, el.value);
     else if (t === 'check') setP(obj, p, el.checked);
-    else if (t === 'range') { setP(obj, p, +el.value); el.nextElementSibling.textContent = el.value + '%'; }
+    else if (t === 'range') { setP(obj, p, +el.value); el.nextElementSibling.textContent = el.value + '% · ' + R.levelWord(el.value); }
     else if (t === 'tags') setP(obj, p, el.value.split('\n').map(function (x) { return x.trim(); }).filter(Boolean));
     else if (t === 'link') { var l = getP(obj, p) || {}; l[el.dataset.sub] = el.value; setP(obj, p, l); }
     else if (t === 'kv' || t === 'links' || t === 'pills') {
@@ -776,8 +778,10 @@ textarea.tall{min-height:130px}
         items().sort(function (a, b) { return String(b.year).localeCompare(String(a.year)); }); openIdx = -1;
         renderMain(); toast('Ordenado por año (de más reciente a más antiguo)'); return changed(true);
       case 'sortAlpha':
-        items().sort(function (a, b) { return String(a.name).localeCompare(String(b.name)); }); openIdx = -1;
-        renderMain(); toast('Ordenado alfabéticamente'); return changed(true);
+        // keep the groups in their current order, A–Z inside each group
+        var gOrd = []; items().forEach(function (e) { var g = e.group || ''; if (gOrd.indexOf(g) < 0) gOrd.push(g); });
+        items().sort(function (a, b) { return gOrd.indexOf(a.group || '') - gOrd.indexOf(b.group || '') || String(a.name).localeCompare(String(b.name)); }); openIdx = -1;
+        renderMain(); toast('Ordenado A–Z dentro de cada grupo'); return changed(true);
       case 'row-add': case 'row-del': {
         var host2 = b.closest('[data-p]'), obj2 = target(), p2 = host2.dataset.p, t2 = host2.dataset.t;
         var arr = getP(obj2, p2) || [];

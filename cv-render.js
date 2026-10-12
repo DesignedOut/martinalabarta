@@ -32,7 +32,29 @@
   function abbrMonth(s) {
     return String(s || '').replace(new RegExp('\\b(' + MONTHS.join('|') + ')\\b', 'g'), function (m) { return m.slice(0, 3); });
   }
-  function printRange(s) { return String(s || '').replace(/\s*\n\s*/g, ' ').replace(/\s*–\s*/g, '–'); }
+  // Dates: one style everywhere — months in 3 letters, ranges with an arrow
+  // ("2019 → 2022", "Dec 2023 → Jun 2024", "2025 → Present"); day ranges keep a dash ("3–7 Mar 2025")
+  function normDate(s) {
+    s = String(s == null ? '' : s).replace(/\s*\n\s*/g, ' ').replace(/\s+/g, ' ').trim();
+    if (!s) return s;
+    s = abbrMonth(s).replace(/\bSept\b/g, 'Sep').replace(/\b(present|now|today|current|ongoing)\b/gi, 'Present');
+    s = s.replace(/\b(\d{1,2})\s*[–—-]\s*(\d{1,2})(?=\s+[A-Za-z])/g, '$1\u0001$2');
+    s = s.replace(/\s*(?:→|–|—|--?|>)\s*/g, ' → ');
+    return s.replace(/\u0001/g, '–');
+  }
+  // date for narrow columns: if it has to wrap, it wraps after the arrow, never inside "Dec 2023"
+  function dateHTML(s) {
+    var parts = normDate(s).split(' → ');
+    return parts.map(function (x, i) { return '<span style="white-space:nowrap">' + esc(x) + (i < parts.length - 1 ? ' →' : '') + '</span>'; }).join(' ');
+  }
+  // software grouped by type ("group" field), groups in order of first appearance
+  function swGroups(items) {
+    var g = [], by = {};
+    items.forEach(function (e) { var k = String(e.group || '').trim() || 'Other'; if (!by[k]) g.push(by[k] = { group: k, items: [] }); by[k].items.push(e); });
+    return g;
+  }
+  // Software levels (0–100) shown as words
+  function levelWord(v) { v = +v || 0; return v >= 85 ? 'Expert' : v >= 65 ? 'Advanced' : v >= 40 ? 'Intermediate' : 'Basic'; }
   function firstPara(s) { return String(s || '').split(/\n\s*\n/)[0]; }
 
   // ── Print fields: if left empty in the editor, they are derived automatically ──
@@ -70,7 +92,7 @@
       sub: function (e) {
         if (e.role == null) return e.sub || '';
         return list(e.details).filter(function (kv) { return kv[1]; }).map(function (kv) {
-          return /^(type|programme|program)$/i.test(kv[0]) ? kv[1] : (kv[0] ? kv[0] + ': ' : '') + kv[1];
+          return /^(type|programme|program|duration)$/i.test(kv[0]) ? kv[1] : (kv[0] ? kv[0] + ': ' : '') + kv[1];
         }).join(' · ');
       },
       body: function (e) { return e.summary != null ? e.summary : (e.body || ''); }
@@ -139,7 +161,7 @@
           (e.link && e.link.url ? (e.details ? '<br><br>' : '') + extlink(e.link.url, e.link.label || 'View') : '');
         return '<div class="edu-card item-row" onclick="tog(this,\'edu\')">' +
           '<span class="chev edu-chev">' + CHEV + '</span>' +
-          '<div class="edu-year">' + esc(e.dates) + '</div>' +
+          '<div class="edu-year">' + esc(normDate(e.dates)) + '</div>' +
           '<div class="edu-deg">' + esc(e.degree) + '</div>' +
           '<div class="edu-inst">' + esc(e.institution) + '</div>' +
           (grade ? '<span class="edu-grade">' + grade + '</span>' : '') +
@@ -152,13 +174,12 @@
     research: function (d) {
       var r = d.research || {};
       set('cv-research',
-        '<div class="phd-label">02 — PhD Research</div>' +
         '<div class="phd-title">' + esc(r.title) + '</div>' +
         '<div class="phd-meta">' +
           (r.institution ? '<span>Institution <strong>' + esc(r.institution) + '</strong></span>' : '') +
           (r.department ? '<span>Department <strong>' + esc(r.department) + '</strong></span>' : '') +
-          (r.since ? '<span>Since <strong>' + esc(r.since) + '</strong></span>' : '') +
-          (r.expected ? '<span>Expected <strong>' + esc(r.expected) + '</strong></span>' : '') +
+          (r.since ? '<span>Since <strong>' + esc(normDate(r.since)) + '</strong></span>' : '') +
+          (r.expected ? '<span>Expected <strong>' + esc(normDate(r.expected)) + '</strong></span>' : '') +
         '</div>' +
         '<div class="ftags">' + list(r.tags).map(function (t) { return '<span class="ftag">' + esc(t) + '</span>'; }).join('') + '</div>' +
         (r.abstract ?
@@ -221,11 +242,10 @@
 
     teaching: function (d) {
       var items = list(d.teaching), L = d.labels || {};
-      set('cv-teaching', '<div class="tcol-title">' + esc(L.teachingMain || 'Lecturer & Teaching Assistant') + '</div>' +
-        items.map(function (e) {
+      function tItem(e) {
           return '<div class="titem item-row" onclick="togT(this)">' +
             '<div class="titem-head"><div>' +
-              '<div class="tp">' + esc(e.dates) + '</div>' +
+              '<div class="tp">' + esc(normDate(e.dates)) + '</div>' +
               '<div class="tt">' + esc(e.title) + (e.role ? ' <span class="wk-rbadge" style="vertical-align:middle;margin-left:0.4rem;">' + esc(e.role) + '</span>' : '') + '</div>' +
               '<div class="ts">' + esc(e.subtitle) + '</div>' +
             '</div><span class="chev">' + CHEV + '</span></div>' +
@@ -234,34 +254,41 @@
                 return '<span class="tk">' + esc(kv[0]) + '</span><span class="tv">' + md(kv[1]) + '</span>';
               }).join('') +
             '</div></div></div>';
-        }).join(''));
+      }
+      // same sub-sections as the printed CV
+      var main = items.filter(function (e) { return e.category !== 'guest'; }), guest = items.filter(function (e) { return e.category === 'guest'; });
+      set('cv-teaching',
+        (main.length ? '<div class="tcol-title">' + esc(L.teachingMain || 'Lecturer & Teaching Assistant') + '</div>' + main.map(tItem).join('') : '') +
+        (guest.length ? '<div class="tcol-title"' + (main.length ? ' style="margin-top:4.5rem;"' : '') + '>' + esc(L.teachingGuest || 'Guest Lectures & Reviews') + '</div>' + guest.map(tItem).join('') : ''));
       var th = list(d.theses);
       set('cv-theses', th.map(function (e) {
         var more = e.summary || e.url;
-        if (!more) return '<div class="thcard"><div class="th-yr">' + esc(e.date) + '</div><div class="th-title">' + esc(e.title) + '</div></div>';
+        if (!more) return '<div class="thcard"><div class="th-yr">' + esc(normDate(e.date)) + '</div><div class="th-title">' + esc(e.title) + '</div></div>';
         return '<div class="thcard item-row" onclick="togTh(this)">' +
           '<span class="chev th-chev">' + CHEV + '</span>' +
-          '<div class="th-yr">' + esc(e.date) + '</div>' +
+          '<div class="th-yr">' + esc(normDate(e.date)) + '</div>' +
           '<div class="th-title">' + esc(e.title) + '</div>' +
           '<div class="th-expand">' + md(e.summary) + (e.url ? (e.summary ? '<br>' : '') + extlink(e.url, 'View thesis', 'margin-top:0.6rem;') : '') + '</div>' +
         '</div>';
       }).join(''));
       var wrap = $('cv-theses-wrap'); if (wrap) wrap.style.display = th.length ? '' : 'none';
-      showSection('teaching', items.length > 0 || th.length > 0);
+      showSection('teaching', items.length > 0 || th.length > 0 || list(d.workshops).length > 0);
     },
 
     workshops: function (d) {
-      var items = list(d.workshops);
-      set('cv-workshops', items.map(function (e) {
+      var items = list(d.workshops), L = d.labels || {};
+      function wItem(e) {
         return '<div class="wkitem' + (e.highlight ? ' leader' : '') + ' item-row" onclick="togWk(this)">' +
-          '<div class="wk-hrow"><span class="wk-date">' + esc(e.date) + '</span>' +
+          '<div class="wk-hrow"><span class="wk-date">' + esc(normDate(e.date)) + '</span>' +
           '<div class="wk-tw"><span class="wk-title">' + esc(e.title) + '</span>' +
           (e.role ? '<span class="wk-rbadge">' + esc(e.role) + '</span>' : '') +
           '<span class="chev">' + CHEV + '</span></div></div>' +
           '<div class="wk-place">' + esc(e.place) + '</div>' +
           '<div class="wk-expand">' + md(e.details) + '</div>' +
         '</div>';
-      }).join(''));
+      }
+      // on the website all workshops share one sub-section (led ones highlighted); the print splits led / tutored
+      set('cv-workshops', items.length ? '<div class="tcol-title">' + esc(L.workshops || 'Workshops') + '</div><div class="wktl reveal">' + items.map(wItem).join('') + '</div>' : '');
       showSection('workshops', items.length > 0);
     },
 
@@ -272,7 +299,7 @@
           .map(function (kv) { return (kv[0] ? '<strong>' + esc(kv[0]) + ':</strong> ' : '') + md(kv[1]); }).join('<br>');
         var title = e.role != null ? e.role : e.title, org = e.org != null ? e.org : e.sub, sum = e.summary != null ? e.summary : e.body;
         return '<div class="exprow' + (more ? ' item-row" onclick="togExp(this)"' : '" style="cursor:default;"') + '>' +
-          '<div class="exp-period">' + md(e.dates) + '</div>' +
+          '<div class="exp-period">' + esc(normDate(e.dates)) + '</div>' +
           '<div>' +
             '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;"><div>' +
               '<div class="exp-role">' + md(title) + '</div>' +
@@ -290,7 +317,7 @@
       set('cv-industry', items.map(function (e) {
         var more = [e.duration ? '<strong>Duration:</strong> ' + esc(e.duration) : '', e.tasks ? '<strong>Full tasks:</strong> ' + md(e.tasks) : ''].filter(Boolean).join('<br>');
         return '<div class="exprow item-row" onclick="togExp(this)">' +
-          '<div class="exp-period">' + md(e.period) + '</div>' +
+          '<div class="exp-period">' + esc(normDate(e.period)) + '</div>' +
           '<div>' +
             '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;"><div>' +
               '<div class="exp-role">' + esc(e.role) + '</div>' +
@@ -301,10 +328,7 @@
             '<div class="exp-expand">' + more + '</div>' +
           '</div></div>';
       }).join(''));
-      var w = $('cv-industry-wrap'); if (w) w.style.display = items.length ? '' : 'none';
-      var hasRes = list(d.researchExperience).some(function (e) { return e.where !== 'print'; });
-      if (w) w.style.marginTop = hasRes ? '4rem' : '0';
-      showSection('experience', items.length > 0 || hasRes);
+      showSection('experience', items.length > 0);
     },
 
     skills: function (d) {
@@ -312,22 +336,32 @@
         var dots = ''; for (var i = 0; i < 5; i++) dots += '<div class="dot' + (i < (+e.dots || 0) ? ' f' : '') + '"></div>';
         return '<div class="lang-item"><span class="lang-name">' + esc(e.name) + '</span><span class="lang-lv">' + esc(e.level) + '</span><div class="dots">' + dots + '</div></div>';
       }).join(''));
-      var B = ['var(--accent)', 'var(--accent2)', 'var(--accent3)', 'var(--rule)'];
-      var C = ['var(--accent)', 'var(--accent2)', 'var(--accent3)', 'var(--muted)'];
-      set('cv-roles', list(d.roles).map(function (e, i) {
-        return '<div style="padding:1rem;background:var(--bg);border-left:3px solid ' + B[i % 4] + ';">' +
-          '<div style="font-family:\'Sometype Mono\',monospace;font-size:0.65rem;letter-spacing:0.1em;color:' + C[i % 4] + ';margin-bottom:0.3rem;">' + esc(e.dates) + '</div>' +
-          '<div style="font-weight:500;font-size:0.88rem;margin-bottom:0.3rem;">' + esc(e.title) + '</div>' +
-          '<div style="font-size:0.78rem;color:var(--muted);">' + md(e.description) + '</div></div>';
+      var sw = list(d.software).filter(function (e) { return e.where !== 'print'; });
+      set('cv-software', swGroups(sw).map(function (g) {
+        return '<div class="sgrp"><div class="sglbl">' + esc(g.group) + '</div><div class="sbars">' +
+          g.items.map(function (e) { return '<span class="stag">' + esc(e.name) + '</span>'; }).join('') + '</div></div>';
       }).join(''));
-      set('cv-software', list(d.software).filter(function (e) { return e.where !== 'print'; }).map(function (e) {
-        return '<div class="srow"><span class="slbl">' + esc(e.name) + '</span><div class="sbar"><div class="sfill" data-w="' + ((+e.level || 0) / 100).toFixed(2) + '"></div></div></div>';
-      }).join(''));
-      set('cv-softskills', list(d.softSkills).map(function (e) {
+      var ss = list(d.softSkills);
+      set('cv-softskills', ss.map(function (e) {
         return '<div style="background:var(--bg);padding:1.25rem;">' +
           '<div style="font-family:\'Sometype Mono\',monospace;font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem;">' + esc(e.title) + '</div>' +
           '<div style="font-size:0.82rem;line-height:1.6;color:var(--muted);">' + md(e.text) + '</div></div>';
       }).join(''));
+      var show = function (id, on) { var el = $(id); if (el) el.style.display = on ? '' : 'none'; };
+      show('cv-languages-wrap', list(d.languages).length > 0);
+      show('cv-software-wrap', sw.length > 0);
+      show('cv-softskills-wrap', ss.length > 0);
+      var items = list(d.roles);
+      var B = ['var(--accent)', 'var(--accent2)', 'var(--accent3)', 'var(--rule)'];
+      var C = ['var(--accent)', 'var(--accent2)', 'var(--accent3)', 'var(--muted)'];
+      set('cv-roles', items.map(function (e, i) {
+        return '<div style="padding:1.25rem;background:var(--bg);border-left:3px solid ' + B[i % 4] + ';">' +
+          '<div style="font-family:\'Sometype Mono\',monospace;font-size:0.65rem;letter-spacing:0.1em;color:' + C[i % 4] + ';margin-bottom:0.3rem;">' + esc(normDate(e.dates)) + '</div>' +
+          '<div style="font-weight:500;font-size:0.88rem;margin-bottom:0.3rem;">' + esc(e.title) + '</div>' +
+          '<div style="font-size:0.78rem;color:var(--muted);">' + md(e.description) + '</div></div>';
+      }).join(''));
+      show('cv-roles-wrap', items.length > 0);
+      showSection('skills', list(d.languages).length + sw.length + ss.length + items.length > 0);
     }
   };
 
@@ -432,13 +466,45 @@
   }
   function plink(url) { return url ? ' <a href="' + esc(url) + '" class="pub-link-print">' + esc(stripUrl(url)) + '</a>' : ''; }
 
+  function byYear(items) {
+    // newest year first; publications of the same year keep the order of the list
+    var sorted = items.map(function (e, i) { return { e: e, i: i }; }).sort(function (a, b) {
+      return (parseInt(b.e.year, 10) || 0) - (parseInt(a.e.year, 10) || 0) || a.i - b.i;
+    });
+    var g = [];
+    sorted.forEach(function (x) { var y = String(x.e.year || ''), l = g[g.length - 1]; if (!l || l.year !== y) g.push(l = { year: y, items: [] }); l.items.push(x.e); });
+    return g;
+  }
+
+  // one-off items (a talk, a workshop, a thesis) grouped by year, like the publications:
+  // the year labels the group, each entry keeps only its day/month
+  function yearOf(s) { var m = normDate(s).match(/(\d{4})(?!.*\d{4})/); return m ? m[1] : ''; }
+  function whenNoYear(s) { return normDate(s).replace(/\s*\b\d{4}\b\s*$/, '').trim(); }
+  function timeline(items, dateOf, render, head, sub) {
+    var groups = [];
+    items.forEach(function (e) { var y = yearOf(dateOf(e)), l = groups[groups.length - 1]; if (!l || l.year !== y) groups.push(l = { year: y, items: [] }); l.items.push(e); });
+    return groups.map(function (g, gi) {
+      var rows = g.items.map(render);
+      return '<div class="ygrp' + (gi === 0 ? ' yfirst' : '') + (gi % 2 ? ' yodd' : '') + '"><div class="avoid-break">' + (gi === 0 ? (head || '') + (sub ? '<div class="tsub">' + esc(sub) + '</div>' : '') : '') +
+        '<div class="ybody"><div class="ylab">' + esc(g.year) + '</div>' + rows[0] + '</div></div>' +
+        (rows.length > 1 ? '<div class="ybody ycont">' + rows.slice(1).join('') + '</div>' : '') + '</div>';
+    }).join('');
+  }
+  function tlItem(when, title, sub, body) {
+    return '<div class="pub-entry avoid-break">' + (when ? '<div class="tl-when">' + esc(when) + '</div>' : '') +
+      '<div class="e-title">' + title + '</div>' + (sub ? '<div class="e-sub">' + sub + '</div>' : '') +
+      (body ? '<div class="e-body">' + body + '</div>' : '') + '</div>';
+  }
+
+  function sub(label) { return '<div class="tsub">' + esc(label) + '</div>'; }
+
   var PRINT = {
     education: function (d) {
       var items = list(d.education);
       if (!items.length) return '';
       return '<div class="sec avoid-break">' + secTitle('01', 'Education') + items.map(function (e) {
         var title = esc(e.degree) + (e.grade && e.gradeWhere !== 'web' ? ' &nbsp;<span style="font-weight:300;color:var(--light);">' + esc(e.grade) + '</span>' : '');
-        return entry(esc(e.dates), title, md(P('education', e, 'sub')), [
+        return entry(dateHTML(e.dates), title, md(P('education', e, 'sub')), [
           e.thesis ? { html: '"' + esc(e.thesis) + '"', italic: true } : null,
           { html: md(P('education', e, 'note')) }
         ]);
@@ -447,9 +513,9 @@
     research: function (d) {
       var r = d.research || {};
       if (!r.title) return '';
-      var meta = r.printMeta || [r.institution, r.department ? 'Dept. of ' + r.department : '', r.since ? 'Since ' + r.since : '', r.supervisors ? 'Supervisors: ' + r.supervisors : ''].filter(Boolean).join(' · ');
+      var meta = r.printMeta || [r.institution, r.department ? 'Dept. of ' + r.department : '', r.since ? 'Since ' + normDate(r.since) : '', r.supervisors ? 'Supervisors: ' + r.supervisors : ''].filter(Boolean).join(' · ');
       var tags = list(r.tags).concat(list(r.printExtraTags));
-      return '<div class="sec avoid-break">' + secTitle('02', 'PhD Research', true) +
+      return '<div class="ssec avoid-break">' + sub('PhD Research') +
         '<div style="padding:0.5rem 0.6rem;border-left:1.5pt solid var(--olive);margin-bottom:0.75rem;">' +
           '<div style="font-family:var(--fp-head);font-size:11pt;font-weight:500;line-height:1.3;margin-bottom:0.4rem;">"' + esc(r.title) + '"</div>' +
           '<div style="font-size:8pt;color:var(--mid);">' + md(meta) + '</div>' +
@@ -462,20 +528,19 @@
     projects: function (d) {
       var items = list(d.projects);
       if (!items.length) return '';
-      return '<div class="sec avoid-break">' + secTitle('02b', 'Projects', true) + items.map(function (e) {
+      return '<div class="ssec avoid-break">' + sub('Projects') + items.map(function (e) {
         return entry(esc(e.status), esc(e.title), '', [{ html: md(P('projects', e, 'body')) + plink(e.link && e.link.url) }]);
       }).join('') + '</div>';
     },
     publications: function (d) {
+      // grouped by type (sub-heading), then by year on a timeline; the line breaks between types
       var items = list(d.publications);
       if (!items.length) return '';
-      var rows = items.map(function (e) {
-        var t = PUB_TYPES[e.type] || PUB_TYPES.conf;
+      function pub(e) {
         var links = list(e.links).filter(function (l) { return l.url && l.where !== 'web'; });
         var ref = P('publications', e, 'ref');
         return '<div class="pub-entry avoid-break">' +
-          '<div class="pub-header-row"><span class="pub-yr-badge">' + esc(e.year) + '</span><span class="pub-title-print">' + esc(e.title) + '</span></div>' +
-          '<div class="pub-badge-print' + t.printCls + '">' + t.label + '</div>' +
+          '<div class="pub-title-print">' + esc(e.title) + '</div>' +
           '<div class="pub-authors-print">' + authors(e.authors) + '</div>' +
           (ref ? '<div class="pub-ref">' + md(ref) + '</div>' : '') +
           (links.length ? '<div class="pub-links-print">' + links.map(function (l) {
@@ -483,53 +548,63 @@
             return '<a href="' + esc(l.url) + '" class="pub-link-print">' + esc(label) + '</a>';
           }).join(' ') + '</div>' : '') +
         '</div>';
-      });
+      }
       var head = secTitle('03', 'Publications') +
         '<div style="font-family:\'Sometype Mono\',monospace;font-size:6.5pt;color:var(--mid);letter-spacing:0.04em;margin-bottom:0.5rem;">* presenting author</div>';
-      return '<div class="sec">' + keepWithFirst(head, rows) + '</div>';
+      var typeOf = function (e) { return PUB_TYPES[e.type] ? e.type : 'conf'; };
+      var types = PUB_ORDER.filter(function (t) { return items.some(function (e) { return typeOf(e) === t; }); });
+      var out = '';
+      types.forEach(function (tp, ti) {
+        byYear(items.filter(function (e) { return typeOf(e) === tp; })).forEach(function (g, gi) {
+          var rows = g.items.map(pub);
+          // heading (+ type) + year + first publication never split across pages
+          out += '<div class="ygrp' + (gi === 0 ? ' yfirst' : '') + (gi % 2 ? ' yodd' : '') + '"><div class="avoid-break">' +
+            (ti === 0 && gi === 0 ? head : '') +
+            (gi === 0 ? '<div class="tsub">' + esc(PUB_TYPES[tp].filter) + '</div>' : '') +
+            '<div class="ybody"><div class="ylab">' + esc(g.year) + '</div>' + rows[0] + '</div></div>' +
+            (rows.length > 1 ? '<div class="ybody ycont">' + rows.slice(1).join('') + '</div>' : '') +
+          '</div>';
+        });
+      });
+      return '<div class="sec">' + out + '</div>';
     },
     teaching: function (d) {
       var L = d.labels || {};
       var T = list(d.teaching), W = list(d.workshops);
-      function tRow(e) { return entry(esc(e.dates), md(P('teaching', e, 'title')), md(P('teaching', e, 'sub')), [{ html: md(P('teaching', e, 'body')) }], ' avoid-break'); }
-      function wRow(e) { return entry(esc(e.date), esc(e.title), md(P('workshops', e, 'sub')), [{ html: md(P('workshops', e, 'body')) }], ' avoid-break'); }
+      function tRow(e) { return entry(dateHTML(e.dates), md(P('teaching', e, 'title')), md(P('teaching', e, 'sub')), [{ html: md(P('teaching', e, 'body')) }], ' avoid-break'); }
+      function wRow(e) { return entry(dateHTML(e.date), esc(e.title), md(P('workshops', e, 'sub')), [{ html: md(P('workshops', e, 'body')) }], ' avoid-break'); }
       function wGroup(e) { return e.printGroup || (e.highlight ? 'led' : 'tutored'); }
-      var groups = [
-        [L.teachingMain || 'Lecturer & Teaching Assistant', T.filter(function (e) { return e.category !== 'guest'; }).map(tRow)],
-        [L.teachingGuest || 'Guest Lectures & Reviews', T.filter(function (e) { return e.category === 'guest'; }).map(tRow)],
-        [L.workshopsLed || 'Workshops Designed & Led', W.filter(function (e) { return wGroup(e) === 'led'; }).map(wRow)],
-        [L.workshopsTutored || 'Workshops Tutored', W.filter(function (e) { return wGroup(e) !== 'led'; }).map(wRow)]
-      ].filter(function (g) { return g[1].length; });
-      if (!groups.length) return '';
-      return '<div class="sec">' + groups.map(function (g, i) {
-        var head = (i === 0 ? secTitle('04', 'Teaching Experience') : '') +
-          '<div style="' + (i === 0 ? GROUP_FIRST : GROUP_NEXT) + '">' + esc(g[0]) + '</div>';
-        return keepWithFirst(head, g[1]);
-      }).join('') + '</div>';
+      var main = T.filter(function (e) { return e.category !== 'guest'; });
+      var tlT = function (e) { return tlItem(whenNoYear(e.dates), md(P('teaching', e, 'title')), md(P('teaching', e, 'sub')), md(P('teaching', e, 'body'))); };
+      var tlW = function (e) { return tlItem(whenNoYear(e.date), esc(e.title), md(P('workshops', e, 'sub')), md(P('workshops', e, 'body'))); };
+      var out = '', first = true;
+            if (main.length) out += keepWithFirst(sub(L.teachingMain || 'Lecturer & Teaching Assistant'), main.map(tRow));
+      [[L.teachingGuest || 'Guest Lectures & Reviews', T.filter(function (e) { return e.category === 'guest'; }), function (e) { return e.dates; }, tlT],
+       [L.workshopsLed || 'Workshops Designed & Led', W.filter(function (e) { return wGroup(e) === 'led'; }), function (e) { return e.date; }, tlW],
+       [L.workshopsTutored || 'Workshops Tutored & Co-organised', W.filter(function (e) { return wGroup(e) !== 'led'; }), function (e) { return e.date; }, tlW]
+      ].forEach(function (g) { if (g[1].length) out += timeline(g[1], g[2], g[3], '', g[0]); });
+      return out;
     },
     theses: function (d) {
       var items = list(d.theses);
       if (!items.length) return '';
-      return '<div class="sec avoid-break">' + secTitle('04b', 'Co-supervised Master\'s Theses') + '<div class="two-col"><div>' +
-        items.map(function (e) {
-          var body = md(P('theses', e, 'body')) + plink(e.url);
-          return '<div class="entry"><div class="e-date">' + esc(abbrMonth(e.date)) + '</div><div>' +
-            '<div class="e-title">' + md(P('theses', e, 'title')) + '</div>' +
-            (body ? '<div class="e-body">' + body.replace(/^ /, '') + '</div>' : '') + '</div></div>';
-        }).join('') + '</div></div></div>';
+      return '<div class="ssec">' + timeline(items, function (e) { return e.date; }, function (e) {
+        var body = (md(P('theses', e, 'body')) + plink(e.url)).replace(/^ /, '');
+        return tlItem('', md(P('theses', e, 'title')), '', body);  // year only, no month
+      }, '', 'Co-supervised Master\'s Theses') + '</div>';
     },
     researchExperience: function (d) {
       var items = list(d.researchExperience).filter(function (e) { return e.where !== 'web'; });
       if (!items.length) return '';
-      return '<div class="sec avoid-break">' + secTitle('05', 'Research Experience') + items.map(function (e) {
-        return entry(esc(e.dates), md(P('researchExperience', e, 'title')), md(P('researchExperience', e, 'sub')), [{ html: md(P('researchExperience', e, 'body')) }]);
+      return '<div class="ssec avoid-break">' + sub('Research Experience') + items.map(function (e) {
+        return entry(dateHTML(e.dates), md(P('researchExperience', e, 'title')), md(P('researchExperience', e, 'sub')), [{ html: md(P('researchExperience', e, 'body')) }]);
       }).join('') + '</div>';
     },
     industry: function (d) {
       var items = list(d.industry);
       if (!items.length) return '';
-      return '<div class="sec avoid-break">' + secTitle('06', 'Industry Experience') + items.map(function (e) {
-        return entry(esc(printRange(e.period)), md(P('industry', e, 'title')), '', [{ html: md(P('industry', e, 'body')) }]);
+      return '<div class="sec avoid-break">' + secTitle('05', 'Industry Experience') + items.map(function (e) {
+        return entry(dateHTML(e.period), md(P('industry', e, 'title')), '', [{ html: md(P('industry', e, 'body')) }]);
       }).join('') + '</div>';
     }
   };
@@ -542,10 +617,14 @@
     set('cv-p-contact', '<a href="mailto:' + esc(p.email) + '">' + esc(p.email) + '</a><br>' + esc(p.basedPrint));
     set('cv-p-bio', md(p.bio));
     var html = '';
-    ['education', 'research', 'projects', 'publications', 'teaching', 'theses', 'researchExperience', 'industry'].forEach(function (k) {
-      try { html += PRINT[k](d).replace(/^<div class="sec/, '<div id="p-' + k + '" class="sec'); }
-      catch (err) { console.error('CV render (print) failed in', k, err); }
-    });
+    function run(k) { try { return PRINT[k](d); } catch (err) { console.error('CV render (print) failed in', k, err); return ''; } }
+    function withId(h, id) { return h.replace(/^<div class="sec/, '<div id="' + id + '" class="sec'); }
+    function group(id, num, label, parts) { var inner = parts.join(''); return inner ? '<div id="' + id + '" class="sec">' + secTitle(num, label) + inner + '</div>' : ''; }
+    html += withId(run('education'), 'p-education');
+    html += group('p-research', '02', 'Research', [run('research'), run('projects'), run('researchExperience')]);
+    html += withId(run('publications'), 'p-publications');
+    html += group('p-teaching', '04', 'Teaching', [run('teaching'), run('theses')]);
+    html += withId(run('industry'), 'p-industry');
     set('cv-p-main', html);
     set('cv-p-languages', list(d.languages).map(function (e) {
       var dots = ''; for (var i = 0; i < 5; i++) dots += '<div class="ldot' + (i < (+e.dots || 0) ? ' f' : '') + '"></div>';
@@ -554,19 +633,28 @@
     var RC = ['role-card"', 'role-card olive"', 'role-card" style="border-color:var(--accent);opacity:0.7;"', 'role-card mid"'];
     set('cv-p-roles', list(d.roles).map(function (e, i) {
       return '<div class="' + RC[i % 4] + '>' +
-        '<div class="rc-date">' + esc(e.dates) + '</div>' +
+        '<div class="rc-date">' + dateHTML(e.dates) + '</div>' +
         '<div class="rc-title">' + esc(e.title) + '</div>' +
         '<div class="rc-body">' + md(P('roles', e, 'body')) + '</div></div>';
     }).join(''));
-    set('cv-p-software', list(d.software).filter(function (e) { return e.where !== 'web'; }).map(function (e) {
-      return '<div class="skill-row"><span class="skill-lbl">' + esc(e.name) + '</span><div class="skill-track"><div class="skill-fill" style="width:' + (+e.level || 0) + '%"></div></div></div>';
+    var psw = list(d.software).filter(function (e) { return e.where !== 'web'; });
+    set('cv-p-software', swGroups(psw).map(function (g) {
+      return '<div class="sw-grp">' + esc(g.group) + '</div><div class="tags">' + g.items.map(function (e) { return '<span class="tag-print">' + esc(e.name) + '</span>'; }).join('') + '</div>';
     }).join(''));
+    set('cv-p-softskills', list(d.softSkills).map(function (e) {
+      return '<div class="entry"><div class="e-date">' + esc(e.title) + '</div><div class="e-body" style="margin-top:0;">' + md(e.text) + '</div></div>';
+    }).join(''));
+    var nL = list(d.languages).length, nS = list(d.softSkills).length;
+    [['p-languages', nL], ['p-software', psw.length], ['p-roles', list(d.roles).length]].forEach(function (x) {
+      var el = $(x[0]); if (el) el.style.visibility = x[1] ? '' : 'hidden';
+    });
+    var el = $('p-softskills'); if (el) el.style.display = nS ? '' : 'none';
+    el = $('p-skills'); if (el) el.style.display = (nL || psw.length || nS || list(d.roles).length) ? '' : 'none';
+    el = $('p-languages'); if (el && el.parentElement) el.parentElement.style.display = (nL || psw.length) ? '' : 'none';
     // one-line index of sections, each a link (kept as PDF links when saved from Chrome)
-    var TOC = [['01', 'Education', 'p-education'], ['02', 'PhD Research', 'p-research'], ['02b', 'Projects', 'p-projects'],
-      ['03', 'Publications', 'p-publications'], ['04', 'Teaching', 'p-teaching'], ['04b', 'Theses', 'p-theses'],
-      ['05', 'Research Experience', 'p-researchExperience'], ['06', 'Industry Experience', 'p-industry'],
-      ['07', 'Languages', 'p-languages'], ['08', 'Software', 'p-software'], ['09', 'Elective Roles', 'p-roles']];
-    set('cv-p-toc', TOC.filter(function (t) { var el = $(t[2]); return el && el.textContent.trim(); }).map(function (t) {
+    var TOC = [['01', 'Education', 'p-education'], ['02', 'Research', 'p-research'], ['03', 'Publications', 'p-publications'],
+      ['04', 'Teaching', 'p-teaching'], ['05', 'Industry Experience', 'p-industry'], ['06', 'Competencies', 'p-skills']];
+    set('cv-p-toc', TOC.filter(function (t) { var el = $(t[2]); return el && el.style.visibility !== 'hidden' && el.style.display !== 'none' && el.textContent.trim(); }).map(function (t) {
       return '<a href="#' + t[2] + '"><span>' + t[0] + '</span>' + t[1] + '</a>';
     }).join(' <span class="dot">·</span> '));
   }
@@ -590,7 +678,7 @@
 
   global.CVRender = {
     mountWeb: mountWeb, mountPrint: mountPrint, enablePreview: enablePreview,
-    AUTO: AUTO, P: P, md: md, esc: esc, plain: plain, stripUrl: stripUrl, abbrMonth: abbrMonth,
+    AUTO: AUTO, P: P, md: md, esc: esc, plain: plain, stripUrl: stripUrl, abbrMonth: abbrMonth, normDate: normDate, levelWord: levelWord,
     PUB_TYPES: PUB_TYPES, FONTS: FONTS, THEME_DEFAULT: THEME_DEFAULT, mix: mix, contrast: contrast, lum: lum
   };
 })(window);

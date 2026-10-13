@@ -618,7 +618,13 @@
     var html = '';
     function run(k) { try { return PRINT[k](d); } catch (err) { console.error('CV render (print) failed in', k, err); return ''; } }
     function withId(h, id) { return h.replace(/^<div class="sec/, '<div id="' + id + '" class="sec'); }
-    function group(id, num, label, parts) { var inner = parts.join(''); return inner ? '<div id="' + id + '" class="sec">' + secTitle(num, label) + inner + '</div>' : ''; }
+    // the section title goes INSIDE the first keep-together block, so it never stays alone at the bottom of a page
+    function group(id, num, label, parts) {
+      var inner = parts.join(''); if (!inner) return '';
+      var t = secTitle(num, label), m = inner.match(/<div class="[^"]*avoid-break[^"]*"[^>]*>/);
+      inner = m ? inner.replace(m[0], m[0] + t) : t + inner;
+      return '<div id="' + id + '" class="sec">' + inner + '</div>';
+    }
     html += withId(run('education'), 'p-education');
     html += group('p-research', '02', 'Research', [run('research'), run('projects'), run('researchExperience')]);
     html += withId(run('publications'), 'p-publications');
@@ -630,12 +636,14 @@
       return '<div class="lang-row"><span>' + esc(e.name) + '</span><span class="lang-lv">' + esc(e.level) + '</span><div class="lang-dots">' + dots + '</div></div>';
     }).join(''));
     var RC = ['role-card"', 'role-card olive"', 'role-card" style="border-color:var(--accent);opacity:0.7;"', 'role-card mid"'];
-    set('cv-p-roles', list(d.roles).map(function (e, i) {
+    var roles = list(d.roles).map(function (e, i) {
       return '<div class="' + RC[i % 4] + '>' +
         '<div class="rc-date">' + dateHTML(e.dates) + '</div>' +
         '<div class="rc-title">' + esc(e.title) + '</div>' +
         '<div class="rc-body">' + md(P('roles', e, 'body')) + '</div></div>';
-    }).join(''));
+    });
+    // sub-title + first card kept together on the same page
+    set('cv-p-roles', roles.length ? '<div class="avoid-break"><div class="grp">Elective Roles</div>' + roles[0] + '</div>' + roles.slice(1).join('') : '');
     var psw = list(d.software).filter(function (e) { return e.where !== 'web'; });
     set('cv-p-software', swGroups(psw).map(function (g) {
       return '<div class="sw-grp">' + esc(g.group) + '</div><div class="tags">' + g.items.map(function (e) { return '<span class="tag-print">' + esc(e.name) + '</span>'; }).join('') + '</div>';

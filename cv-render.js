@@ -452,8 +452,8 @@
       }).join('') +
       '</div></div>';
   }
-  var GROUP_FIRST = 'font-size:7pt;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);margin-bottom:0.5rem;';
-  var GROUP_NEXT = 'font-size:7pt;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);margin:0.75rem 0 0.5rem;';
+  var GROUP_FIRST = 'font-size:9pt;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);margin-bottom:0.5rem;';
+  var GROUP_NEXT = 'font-size:9pt;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);margin:0.75rem 0 0.5rem;';
   // Heading + first item stay together on the page, the rest can flow
   function keepWithFirst(head, items) {
     if (!items.length) return '';
@@ -517,11 +517,10 @@
       var tags = list(r.tags).concat(list(r.printExtraTags));
       return '<div class="ssec avoid-break">' + sub('PhD Research') +
         '<div style="padding:0.5rem 0.6rem;border-left:1.5pt solid var(--olive);margin-bottom:0.75rem;">' +
-          '<div style="font-family:var(--fp-head);font-size:11pt;font-weight:500;line-height:1.3;margin-bottom:0.4rem;">"' + esc(r.title) + '"</div>' +
-          '<div style="font-size:8pt;color:var(--mid);">' + md(meta) + '</div>' +
+          '<div style="font-family:var(--fp-head);font-size:14pt;font-weight:500;line-height:1.3;margin-bottom:0.4rem;">"' + esc(r.title) + '"</div>' +
+          '<div style="font-size:10pt;color:var(--mid);">' + md(meta) + '</div>' +
         '</div>' +
-        (r.abstract ? '<div style="font-size:7pt;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);margin-bottom:0.4rem;">Abstract</div>' +
-          '<p style="font-size:8pt;color:var(--mid);line-height:1.65;margin-bottom:0.75rem;">' + md(r.abstract) + '</p>' : '') +
+        (r.abstract ? '<div class="abs-l">Abstract</div><p class="abs">' + md(r.abstract) + '</p>' : '') +
         '<div class="tags">' + tags.map(function (t) { return '<span class="tag-print">' + esc(t) + '</span>'; }).join('') + '</div>' +
         '</div>';
     },
@@ -550,7 +549,7 @@
         '</div>';
       }
       var head = secTitle('03', 'Publications') +
-        '<div style="font-family:\'Sometype Mono\',monospace;font-size:6.5pt;color:var(--mid);letter-spacing:0.04em;margin-bottom:0.5rem;">* presenting author</div>';
+        '<div style="font-family:\'Sometype Mono\',monospace;font-size:8pt;color:var(--mid);letter-spacing:0.04em;margin-bottom:0.5rem;">* presenting author</div>';
       var typeOf = function (e) { return PUB_TYPES[e.type] ? e.type : 'conf'; };
       var types = PUB_ORDER.filter(function (t) { return items.some(function (e) { return typeOf(e) === t; }); });
       var out = '';

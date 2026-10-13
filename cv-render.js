@@ -663,7 +663,7 @@
       ['04', 'Teaching', 'p-teaching'], ['05', 'Industry Experience', 'p-industry'], ['06', 'Competencies', 'p-skills']];
     set('cv-p-toc', TOC.filter(function (t) { var el = $(t[2]); return el && el.style.visibility !== 'hidden' && el.style.display !== 'none' && el.textContent.trim(); }).map(function (t) {
       return '<a href="#' + t[2] + '"><span>' + t[0] + '</span>' + t[1] + '</a>';
-    }).join(' <span class="dot">·</span> '));
+    }).join(''));
   }
 
   // ── Live preview (used by editor.html, pages opened with ?preview) ──

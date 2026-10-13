@@ -32,7 +32,7 @@
       font-family: var(--fp-body);
       font-weight: 300;
       color: var(--ink);
-      font-size: 9.5pt;
+      font-size: 12pt;
       line-height: 1.55;
     }
 
@@ -114,7 +114,7 @@
       font-size: 15pt;
     }
     .hd-role {
-      font-size: 7pt;
+      font-size: 9pt;
       font-weight: 400;
       letter-spacing: 0.12em;
       text-transform: uppercase;
@@ -124,7 +124,7 @@
     }
     .hd-contact {
       text-align: right;
-      font-size: 8pt;
+      font-size: 10pt;
       color: var(--mid);
       line-height: 1.7;
     }
@@ -132,7 +132,7 @@
 
     .sec { margin-bottom: 1.3rem; }
     .sec-title {
-      font-size: 7pt;
+      font-size: 9pt;
       font-weight: 500;
       letter-spacing: 0.2em;
       text-transform: uppercase;
@@ -145,49 +145,49 @@
       gap: 0.5rem;
     }
     .sec-title.olive { color: var(--olive); }
-    .sec-num { font-size: 6.5pt; opacity: 0.55; font-weight: 400; }
+    .sec-num { font-size: 8pt; opacity: 0.55; font-weight: 400; }
 
     .two-col { display: block; }
     .two-col > div { display: block; width: auto; }
 
     .entry {
       display: grid;
-      grid-template-columns: 22mm 1fr;
+      grid-template-columns: 34mm 1fr;
       gap: 0.5rem 0.75rem;
       padding: 0.45rem 0;
       border-bottom: 0.5pt solid var(--rule);
     }
     .entry:last-child { border-bottom: none; }
-    .e-date { font-size: 7.5pt; color: var(--light); padding-top: 0.1rem; line-height: 1.4; }
-    .e-title { font-weight: 500; font-size: 9pt; line-height: 1.35; margin-bottom: 0.1rem; }
-    .e-sub { font-size: 8pt; color: var(--mid); line-height: 1.4; }
-    .e-body { font-size: 8pt; color: var(--mid); line-height: 1.5; margin-top: 0.2rem; }
+    .e-date { font-size: 9.5pt; color: var(--light); padding-top: 0.1rem; line-height: 1.4; white-space: nowrap; }
+    .e-title { font-weight: 500; font-size: 11pt; line-height: 1.35; margin-bottom: 0.1rem; }
+    .e-sub { font-size: 10pt; color: var(--mid); line-height: 1.4; }
+    .e-body { font-size: 10pt; color: var(--mid); line-height: 1.5; margin-top: 0.2rem; }
     .e-italic { font-style: italic; }
 
     /* hierarchy: purple = section (.sec-title), orange = sub-section (.tsub / .grp), grey = year */
-    .tsub, .grp { font-size: 7.5pt; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--olive); margin: 1rem 0 0.35rem; }
+    .tsub, .grp { font-size: 9.5pt; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--olive); margin: 1rem 0 0.35rem; }
     .sec-title + .tsub, .sec-title + .avoid-break > .tsub:first-child, .sec-title + .ygrp .tsub, .sec-title + * > .avoid-break > .tsub:first-child,
     .sec > div:nth-child(2) > .tsub:first-child, .sec > div:nth-child(2) > .avoid-break > .tsub:first-child, .sec > div:nth-child(2) > .ygrp:first-child .tsub { margin-top: 0.25rem; }
     .ssec { margin-bottom: 0.2rem; }
-    .sw-grp { font-size: 6.5pt; letter-spacing: 0.1em; text-transform: uppercase; color: var(--light); margin: 0.45rem 0 0.2rem; }
+    .sw-grp { font-size: 8pt; letter-spacing: 0.1em; text-transform: uppercase; color: var(--light); margin: 0.45rem 0 0.2rem; }
     .sw-grp:first-child { margin-top: 0.1rem; }
     /* one-off items (publications, guest lectures, workshops, theses) grouped by year: tracked year + hairline */
     .ybody { padding: 0.1rem 0 0 0; }
     .ybody.ycont { padding-top: 0; }
-    .ylab { display: flex; align-items: center; gap: 0.6rem; font-family: 'Sometype Mono', var(--fp-body), monospace; font-size: 7.5pt; letter-spacing: 0.22em; font-weight: 500; color: var(--mid); margin: 0.35rem 0 0.1rem; }
+    .ylab { display: flex; align-items: center; gap: 0.6rem; font-family: 'Sometype Mono', var(--fp-body), monospace; font-size: 9.5pt; letter-spacing: 0.22em; font-weight: 500; color: var(--mid); margin: 0.35rem 0 0.1rem; }
     .ylab::after { content: ''; flex: 1; height: 0.5pt; background: var(--rule); }
     .ybody > .pub-entry { padding-left: 6mm; }
     .pub-entry { padding: 0.3rem 0 0.35rem; }
-    .tl-when { font-size: 7pt; color: var(--light); letter-spacing: 0.04em; margin-bottom: 0.05rem; }
-    .pub-title-print { font-family: var(--fp-head); font-size: 9.5pt; font-style: italic; line-height: 1.35; color: var(--ink); }
-    .pub-authors-print { font-size: 8pt; color: var(--mid); margin-top: 0.1rem; }
+    .tl-when { font-size: 9pt; color: var(--light); letter-spacing: 0.04em; margin-bottom: 0.05rem; }
+    .pub-title-print { font-family: var(--fp-head); font-size: 12pt; font-style: italic; line-height: 1.35; color: var(--ink); }
+    .pub-authors-print { font-size: 10pt; color: var(--mid); margin-top: 0.1rem; }
     .pub-authors-print .me { color: var(--ink); font-weight: 500; }
-    .pub-ref { font-size: 7.5pt; color: var(--light); margin-top: 0.15rem; line-height: 1.4; }
+    .pub-ref { font-size: 9.5pt; color: var(--light); margin-top: 0.15rem; line-height: 1.4; }
     .pub-links-print { margin-top: 0.2rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
-    .pub-link-print { font-size: 7pt; color: var(--accent); text-decoration: none; letter-spacing: 0.04em; }
+    .pub-link-print { font-size: 9pt; color: var(--accent); text-decoration: none; letter-spacing: 0.04em; }
     .pub-link-print:hover { text-decoration: underline; }
     .pub-badge-print {
-      font-size: 6.5pt; letter-spacing: 0.1em; text-transform: uppercase;
+      font-size: 8pt; letter-spacing: 0.1em; text-transform: uppercase;
       color: var(--accent); border: 0.5pt solid var(--accent);
       padding: 0.05rem 0.35rem; border-radius: 1px;
       display: inline-block; margin-left: 22mm; margin-top: 0.2rem; margin-bottom: 0.1rem;
@@ -196,28 +196,28 @@
     .pub-badge-print.mid { color: var(--mid); border-color: var(--light); }
 
     .skill-row { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.3rem; }
-    .skill-lbl { font-size: 8pt; color: var(--mid); width: 38mm; flex-shrink: 0; }
+    .skill-lbl { font-size: 10pt; color: var(--mid); width: 38mm; flex-shrink: 0; }
     .skill-track { flex: 1; height: 2pt; background: var(--rule); }
     .skill-fill { height: 100%; background: var(--accent); }
 
-    .lang-row { display: flex; align-items: center; justify-content: space-between; padding: 0.3rem 0; border-bottom: 0.5pt solid var(--rule); font-size: 8.5pt; }
+    .lang-row { display: flex; align-items: center; justify-content: space-between; padding: 0.3rem 0; border-bottom: 0.5pt solid var(--rule); font-size: 10.5pt; }
     .lang-row:last-child { border-bottom: none; }
-    .lang-lv { font-size: 7.5pt; color: var(--light); }
+    .lang-lv { font-size: 9.5pt; color: var(--light); }
     .lang-dots { display: flex; gap: 2px; }
     .ldot { width: 5px; height: 5px; border-radius: 50%; border: 0.75pt solid var(--ink); }
     .ldot.f { background: var(--ink); }
 
     .tags { display: flex; flex-wrap: wrap; gap: 0.3rem; }
-    .tag-print { font-size: 7pt; letter-spacing: 0.08em; text-transform: uppercase; border: 0.5pt solid var(--rule); color: var(--mid); padding: 0.15rem 0.45rem; border-radius: 1px; }
+    .tag-print { font-size: 9pt; letter-spacing: 0.08em; text-transform: uppercase; border: 0.5pt solid var(--rule); color: var(--mid); padding: 0.15rem 0.45rem; border-radius: 1px; }
 
-    .role-card { border-left: 1.5pt solid var(--accent); padding: 0.35rem 0.6rem; margin-bottom: 0.5rem; }
+    .role-card { border-left: 1.5pt solid var(--accent); padding: 0.35rem 0.6rem; margin-bottom: 0.5rem; page-break-inside: avoid; break-inside: avoid; }
     .role-card.olive { border-color: var(--olive); }
     .role-card.mid { border-color: var(--rule); }
-    .rc-date { font-size: 7pt; color: var(--light); margin-bottom: 0.1rem; }
-    .rc-title { font-weight: 500; font-size: 8.5pt; margin-bottom: 0.15rem; }
-    .rc-body { font-size: 7.5pt; color: var(--mid); line-height: 1.5; }
+    .rc-date { font-size: 9pt; color: var(--light); margin-bottom: 0.1rem; }
+    .rc-title { font-weight: 500; font-size: 10.5pt; margin-bottom: 0.15rem; }
+    .rc-body { font-size: 9.5pt; color: var(--mid); line-height: 1.5; }
 
-    .p-toc { margin-top: 0.6rem; font-size: 7pt; letter-spacing: 0.08em; text-transform: uppercase; color: var(--light); line-height: 1.9; }
+    .p-toc { margin-top: 0.6rem; font-size: 9pt; letter-spacing: 0.08em; text-transform: uppercase; color: var(--light); line-height: 1.9; }
     .p-toc a { color: var(--accent); text-decoration: none; white-space: nowrap; }
     .p-toc a span { opacity: 0.55; margin-right: 0.2rem; }
     .p-toc .dot { margin: 0 0.35rem; color: var(--rule); }
@@ -231,21 +231,23 @@
     .p-row { margin-bottom: 1.1rem; }
     #p-skills { margin-top: 1.6rem; }
     #p-skills .p-row { margin-bottom: 0.8rem; }
-    #cv-p-software .lang-row, #cv-p-languages .lang-row { font-size: 8pt; }
-    .p-row .skill-lbl { width: 37mm; font-size: 7.5pt; }
-    .p-row > .qr-col { padding-top: 4.5rem; text-align: center; }
+    #cv-p-software .lang-row, #cv-p-languages .lang-row { font-size: 10pt; }
+    .p-row .skill-lbl { width: 37mm; font-size: 9.5pt; }
+    .p-end { margin-top: 1.2rem; }
+    .p-end .qr-col { text-align: right; margin-bottom: 0.3rem; }
+    .p-end .qr-col svg { display: inline-block; }
     .qr-col svg { margin: 0 auto; }
     .qr-col svg { display: block; }
-    .qr-l { font-size: 6.5pt; color: var(--light); letter-spacing: 0.06em; line-height: 1.5; margin-top: 0.4rem; }
+    .qr-l { font-size: 8pt; color: var(--light); letter-spacing: 0.06em; line-height: 1.5; margin-top: 0.4rem; }
     .qr-l a { color: var(--accent); text-decoration: none; }
-    .p-foot { display: block; clear: both; font-size: 7pt; color: var(--light); border-top: 0.5pt solid var(--rule); padding-top: 0.35rem; margin-top: 0.4rem; text-align: right; page-break-inside: avoid; break-inside: avoid; }
+    .p-foot { display: block; clear: both; font-size: 9pt; color: var(--light); border-top: 0.5pt solid var(--rule); padding-top: 0.35rem; margin-top: 0.4rem; text-align: right; page-break-inside: avoid; break-inside: avoid; }
     .pb { page-break-before: always; }
     .avoid-break { page-break-inside: avoid; }
 
     @media print {
       * { -webkit-print-color-adjust: exact; print-color-adjust: exact; color-adjust: exact; }
       :root { --light: #6b6880; }
-      body { background: #fff; font-size: 9pt; margin: 0; padding: 0; }
+      body { background: #fff; font-size: 11pt; margin: 0; padding: 0; }
       .print-bar { display: none; }
       .page-wrap { margin: 0; padding: 0; box-shadow: none; max-width: 100%; width: 100%; }
       .sec-title, .tsub, .ylab, .grp { page-break-after: avoid; break-after: avoid; }
@@ -257,7 +259,7 @@
         @bottom-right {
           content: counter(page) " / " counter(pages);
           font-family: 'Jost', sans-serif;
-          font-size: 7pt;
+          font-size: 9pt;
           color: #6b6880;
         }
       }
@@ -289,7 +291,7 @@
   </header>
 
   <div style="margin-bottom:1.4rem;padding-bottom:1rem;border-bottom:0.5pt solid var(--rule);">
-    <p style="font-size:8.5pt;color:var(--mid);line-height:1.7;" id="cv-p-bio"></p>
+    <p style="font-size:10.5pt;color:var(--mid);line-height:1.7;" id="cv-p-bio"></p>
     <nav class="p-toc" id="cv-p-toc" aria-label="Sections"></nav>
   </div>
 
@@ -309,18 +311,18 @@
         <div id="cv-p-software"></div>
       </div>
     </div>
-  <div class="p-row">
-    <div id="p-roles">
+  <div id="p-roles">
       <div class="grp">Elective Roles</div>
       <div id="cv-p-roles"></div>
     </div>
+  <!-- end of the CV: QR above the closing sentence, kept together on the last page -->
+  <div class="p-end avoid-break">
     <div class="qr-col">
       <a href="https://designedout.github.io/martinalabarta/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 41 41" width="120" height="120" shape-rendering="crispEdges" role="img" aria-label="QR code to website" style="display:inline-block;vertical-align:top;"><rect width="41" height="41" fill="#fff"/><path fill="#1a1820" d="M4 4h1v1h-1zM5 4h1v1h-1zM6 4h1v1h-1zM7 4h1v1h-1zM8 4h1v1h-1zM9 4h1v1h-1zM10 4h1v1h-1zM13 4h1v1h-1zM16 4h1v1h-1zM22 4h1v1h-1zM23 4h1v1h-1zM24 4h1v1h-1zM27 4h1v1h-1zM30 4h1v1h-1zM31 4h1v1h-1zM32 4h1v1h-1zM33 4h1v1h-1zM34 4h1v1h-1zM35 4h1v1h-1zM36 4h1v1h-1zM4 5h1v1h-1zM10 5h1v1h-1zM13 5h1v1h-1zM19 5h1v1h-1zM20 5h1v1h-1zM22 5h1v1h-1zM24 5h1v1h-1zM26 5h1v1h-1zM30 5h1v1h-1zM36 5h1v1h-1zM4 6h1v1h-1zM6 6h1v1h-1zM7 6h1v1h-1zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM15 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM23 6h1v1h-1zM24 6h1v1h-1zM25 6h1v1h-1zM26 6h1v1h-1zM27 6h1v1h-1zM30 6h1v1h-1zM32 6h1v1h-1zM33 6h1v1h-1zM34 6h1v1h-1zM36 6h1v1h-1zM4 7h1v1h-1zM6 7h1v1h-1zM7 7h1v1h-1zM8 7h1v1h-1zM10 7h1v1h-1zM12 7h1v1h-1zM13 7h1v1h-1zM14 7h1v1h-1zM22 7h1v1h-1zM25 7h1v1h-1zM28 7h1v1h-1zM30 7h1v1h-1zM32 7h1v1h-1zM33 7h1v1h-1zM34 7h1v1h-1zM36 7h1v1h-1zM4 8h1v1h-1zM6 8h1v1h-1zM7 8h1v1h-1zM8 8h1v1h-1zM10 8h1v1h-1zM12 8h1v1h-1zM13 8h1v1h-1zM15 8h1v1h-1zM16 8h1v1h-1zM17 8h1v1h-1zM18 8h1v1h-1zM19 8h1v1h-1zM20 8h1v1h-1zM21 8h1v1h-1zM24 8h1v1h-1zM27 8h1v1h-1zM28 8h1v1h-1zM30 8h1v1h-1zM32 8h1v1h-1zM33 8h1v1h-1zM34 8h1v1h-1zM36 8h1v1h-1zM4 9h1v1h-1zM10 9h1v1h-1zM12 9h1v1h-1zM13 9h1v1h-1zM15 9h1v1h-1zM16 9h1v1h-1zM17 9h1v1h-1zM18 9h1v1h-1zM22 9h1v1h-1zM23 9h1v1h-1zM26 9h1v1h-1zM30 9h1v1h-1zM36 9h1v1h-1zM4 10h1v1h-1zM5 10h1v1h-1zM6 10h1v1h-1zM7 10h1v1h-1zM8 10h1v1h-1zM9 10h1v1h-1zM10 10h1v1h-1zM12 10h1v1h-1zM14 10h1v1h-1zM16 10h1v1h-1zM18 10h1v1h-1zM20 10h1v1h-1zM22 10h1v1h-1zM24 10h1v1h-1zM26 10h1v1h-1zM28 10h1v1h-1zM30 10h1v1h-1zM31 10h1v1h-1zM32 10h1v1h-1zM33 10h1v1h-1zM34 10h1v1h-1zM35 10h1v1h-1zM36 10h1v1h-1zM12 11h1v1h-1zM14 11h1v1h-1zM18 11h1v1h-1zM20 11h1v1h-1zM23 11h1v1h-1zM24 11h1v1h-1zM25 11h1v1h-1zM28 11h1v1h-1zM4 12h1v1h-1zM6 12h1v1h-1zM7 12h1v1h-1zM8 12h1v1h-1zM9 12h1v1h-1zM10 12h1v1h-1zM14 12h1v1h-1zM16 12h1v1h-1zM17 12h1v1h-1zM18 12h1v1h-1zM21 12h1v1h-1zM23 12h1v1h-1zM26 12h1v1h-1zM28 12h1v1h-1zM30 12h1v1h-1zM31 12h1v1h-1zM32 12h1v1h-1zM33 12h1v1h-1zM34 12h1v1h-1zM6 13h1v1h-1zM7 13h1v1h-1zM8 13h1v1h-1zM9 13h1v1h-1zM13 13h1v1h-1zM14 13h1v1h-1zM15 13h1v1h-1zM16 13h1v1h-1zM17 13h1v1h-1zM20 13h1v1h-1zM21 13h1v1h-1zM23 13h1v1h-1zM24 13h1v1h-1zM27 13h1v1h-1zM30 13h1v1h-1zM31 13h1v1h-1zM33 13h1v1h-1zM34 13h1v1h-1zM35 13h1v1h-1zM36 13h1v1h-1zM5 14h1v1h-1zM6 14h1v1h-1zM10 14h1v1h-1zM11 14h1v1h-1zM13 14h1v1h-1zM17 14h1v1h-1zM18 14h1v1h-1zM19 14h1v1h-1zM20 14h1v1h-1zM21 14h1v1h-1zM26 14h1v1h-1zM32 14h1v1h-1zM34 14h1v1h-1zM35 14h1v1h-1zM5 15h1v1h-1zM7 15h1v1h-1zM11 15h1v1h-1zM12 15h1v1h-1zM13 15h1v1h-1zM14 15h1v1h-1zM15 15h1v1h-1zM16 15h1v1h-1zM17 15h1v1h-1zM19 15h1v1h-1zM21 15h1v1h-1zM22 15h1v1h-1zM23 15h1v1h-1zM24 15h1v1h-1zM28 15h1v1h-1zM29 15h1v1h-1zM32 15h1v1h-1zM33 15h1v1h-1zM34 15h1v1h-1zM36 15h1v1h-1zM4 16h1v1h-1zM6 16h1v1h-1zM10 16h1v1h-1zM11 16h1v1h-1zM12 16h1v1h-1zM13 16h1v1h-1zM14 16h1v1h-1zM15 16h1v1h-1zM16 16h1v1h-1zM18 16h1v1h-1zM20 16h1v1h-1zM23 16h1v1h-1zM24 16h1v1h-1zM25 16h1v1h-1zM26 16h1v1h-1zM27 16h1v1h-1zM28 16h1v1h-1zM29 16h1v1h-1zM31 16h1v1h-1zM32 16h1v1h-1zM33 16h1v1h-1zM7 17h1v1h-1zM14 17h1v1h-1zM15 17h1v1h-1zM16 17h1v1h-1zM17 17h1v1h-1zM19 17h1v1h-1zM22 17h1v1h-1zM25 17h1v1h-1zM27 17h1v1h-1zM30 17h1v1h-1zM33 17h1v1h-1zM34 17h1v1h-1zM35 17h1v1h-1zM36 17h1v1h-1zM6 18h1v1h-1zM8 18h1v1h-1zM10 18h1v1h-1zM11 18h1v1h-1zM13 18h1v1h-1zM14 18h1v1h-1zM15 18h1v1h-1zM19 18h1v1h-1zM20 18h1v1h-1zM24 18h1v1h-1zM25 18h1v1h-1zM26 18h1v1h-1zM28 18h1v1h-1zM29 18h1v1h-1zM30 18h1v1h-1zM31 18h1v1h-1zM34 18h1v1h-1zM35 18h1v1h-1zM4 19h1v1h-1zM9 19h1v1h-1zM16 19h1v1h-1zM18 19h1v1h-1zM19 19h1v1h-1zM22 19h1v1h-1zM25 19h1v1h-1zM26 19h1v1h-1zM29 19h1v1h-1zM30 19h1v1h-1zM32 19h1v1h-1zM33 19h1v1h-1zM34 19h1v1h-1zM5 20h1v1h-1zM6 20h1v1h-1zM7 20h1v1h-1zM8 20h1v1h-1zM9 20h1v1h-1zM10 20h1v1h-1zM11 20h1v1h-1zM12 20h1v1h-1zM13 20h1v1h-1zM14 20h1v1h-1zM15 20h1v1h-1zM17 20h1v1h-1zM18 20h1v1h-1zM19 20h1v1h-1zM21 20h1v1h-1zM26 20h1v1h-1zM28 20h1v1h-1zM29 20h1v1h-1zM31 20h1v1h-1zM32 20h1v1h-1zM36 20h1v1h-1zM4 21h1v1h-1zM6 21h1v1h-1zM7 21h1v1h-1zM8 21h1v1h-1zM13 21h1v1h-1zM16 21h1v1h-1zM20 21h1v1h-1zM22 21h1v1h-1zM23 21h1v1h-1zM25 21h1v1h-1zM27 21h1v1h-1zM30 21h1v1h-1zM31 21h1v1h-1zM33 21h1v1h-1zM34 21h1v1h-1zM35 21h1v1h-1zM36 21h1v1h-1zM5 22h1v1h-1zM7 22h1v1h-1zM10 22h1v1h-1zM11 22h1v1h-1zM12 22h1v1h-1zM16 22h1v1h-1zM17 22h1v1h-1zM18 22h1v1h-1zM19 22h1v1h-1zM22 22h1v1h-1zM25 22h1v1h-1zM31 22h1v1h-1zM32 22h1v1h-1zM34 22h1v1h-1zM35 22h1v1h-1zM5 23h1v1h-1zM14 23h1v1h-1zM15 23h1v1h-1zM16 23h1v1h-1zM17 23h1v1h-1zM20 23h1v1h-1zM24 23h1v1h-1zM25 23h1v1h-1zM26 23h1v1h-1zM27 23h1v1h-1zM28 23h1v1h-1zM30 23h1v1h-1zM31 23h1v1h-1zM32 23h1v1h-1zM33 23h1v1h-1zM34 23h1v1h-1zM35 23h1v1h-1zM9 24h1v1h-1zM10 24h1v1h-1zM12 24h1v1h-1zM13 24h1v1h-1zM14 24h1v1h-1zM18 24h1v1h-1zM22 24h1v1h-1zM25 24h1v1h-1zM29 24h1v1h-1zM31 24h1v1h-1zM32 24h1v1h-1zM33 24h1v1h-1zM4 25h1v1h-1zM5 25h1v1h-1zM12 25h1v1h-1zM14 25h1v1h-1zM15 25h1v1h-1zM16 25h1v1h-1zM17 25h1v1h-1zM19 25h1v1h-1zM20 25h1v1h-1zM21 25h1v1h-1zM24 25h1v1h-1zM25 25h1v1h-1zM26 25h1v1h-1zM27 25h1v1h-1zM30 25h1v1h-1zM36 25h1v1h-1zM4 26h1v1h-1zM6 26h1v1h-1zM8 26h1v1h-1zM9 26h1v1h-1zM10 26h1v1h-1zM12 26h1v1h-1zM14 26h1v1h-1zM17 26h1v1h-1zM18 26h1v1h-1zM22 26h1v1h-1zM23 26h1v1h-1zM25 26h1v1h-1zM26 26h1v1h-1zM28 26h1v1h-1zM29 26h1v1h-1zM33 26h1v1h-1zM34 26h1v1h-1zM35 26h1v1h-1zM4 27h1v1h-1zM8 27h1v1h-1zM11 27h1v1h-1zM13 27h1v1h-1zM14 27h1v1h-1zM15 27h1v1h-1zM16 27h1v1h-1zM17 27h1v1h-1zM18 27h1v1h-1zM20 27h1v1h-1zM22 27h1v1h-1zM23 27h1v1h-1zM24 27h1v1h-1zM25 27h1v1h-1zM27 27h1v1h-1zM28 27h1v1h-1zM31 27h1v1h-1zM33 27h1v1h-1zM34 27h1v1h-1zM35 27h1v1h-1zM4 28h1v1h-1zM6 28h1v1h-1zM7 28h1v1h-1zM8 28h1v1h-1zM10 28h1v1h-1zM11 28h1v1h-1zM12 28h1v1h-1zM14 28h1v1h-1zM17 28h1v1h-1zM18 28h1v1h-1zM21 28h1v1h-1zM23 28h1v1h-1zM24 28h1v1h-1zM26 28h1v1h-1zM28 28h1v1h-1zM29 28h1v1h-1zM30 28h1v1h-1zM31 28h1v1h-1zM32 28h1v1h-1zM35 28h1v1h-1zM36 28h1v1h-1zM12 29h1v1h-1zM16 29h1v1h-1zM17 29h1v1h-1zM21 29h1v1h-1zM23 29h1v1h-1zM24 29h1v1h-1zM27 29h1v1h-1zM28 29h1v1h-1zM32 29h1v1h-1zM34 29h1v1h-1zM36 29h1v1h-1zM4 30h1v1h-1zM5 30h1v1h-1zM6 30h1v1h-1zM7 30h1v1h-1zM8 30h1v1h-1zM9 30h1v1h-1zM10 30h1v1h-1zM13 30h1v1h-1zM15 30h1v1h-1zM16 30h1v1h-1zM17 30h1v1h-1zM19 30h1v1h-1zM21 30h1v1h-1zM24 30h1v1h-1zM26 30h1v1h-1zM27 30h1v1h-1zM28 30h1v1h-1zM30 30h1v1h-1zM32 30h1v1h-1zM34 30h1v1h-1zM35 30h1v1h-1zM4 31h1v1h-1zM10 31h1v1h-1zM12 31h1v1h-1zM14 31h1v1h-1zM15 31h1v1h-1zM16 31h1v1h-1zM21 31h1v1h-1zM22 31h1v1h-1zM24 31h1v1h-1zM27 31h1v1h-1zM28 31h1v1h-1zM32 31h1v1h-1zM33 31h1v1h-1zM34 31h1v1h-1zM35 31h1v1h-1zM4 32h1v1h-1zM6 32h1v1h-1zM7 32h1v1h-1zM8 32h1v1h-1zM10 32h1v1h-1zM12 32h1v1h-1zM13 32h1v1h-1zM14 32h1v1h-1zM15 32h1v1h-1zM18 32h1v1h-1zM19 32h1v1h-1zM20 32h1v1h-1zM24 32h1v1h-1zM25 32h1v1h-1zM26 32h1v1h-1zM28 32h1v1h-1zM29 32h1v1h-1zM30 32h1v1h-1zM31 32h1v1h-1zM32 32h1v1h-1zM33 32h1v1h-1zM35 32h1v1h-1zM36 32h1v1h-1zM4 33h1v1h-1zM6 33h1v1h-1zM7 33h1v1h-1zM8 33h1v1h-1zM10 33h1v1h-1zM12 33h1v1h-1zM13 33h1v1h-1zM19 33h1v1h-1zM22 33h1v1h-1zM27 33h1v1h-1zM28 33h1v1h-1zM29 33h1v1h-1zM32 33h1v1h-1zM33 33h1v1h-1zM36 33h1v1h-1zM4 34h1v1h-1zM6 34h1v1h-1zM7 34h1v1h-1zM8 34h1v1h-1zM10 34h1v1h-1zM12 34h1v1h-1zM13 34h1v1h-1zM14 34h1v1h-1zM16 34h1v1h-1zM19 34h1v1h-1zM20 34h1v1h-1zM24 34h1v1h-1zM26 34h1v1h-1zM27 34h1v1h-1zM28 34h1v1h-1zM30 34h1v1h-1zM31 34h1v1h-1zM4 35h1v1h-1zM10 35h1v1h-1zM13 35h1v1h-1zM14 35h1v1h-1zM15 35h1v1h-1zM18 35h1v1h-1zM19 35h1v1h-1zM25 35h1v1h-1zM26 35h1v1h-1zM27 35h1v1h-1zM32 35h1v1h-1zM33 35h1v1h-1zM34 35h1v1h-1zM4 36h1v1h-1zM5 36h1v1h-1zM6 36h1v1h-1zM7 36h1v1h-1zM8 36h1v1h-1zM9 36h1v1h-1zM10 36h1v1h-1zM12 36h1v1h-1zM13 36h1v1h-1zM14 36h1v1h-1zM16 36h1v1h-1zM18 36h1v1h-1zM19 36h1v1h-1zM21 36h1v1h-1zM24 36h1v1h-1zM26 36h1v1h-1zM27 36h1v1h-1zM28 36h1v1h-1zM29 36h1v1h-1zM31 36h1v1h-1zM35 36h1v1h-1z"/></svg></a>
       <div class="qr-l">Full CV · <a href="https://designedout.github.io/martinalabarta/">designedout.github.io/martinalabarta</a></div>
     </div>
+    <div class="p-foot"><span id="print-date"></span> — I authorise the processing of my personal data in compliance with Legislative Decree n. 196, 30 June 2003.</div>
   </div>
-  <!-- closing line kept inside the last section: Safari can drop a trailing block that sits after it in the PDF -->
-  <div class="p-foot"><span id="print-date"></span> — I authorise the processing of my personal data in compliance with Legislative Decree n. 196, 30 June 2003.</div>
   </div>
 
 </div>
